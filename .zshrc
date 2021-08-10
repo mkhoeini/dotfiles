@@ -80,6 +80,11 @@ alias -g L='| less -R'
 alias -g G='| grep -i'
 
 
+# Antigen
+
+source "$(brew --prefix)/share/antigen/antigen.zsh"
+
+
 # This should remain as the last command in file to properly profile everything
 if $RUN_ZPROF; then
   zprof
