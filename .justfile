@@ -12,14 +12,18 @@ install:
     ORIG=$PWD/$i
     LINK=$HOME/$i
 
-    if [ -e "$LINK" ]; then
-      if [ "$ORIG" -ef "$LINK" ]; then
-        echo "$LINK is already linked. Skipping." 
-      else
-        echo "Another '$LINK' already exists. Skipping." 
-      fi
-    else
-      ln -s $ORIG $LINK
-      echo "Linked '$LINK'"
-    fi
+    just _link "$ORIG" "$LINK"
   done
+
+_link ORIG LINK:
+  #!/usr/bin/env zsh
+  if [ -e "{{LINK}}" ]; then
+    if [ "{{ORIG}}" -ef "{{LINK}}" ]; then
+      echo "{{LINK}} is already linked. Skipping." 
+    else
+      echo "Another '{{LINK}}' exists. Skipping." 
+    fi
+  else
+    ln -s "{{ORIG}}" "{{LINK}}"
+    echo "Linked '{{LINK}}'"
+  fi
