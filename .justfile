@@ -5,7 +5,7 @@ default:
 
 ZSHFILES := ".zshrc .zprofile"
 
-# Install all dot files
+# Install all dot files and dependencies
 install: brew-install
   #!/usr/bin/env zsh
   set -euo pipefail
@@ -16,14 +16,14 @@ install: brew-install
     just _link "$ORIG" "$LINK"
   done
 
-BREW_DEPS := "antigen"
+BREW_DEPS := "antigen google-cloud-sdk"
 
 # Install HomeBrew dependencies
 brew-install:
   #!/usr/bin/env zsh
   set -euo pipefail
   for i in {{BREW_DEPS}}; do
-    if brew list "$i" >/dev/null; then
+    if brew list "$i" &>/dev/null || brew list --cask "$i" &>/dev/null; then
       echo "$i is already installed. skipping."
     else
       brew install "$i"

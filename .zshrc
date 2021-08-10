@@ -47,30 +47,12 @@ zstyle ':completion:*' group-name ''
 
 # ENV Configs
 
-
 export EDITOR='nvim'
 
 
 # Aliases
 
-alias b='brew'
-alias bi='b install'
-alias bs='b search'
-alias bc='b cask'
-alias bci='bc install'
-alias bcs='bc search'
-# alias l="exa -lahTL 2 --group-directories-first --git"
-alias l="lsd -la"
-alias kg="kubectl get"
-alias kd="kubectl describe"
-
-alias ec="emacsclient -cqua ''"
-
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-alias -g L='| less -R'
-alias -g G='| grep -i'
+source "$PWD/.zsh_aliases"
 
 
 # Antigen
