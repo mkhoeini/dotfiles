@@ -3,11 +3,12 @@
 default:
   just --list
 
-ZSHFILES := ".zshrc"
+ZSHFILES := ".zshrc .zprofile"
 
 # Install all dot files
 install: brew-install
   #!/usr/bin/env zsh
+  set -euo pipefail
   for i in {{ZSHFILES}}; do
     ORIG=$PWD/$i
     LINK=$HOME/$i
@@ -20,6 +21,7 @@ BREW_DEPS := "antigen"
 # Install HomeBrew dependencies
 brew-install:
   #!/usr/bin/env zsh
+  set -euo pipefail
   for i in {{BREW_DEPS}}; do
     if brew list "$i" >/dev/null; then
       echo "$i is already installed. skipping."
@@ -30,6 +32,7 @@ brew-install:
 
 _link ORIG LINK:
   #!/usr/bin/env zsh
+  set -euo pipefail
   if [ -e "{{LINK}}" ]; then
     if [ "{{ORIG}}" -ef "{{LINK}}" ]; then
       echo "{{LINK}} is already linked. Skipping." 

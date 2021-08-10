@@ -47,13 +47,6 @@ zstyle ':completion:*' group-name ''
 
 # ENV Configs
 
-export PATH="$HOME/.bin:/usr/local/bin:$PATH"
-export PATH="/Users/mohammadk/Library/Python/3.7/bin:$HOME/.config/yarn/global/node_modules/.bin:/usr/local/opt/ruby/bin:$PATH"
-export PATH="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/:$PATH"
-
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8"
 
 export EDITOR='nvim'
 
@@ -83,6 +76,11 @@ alias -g G='| grep -i'
 # Antigen
 
 source "$(brew --prefix)/share/antigen/antigen.zsh"
+
+
+# Google Cloud SDK
+
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
 
 # This should remain as the last command in file to properly profile everything
