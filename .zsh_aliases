@@ -7,8 +7,15 @@ alias bcs='bc search'
 
 alias j='just'
 
-# alias l="exa -lahTL 2 --group-directories-first --git"
-alias l="lsd -la"
+alias le="exa -lahTL 2 --group-directories-first --git"
+alias l="lsd -l"
+alias la='lsd -a'
+alias lla='lsd -la'
+alias lt='lsd --tree'
+
+alias srg="sk --ansi -i -c 'rg --color=always --line-number \"{}\"'"
+
+alias ps='procs --watch --tree'
 
 alias kg="kubectl get"
 alias kd="kubectl describe"

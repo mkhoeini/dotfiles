@@ -16,7 +16,7 @@ install: brew-install
     just _link "$ORIG" "$LINK"
   done
 
-BREW_DEPS := "antigen google-cloud-sdk"
+BREW_DEPS := "antigen google-cloud-sdk fd bat lsd exa sk procs"
 
 # Install HomeBrew dependencies
 brew-install:
