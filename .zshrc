@@ -58,11 +58,7 @@ source "$PWD/.zsh_aliases"
 # Antigen
 
 source "$(brew --prefix)/share/antigen/antigen.zsh"
-
-antigen use oh-my-zsh
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen theme robbyrussell
-antigen apply
+antigen init .antigenrc
 
 
 # Configs

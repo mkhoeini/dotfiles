@@ -3,7 +3,7 @@
 default:
   just --list
 
-ZSHFILES := ".zshrc .zprofile"
+ZSHFILES := ".zshrc .zprofile .antigenrc"
 
 # Install all dot files and dependencies
 install: brew-install
@@ -17,23 +17,30 @@ install: brew-install
   done
 
 BREW_TAPS := "clementtsang/bottom"
-BREW_DEPS := "
-  antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf
-  clementtsang/bottom/bottom watchexec zsh git
+BREW_DEPS := " \
+  antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf bottom \
+  watchexec zsh git starship \
 "
 
 # Install HomeBrew dependencies
 brew-install:
   #!/usr/bin/env zsh
   set -euo pipefail
+  taps=$(brew tap)
   for tap in {{BREW_TAPS}}; do
-    brew tap $tap
-  done
-  for i in {{BREW_DEPS}}; do
-    if brew list "$i" &>/dev/null || brew list --cask "$i" &>/dev/null; then
-      echo "$i is already installed. skipping."
+    if [[ "$taps" == *"$tap"* ]]; then
+      echo "$tap is already tapped. skipping."
     else
-      brew install "$i"
+      brew tap $tap
+    fi
+  done
+  formulas=$(brew list --formula)
+  casks=$(brew list --cask)
+  for dep in {{BREW_DEPS}}; do
+    if [[ "$formulas" == *"$dep"* ]] || [[ "$casks" == *"$dep"* ]]; then
+      echo "$dep already installed. skipping."
+    else
+      brew install "$dep"
     fi
   done
 
