@@ -6,6 +6,11 @@ if $RUN_ZPROF; then
   zmodload zsh/zprof
 fi
 
+# Antigen
+
+source "$(brew --prefix)/share/antigen/antigen.zsh"
+antigen init .antigenrc
+
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
@@ -55,17 +60,14 @@ export EDITOR='nvim'
 source "$PWD/.zsh_aliases"
 
 
-# Antigen
-
-source "$(brew --prefix)/share/antigen/antigen.zsh"
-antigen init .antigenrc
-
-
 # Configs
 
 source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 if command -v zoxide &>/dev/null; then
   . <(zoxide init zsh)
+fi
+if command -v starship &>/dev/null; then
+  . <(starship init zsh)
 fi
 
 
