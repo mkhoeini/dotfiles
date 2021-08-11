@@ -59,10 +59,18 @@ source "$PWD/.zsh_aliases"
 
 source "$(brew --prefix)/share/antigen/antigen.zsh"
 
+antigen use oh-my-zsh
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen theme robbyrussell
+antigen apply
 
-# Google Cloud SDK
+
+# Configs
 
 source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+if command -v zoxide &>/dev/null; then
+  . <(zoxide init zsh)
+fi
 
 
 # This should remain as the last command in file to properly profile everything

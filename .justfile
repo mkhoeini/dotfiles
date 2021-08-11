@@ -16,12 +16,19 @@ install: brew-install
     just _link "$ORIG" "$LINK"
   done
 
-BREW_DEPS := "antigen google-cloud-sdk fd bat lsd exa sk procs"
+BREW_TAPS := "clementtsang/bottom"
+BREW_DEPS := "
+  antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf
+  clementtsang/bottom/bottom watchexec zsh git
+"
 
 # Install HomeBrew dependencies
 brew-install:
   #!/usr/bin/env zsh
   set -euo pipefail
+  for tap in {{BREW_TAPS}}; do
+    brew tap $tap
+  done
   for i in {{BREW_DEPS}}; do
     if brew list "$i" &>/dev/null || brew list --cask "$i" &>/dev/null; then
       echo "$i is already installed. skipping."

@@ -15,7 +15,9 @@ alias lt='lsd --tree'
 
 alias srg="sk --ansi -i -c 'rg --color=always --line-number \"{}\"'"
 
-alias ps='procs --watch --tree'
+alias ps='procs --tree'
+alias top='btm'
+alias cd='z'
 
 alias kg="kubectl get"
 alias kd="kubectl describe"
