@@ -57,7 +57,7 @@ export EDITOR='nvim'
 
 # Aliases
 
-source "$PWD/.zsh_aliases"
+source "$HOME/.zsh_aliases"
 
 
 # Configs
