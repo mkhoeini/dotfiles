@@ -65,7 +65,6 @@ source ~/.zsh_aliases
 if [[ -e  "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ]]; then
   source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
-[[ -n $commands[zoxide] ]] && . <(zoxide init zsh)
 [[ -n $commands[starship] ]] && . <(starship init zsh)
 # Use java_home instead as it is much faster
 # if command -v jenv &>/dev/null; then
@@ -75,24 +74,6 @@ fi
 if [[ -x /usr/libexec/java_home ]]; then
   export JAVA_HOME="$(/usr/libexec/java_home -v 11)"
 fi
-if command -v pyenv &>/dev/null; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  . <(pyenv init --path)
-fi
-[[ -s ~/.secrets ]] && . ~/.secrets
-[[ $commands[rbenv] ]] && . <(rbenv init -)
-[[ -s ~/.kiex/scripts/kiex ]] && . ~/.kiex/scripts/kiex
-[[ $commands[direnv] ]] && . <(direnv hook zsh)
-[[ $commands[helm] ]] && . <(helm completion zsh)
-[[ $commands[minikube] ]] && . <(minikube completion zsh)
-[[ -s "$(brew --prefix asdf)/asdf.sh" ]] && . "$(brew --prefix asdf)/asdf.sh"
-[[ -s ~/.local/share/dephell/_dephell_zsh_autocomplete ]] && . ~/.local/share/dephell/_dephell_zsh_autocomplete
-
-# bindkey '^[[A' history-substring-search-up
-# bindkey '^[[B' history-substring-search-down
-# bindkey -M vicmd 'k' history-substring-search-up
-# bindkey -M vicmd 'j' history-substring-search-down
 
 function username_to_userid {
  jhurl -p --site services.gew1 --method GET "hm://userdata/account?username=$1" 2>/dev/null | jq ".[] | .user_id"

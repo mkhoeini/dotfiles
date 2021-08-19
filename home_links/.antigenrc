@@ -2,6 +2,10 @@
 antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
+  direnv
+  pyenv
+  rbenv
+  zoxide
   zsh-users/zsh-syntax-highlighting
 EOBUNDLES
 
