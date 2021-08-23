@@ -6,11 +6,6 @@ if $RUN_ZPROF; then
   zmodload zsh/zprof
 fi
 
-# Antigen
-
-source "$(brew --prefix)/share/antigen/antigen.zsh"
-antigen init .antigenrc
-
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
@@ -55,6 +50,12 @@ zstyle ':completion:*' group-name ''
 export EDITOR='nvim'
 
 
+# Antigen
+
+source "$(brew --prefix)/share/antigen/antigen.zsh"
+antigen init ~/.antigenrc
+
+
 # Aliases
 
 source ~/.zsh_aliases
@@ -82,6 +83,15 @@ function username_to_userid {
 function userid_to_username {
   jhurl -p --site services.gew1 --method GET "hm://userdata/account?user_id=$1" 2>/dev/null | jq ".[] | .username"
 }
+
+bindkey '^G' per-directory-history-toggle-history
+bindkey '^T' fzf-file-widget
+bindkey '^R' fzf-history-widget
+# bindkey '^I' fzf-completion
+
+PONYSAY="$(shuf -n 1 -e ponysay ponythink) -f $(shuf -n 1 -e $(ponysay --all | grep -v 'ponies located in'))"
+COWSAY="$(shuf -n 1 -e cowsay cowthink) -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n | lolcat"
+fortune | eval $(shuf -n 1 -e "$PONYSAY" "$COWSAY" $(seq -f cat 20))
 
 # This should remain as the last command in file to properly profile everything
 if $RUN_ZPROF; then

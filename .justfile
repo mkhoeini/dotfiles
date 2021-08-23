@@ -17,10 +17,10 @@ install: brew-install
     just _link "$ORIG" "$LINK"
   done
 
-BREW_TAPS := "clementtsang/bottom"
+BREW_TAPS := "mkhoeini/tap clementtsang/bottom"
 BREW_DEPS := " \
   antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf bottom \
-  watchexec zsh git starship \
+  watchexec zsh git starship fortune cowsay lolcat ponysay \
 "
 
 # Install HomeBrew dependencies
