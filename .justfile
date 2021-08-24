@@ -20,7 +20,7 @@ install: brew-install
 BREW_TAPS := "mkhoeini/tap clementtsang/bottom"
 BREW_DEPS := " \
   antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf bottom \
-  watchexec zsh git starship fortune cowsay lolcat ponysay \
+  watchexec zsh git starship fortune-mod cowsay lolcat ponysay neovide \
 "
 
 # Install HomeBrew dependencies
