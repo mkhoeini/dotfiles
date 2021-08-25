@@ -17,10 +17,11 @@ install: brew-install
     just _link "$ORIG" "$LINK"
   done
 
-BREW_TAPS := "mkhoeini/tap clementtsang/bottom"
 BREW_DEPS := " \
-  antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf bottom \
-  watchexec zsh git starship fortune-mod cowsay lolcat ponysay neovide \
+  antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf \
+  watchexec zsh git starship cowsay lolcat ponysay \
+  clementtsang/bottom/bottom \
+  mkhoeini/tap/fortune-mod mkhoeini/tap/neovide \
 "
 
 # Install HomeBrew dependencies
@@ -28,17 +29,11 @@ brew-install:
   #!/usr/bin/env zsh
   set -euo pipefail
   taps=$(brew tap)
-  for tap in {{BREW_TAPS}}; do
-    if [[ "$taps" == *"$tap"* ]]; then
-      echo "$tap is already tapped. skipping."
-    else
-      brew tap $tap
-    fi
-  done
   formulas=$(brew list --formula)
   casks=$(brew list --cask)
   for dep in {{BREW_DEPS}}; do
-    if [[ "$formulas" == *"$dep"* ]] || [[ "$casks" == *"$dep"* ]]; then
+    depname=$(echo "$dep" | rev | cut -d/ -f1 | rev)
+    if [[ "$formulas" == *"$depname"* ]] || [[ "$casks" == *"$depname"* ]]; then
       echo "$dep already installed. skipping."
     else
       brew install "$dep"

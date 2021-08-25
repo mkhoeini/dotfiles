@@ -7,6 +7,8 @@ alias bcs='bc search'
 
 alias j='just'
 
+alias v='neovide --geometry=170x48'
+
 alias le="exa -lahTL 2 --group-directories-first --git"
 alias l="lsd -l"
 alias la='lsd -a'
