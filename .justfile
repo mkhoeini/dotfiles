@@ -18,9 +18,9 @@ install: brew-install
   done
 
 BREW_DEPS := " \
-  antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf \
-  watchexec zsh git starship cowsay lolcat ponysay \
-  clementtsang/bottom/bottom \
+  antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf lazygit \
+  watchexec zsh git starship cowsay lolcat ponysay gnu-sed ranger \
+  clementtsang/bottom/bottom tnk-studio/tools/lazykube \
   mkhoeini/tap/fortune-mod mkhoeini/tap/neovide \
 "
 
