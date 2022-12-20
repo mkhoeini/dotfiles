@@ -10,7 +10,7 @@ fi
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
-zstyle :compinstall filename '/Users/mohammadk/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 
 fpath+=~/.zfunc
 
@@ -67,14 +67,6 @@ if [[ -e  "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completi
   source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
 [[ -n $commands[starship] ]] && . <(starship init zsh)
-# Use java_home instead as it is much faster
-# if command -v jenv &>/dev/null; then
-  # export PATH="$HOME/.jenv/bin:$PATH"
-  # . <(jenv init -)
-# fi
-if [[ -x /usr/libexec/java_home ]]; then
-  export JAVA_HOME="$(/usr/libexec/java_home -v 11)"
-fi
 
 function username_to_userid {
  jhurl -p --site services.gew1 --method GET "hm://userdata/account?username=$1" 2>/dev/null | jq ".[] | .user_id"
@@ -99,8 +91,8 @@ if $RUN_ZPROF; then
 fi
 
 # bun completions
-[ -s "/Users/mohammadk/.bun/_bun" ] && source "/Users/mohammadk/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # Bun
-export BUN_INSTALL="/Users/mohammadk/.bun"
+export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
