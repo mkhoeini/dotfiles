@@ -3,25 +3,17 @@
 default:
   just --list
 
-ZSHFILES := `find home_links -type f | cut -c 12-`
-
 # Install all dot files and dependencies
 install: brew-install
   #!/usr/bin/env zsh
   set -euo pipefail
-  ZSHFILES="{{ZSHFILES}}"
-  echo $ZSHFILES | while read i; do
-    ORIG="$PWD/home_links/$i"
-    LINK="$HOME/$i"
-
-    just _link "$ORIG" "$LINK"
-  done
+  stow -t $HOME home_links
 
 BREW_DEPS := " \
   antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf lazygit \
   watchexec zsh git starship cowsay lolcat ponysay gnu-sed ranger \
   clementtsang/bottom/bottom tnk-studio/tools/lazykube asdf hyperfine \
-  mkhoeini/tap/fortune-mod neovide oven-sh/bun/bun \
+  mkhoeini/tap/fortune-mod neovide oven-sh/bun/bun stow \
 "
 
 # Install HomeBrew dependencies
@@ -39,19 +31,3 @@ brew-install:
       brew install "$dep"
     fi
   done
-
-_link ORIG LINK:
-  #!/usr/bin/env zsh
-  set -euo pipefail
-  if [ -e "{{LINK}}" ] || [ -L "{{LINK}}" ]; then
-    if [ "{{ORIG}}" -ef "{{LINK}}" ]; then
-      echo "{{LINK}} is already linked. Skipping." 
-    else
-      echo "Another '{{LINK}}' exists. Skipping." 
-    fi
-  else
-    LINK="{{LINK}}"
-    mkdir -p "${LINK:h}"
-    ln -s "{{ORIG}}" "{{LINK}}"
-    echo "Linked '{{LINK}}'"
-  fi
