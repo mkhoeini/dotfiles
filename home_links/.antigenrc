@@ -16,7 +16,6 @@ antigen bundles <<EOBUNDLES
   osx
   per-directory-history
   vi-mode
-  zoxide
   zsh-users/zsh-autosuggestions
   zsh-users/zsh-completions
   zsh-users/zsh-syntax-highlighting
