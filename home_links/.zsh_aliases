@@ -7,7 +7,8 @@ alias bcs='bc search'
 
 alias j='just'
 
-alias v='neovide --geometry 170x48 -- -u ~/.local/share/lunarvim/lvim/init.lua --cmd "set runtimepath+=~/.local/share/lunarvim/lvim"'
+alias v='lvim-neovide'
+alias fv='nvim -u ~/.config/nvim-fnl/init.lua --cmd "set rtp+=~/.config/nvim-fnl"'
 
 alias le="exa -lahTL 2 --group-directories-first --git"
 alias l="lsd -l"
@@ -24,7 +25,7 @@ alias cd='z'
 alias kg="kubectl get"
 alias kd="kubectl describe"
 
-alias ec="emacsclient -cqua ''"
+alias ec="emacsclient -cqua 'vi'"
 
 alias -g ...='../..'
 alias -g ....='../../..'
