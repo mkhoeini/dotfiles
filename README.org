@@ -6,25 +6,41 @@ My personal dotfiles
 
 * Usage
 
-First time run
+First install dependencies
+
+- homebrew:
+
+  #+begin_src shell
+  if ! command -v brew >/dev/null; then
+    echo "Installing HomeBrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  #+end_src
+
+- just:
+
+  #+begin_src shell
+  if ! command -v just >/dev/null; then
+    echo "Installing Just"
+    brew install just
+  fi
+  #+end_src
+
+
+then you can run next command to install everything.
 
 #+begin_src shell
-./init.sh
+just install
 #+end_src
 
-This will install homebrew and other necessary dependencies first
-and then will install the dot files.
+To get the list of available commands, run:
 
-You can run
-
-#+begin_src shell
+#+begin_src shell :results output verbatim
 just
 #+end_src
 
 #+RESULTS:
-| Available    | recipes: |         |           |              |       |     |              |
-| brew-install | #        | Install | HomeBrew  | dependencies |       |     |              |
-| default      | #        | List    | available | commands     |       |     |              |
-| install      | #        | Install | all       | dot          | files | and | dependencies |
-
-To get the list of available commands you can run.
+: Available recipes:
+:     brew-install # Install HomeBrew dependencies
+:     default      # List available commands
+:     install      # Install all dot files and dependencies
