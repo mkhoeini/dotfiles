@@ -97,3 +97,10 @@ fortune | eval $(shuf -n 1 -e "$PONYSAY" "$COWSAY" $(seq -f cat 20))
 if $RUN_ZPROF; then
   zprof
 fi
+
+# bun completions
+[ -s "/Users/mohammadk/.bun/_bun" ] && source "/Users/mohammadk/.bun/_bun"
+
+# Bun
+export BUN_INSTALL="/Users/mohammadk/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
