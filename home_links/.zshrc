@@ -97,6 +97,11 @@ fi
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+
+if [[ $TERMINAL_EMULATOR != "JetBrains-JediTerm" ]]; then
+    eval "$(zellij setup --generate-auto-start zsh)"
+fi
+
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
