@@ -83,7 +83,7 @@ bindkey '^R' fzf-history-widget
 
 PONYSAY="$(shuf -n 1 -e ponysay ponythink) -f $(shuf -n 1 -e $(ponysay --all | grep -v 'ponies located in'))"
 COWSAY="$(shuf -n 1 -e cowsay cowthink) -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n | lolcat"
-fortune | eval $(shuf -n 1 -e "$PONYSAY" "$COWSAY" $(seq -f cat 20))
+fortune | eval $(shuf -n 1 -e "$PONYSAY" "$COWSAY" $(jot -b cat 20))
 
 # This should remain as the last command in file to properly profile everything
 if $RUN_ZPROF; then
@@ -96,3 +96,8 @@ fi
 # Bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
