@@ -55,16 +55,16 @@ then you can run next command to install everything.
 
 To get the list of available commands, run:
 
-#+begin_src shell :results output org
+#+begin_src shell :results output verbatim
   just
 #+end_src
 
 #+RESULTS:
-#+begin_src org
-Available recipes:
-    brew-install # Install HomeBrew dependencies
-    default      # List available commands
-    install      # Install all dot files and dependencies
+: Available recipes:
+:     brew-install # Install HomeBrew dependencies
+:     default      # List available commands
+:     install      # Install all dot files and dependencies
+
 #+end_src
 
 
