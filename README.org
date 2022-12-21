@@ -6,41 +6,52 @@ My personal dotfiles
 
 * Usage
 
-First install dependencies
+First install dependencies.
 
-- homebrew:
+** Prerequisites
 
-  #+begin_src shell
+#+Name: homebrew
+#+begin_src shell
   if ! command -v brew >/dev/null; then
-    echo "Installing HomeBrew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      echo "Installing HomeBrew"
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
-  #+end_src
+#+end_src
 
-- just:
+#+Name: emacs
+#+begin_src shell
+  brew tap d12frosted/emacs-plus
+  brew install emacs-plus@29 --with-native-comp --with-modern-vscode-icon --with-xwidgets --with-imagemagick --with-poll --with-no-frame-refocus
+#+end_src
 
-  #+begin_src shell
+#+Name: just
+#+begin_src shell
   if ! command -v just >/dev/null; then
-    echo "Installing Just"
-    brew install just
+      echo "Installing Just"
+      brew install just
   fi
-  #+end_src
+#+end_src
 
+
+** Install
 
 then you can run next command to install everything.
 
 #+begin_src shell
-just install
+  just install
 #+end_src
 
 To get the list of available commands, run:
 
-#+begin_src shell :results output verbatim
-just
+#+begin_src shell :results output html
+  just
 #+end_src
 
 #+RESULTS:
-: Available recipes:
-:     brew-install # Install HomeBrew dependencies
-:     default      # List available commands
-:     install      # Install all dot files and dependencies
+#+begin_export html
+Available recipes:
+    brew-install # Install HomeBrew dependencies
+    default      # List available commands
+    install      # Install all dot files and dependencies
+#+end_export
+

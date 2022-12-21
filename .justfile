@@ -16,15 +16,10 @@ BREW_DEPS := " \
   mkhoeini/tap/fortune-mod neovide oven-sh/bun/bun stow zellij \
 "
 
-_emacs_install:
-  #!/usr/bin/env zsh
-  brew install d12frosted/emacs-plus/emacs-plus@29 --with-native-comp --with-modern-vscode-icon --with-xwidgets --with-imagemagick --with-poll --with-no-frame-refocus
-
 # Install HomeBrew dependencies
-brew-install: _emacs_install
+brew-install:
   #!/usr/bin/env zsh
   set -euo pipefail
-  taps=$(brew tap)
   formulas=$(brew list --formula)
   casks=$(brew list --cask)
   for dep in {{BREW_DEPS}}; do
