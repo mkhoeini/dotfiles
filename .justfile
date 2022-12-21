@@ -5,9 +5,6 @@ default:
 
 # Install all dot files and dependencies
 install: brew-install
-  #!/usr/bin/env zsh
-  set -euo pipefail
-  stow -t $HOME home_links
 
 BREW_DEPS := " \
   antigen google-cloud-sdk fd bat lsd exa sk procs zoxide fzf lazygit \

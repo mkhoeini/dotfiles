@@ -13,6 +13,7 @@ My personal dotfiles
   <<install-emacs>>
   <<install-just>>
   <<do-just-install>>
+  <<symlink>>
 #+end_src
 
 
@@ -64,6 +65,7 @@ To get the list of available commands, run:
 :     brew-install # Install HomeBrew dependencies
 :     default      # List available commands
 :     install      # Install all dot files and dependencies
+
 
 ** Dependencies
 
@@ -485,3 +487,13 @@ xbar
 #+begin_src shell :noweb yes
   echo '<<source()>>'
 #+end_src
+
+
+** Link files
+
+#+Name: symlink
+#+begin_src shell
+  stow -t $HOME home_links
+#+end_src
+
+#+RESULTS: symlink
