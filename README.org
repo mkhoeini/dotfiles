@@ -69,6 +69,27 @@ To get the list of available commands, run:
 
 ** Dependencies
 
+I didn't need tap for now. But I will keep it as a reference:
+
+    kde-mac/kde https://invent.kde.org/packaging/homebrew-kde.git
+
+#+Name: brew-taps
+#+begin_src elisp
+  (quote
+   (;; borkdude/brew
+    ;; bufbuild/buf
+    ;; d12frosted/emacs-plus
+    ;; homebrew/cask-fonts
+    ;; homebrew/cask-versions
+    ;; homebrew/command-not-found
+    ;; mkhoeini/tap
+    ;; oven-sh/bun
+    ;; remotemobprogramming/brew
+    ;; spotify/public
+    ;; tnk-studio/tools
+    ))
+#+end_src
+
 #+Name: brew-formulas
 #+begin_src elisp
   (quote
@@ -480,9 +501,15 @@ To get the list of available commands, run:
     ))
 #+end_src
 
-#+begin_src elisp :results value verbatim :var formula-list=brew-formulas cask-list=brew-casks
+#+begin_src elisp :results value verbatim :var formula-list=brew-formulas cask-list=brew-casks tap-list=brew-taps
   (let* ((installed-formulas (shell-command-to-string "brew list --formula"))
          (installed-casks (shell-command-to-string "brew list --cask"))
+         (installed-taps (shell-command-to-string "brew tap"))
+         (tap-out (mapconcat (lambda (tap)
+                               (if (not (string-match-p (format "%s" tap) installed-taps))
+                                   (shell-command-to-string (format "echo %s" tap))
+                                 ""))
+                             tap-list))
          (formula-out (mapconcat (lambda (formula)
                                    (if (not (string-match-p (format "%s" formula) installed-formulas))
                                        (shell-command-to-string (format "echo '%s'" formula))
