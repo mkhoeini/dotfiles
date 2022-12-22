@@ -69,424 +69,435 @@ To get the list of available commands, run:
 
 ** Dependencies
 
-#+Name: brew-formula
-#+begin_src text
-adns
-antigen
-aom
-asciinema
-asdf
-assimp
-autoconf
-automake
-awk
-babashka
-bat
-bdw-gc
-berkeley-db
-bison
-black
-boost
-bottom
-brotli
-bun
-burklee
-bzip2
-c-ares
-ca-certificates
-cairo
-cjson
-clojure
-clojurescript
-cmake
-cmocka
-concurrencykit
-coreutils
-cowsay
-ctags
-curlie
-dav1d
-dbus
-deno
-desktop-file-utils
-direnv
-docbook
-docbook-xsl
-double-conversion
-doxygen
-dust
-ebook-tools
-edencommon
-emacs-plus@29
-entr
-exa
-exiv2
-extra-cmake-modules
-fasd
-fb303
-fbthrift
-fd
-ffmpeg
-fizz
-flac
-flex
-flyway
-fmt
-folly
-fontconfig
-fortune-mod
-freetype
-frei0r
-fribidi
-fx
-fzf
-fzy
-gcc
-gd
-gdbm
-gdk-pixbuf
-gettext
-gflags
-gh
-ghc
-ghostscript
-giflib
-git
-git-delta
-git-gui
-glib
-glog
-gmp
-gnu-getopt
-gnu-sed
-gnu-tar
-gnupg
-gnutls
-go
-gobject-introspection
-gperf
-gpgme
-graphite2
-graphviz
-grpcurl
-gts
-guile
-hades-cli
-harfbuzz
-highway
-hmtools
-httpie
-hub
-hunspell
-hyperfine
-icu4c
-ijq
-ilmbase
-imagemagick
-imath
-ipython
-isl
-ispell
-jansson
-jasper
-jbig2dec
-jemalloc
-jet
-jid
-jlog
-jpeg
-jpeg-turbo
-jpeg-xl
-jq
-just
-k6
-kde-extra-cmake-modules
-kf5-kdoctools
-krb5
-kubectl-site
-kubectx
-kubernetes-cli
-lame
-lazygit
-lazykube
-leiningen
-leptonica
-libarchive
-libass
-libassuan
-libavif
-libb2
-libbluray
-libcanberra
-libcbor
-libcroco
-libde265
-libepoxy
-libev
-libevent
-libffi
-libfido2
-libgccjit
-libgcrypt
-libgpg-error
-libheif
-libidn
-libidn2
-libksba
-liblinear
-liblqr
-libmng
-libmpc
-libmtp
-libnghttp2
-libogg
-libomp
-libpng
-libproxy
-libpthread-stubs
-libraw
-librist
-librsvg
-libsamplerate
-libsndfile
-libsodium
-libsoxr
-libssh
-libssh2
-libtasn1
-libtermkey
-libtiff
-libtool
-libunistring
-libusb
-libusb-compat
-libuv
-libvidstab
-libvmaf
-libvorbis
-libvpx
-libvterm
-libx11
-libxau
-libxcb
-libxdmcp
-libxext
-libxml2
-libxrender
-libxslt
-libyaml
-libzip
-little-cms2
-llvm
-lolcat
-lsd
-lua
-lua@5.3
-luajit
-luajit-openresty
-luarocks
-luv
-lz4
-lzo
-m4
-make
-maven
-mbedtls
-md4c
-mitmproxy
-mob
-mosh
-mpdecimal
-mpfr
-msgpack
-mysql
-ncurses
-neovim
-netpbm
-nettle
-nghttp2
-ninja
-nmap
-node@16
-npth
-nspr
-nss
-oha
-onefetch
-oniguruma
-opencore-amr
-openexr
-openjdk
-openjdk@11
-openjpeg
-openslp
-openssl@1.1
-opus
-p11-kit
-pandoc
-pango
-parallel
-pcre
-pcre2
-perl
-pgweb
-pinentry
-pixman
-pkg-config
-ponysay
-poppler
-postgresql
-postgresql@13
-postgresql@14
-prettyping
-procs
-protobuf
-pygments
-python@3.10
-python@3.8
-python@3.9
-qt
-qt@5
-ranger
-rav1e
-readline
-recode
-ripgrep
-rlwrap
-rtmpdump
-rubberband
-rust
-sbt
-scala
-scc
-scio
-sdl2
-shared-mime-info
-shellcheck
-showkey
-six
-sk
-snappy
-speedtest-cli
-speex
-spgrpcurl
-spotify-disco
-spotify-nameless-cli
-sqlite
-srt
-starship
-stow
-styx-cli
-taglib
-tcl-tk
-tesseract
-texinfo
-theora
-tmux
-tree-sitter
-ttyplot
-unbound
-unibilium
-unixodbc
-utf8proc
-v2ray
-wakatime-cli
-wangle
-watchexec
-watchman
-webp
-websocat
-wget
-x264
-x265
-xmlto
-xorgproto
-xvid
-xz
-z
-z3
-zellij
-zeromq
-zimg
-zlib
-zoxide
-zsh
-zstd
+#+Name: brew-formulas
+#+begin_src elisp
+  (quote
+   (;; adns
+    ;; antigen
+    ;; aom
+    ;; asciinema
+    ;; asdf
+    ;; assimp
+    ;; autoconf
+    ;; automake
+    ;; awk
+    ;; babashka
+    ;; bat
+    ;; bdw-gc
+    ;; berkeley-db
+    ;; bison
+    ;; black
+    ;; boost
+    ;; bottom
+    ;; brotli
+    ;; bun
+    ;; burklee
+    ;; bzip2
+    ;; c-ares
+    ;; ca-certificates
+    ;; cairo
+    ;; cjson
+    ;; clojure
+    ;; clojurescript
+    ;; cmake
+    ;; cmocka
+    ;; concurrencykit
+    ;; coreutils
+    ;; cowsay
+    ;; ctags
+    ;; curlie
+    ;; dav1d
+    ;; dbus
+    ;; deno
+    ;; desktop-file-utils
+    ;; direnv
+    ;; docbook
+    ;; docbook-xsl
+    ;; double-conversion
+    ;; doxygen
+    ;; dust
+    ;; ebook-tools
+    ;; edencommon
+    ;; emacs-plus@29
+    ;; entr
+    ;; exa
+    ;; exiv2
+    ;; extra-cmake-modules
+    ;; fasd
+    ;; fb303
+    ;; fbthrift
+    ;; fd
+    ;; ffmpeg
+    ;; fizz
+    ;; flac
+    ;; flex
+    ;; flyway
+    ;; fmt
+    ;; folly
+    ;; fontconfig
+    ;; fortune-mod
+    ;; freetype
+    ;; frei0r
+    ;; fribidi
+    ;; fx
+    ;; fzf
+    ;; fzy
+    ;; gcc
+    ;; gd
+    ;; gdbm
+    ;; gdk-pixbuf
+    ;; gettext
+    ;; gflags
+    ;; gh
+    ;; ghc
+    ;; ghostscript
+    ;; giflib
+    ;; git
+    ;; git-delta
+    ;; git-gui
+    ;; glib
+    ;; glog
+    ;; gmp
+    ;; gnu-getopt
+    ;; gnu-sed
+    ;; gnu-tar
+    ;; gnupg
+    ;; gnutls
+    ;; go
+    ;; gobject-introspection
+    ;; gperf
+    ;; gpgme
+    ;; graphite2
+    ;; graphviz
+    ;; grpcurl
+    ;; gts
+    ;; guile
+    ;; hades-cli
+    ;; harfbuzz
+    ;; highway
+    ;; hmtools
+    ;; httpie
+    ;; hub
+    ;; hunspell
+    ;; hyperfine
+    ;; icu4c
+    ;; ijq
+    ;; ilmbase
+    ;; imagemagick
+    ;; imath
+    ;; ipython
+    ;; isl
+    ;; ispell
+    ;; jansson
+    ;; jasper
+    ;; jbig2dec
+    ;; jemalloc
+    ;; jet
+    ;; jid
+    ;; jlog
+    ;; jpeg
+    ;; jpeg-turbo
+    ;; jpeg-xl
+    ;; jq
+    ;; just
+    ;; k6
+    ;; kde-extra-cmake-modules
+    ;; kf5-kdoctools
+    ;; krb5
+    ;; kubectl-site
+    ;; kubectx
+    ;; kubernetes-cli
+    ;; lame
+    ;; lazygit
+    ;; lazykube
+    ;; leiningen
+    ;; leptonica
+    ;; libarchive
+    ;; libass
+    ;; libassuan
+    ;; libavif
+    ;; libb2
+    ;; libbluray
+    ;; libcanberra
+    ;; libcbor
+    ;; libcroco
+    ;; libde265
+    ;; libepoxy
+    ;; libev
+    ;; libevent
+    ;; libffi
+    ;; libfido2
+    ;; libgccjit
+    ;; libgcrypt
+    ;; libgpg-error
+    ;; libheif
+    ;; libidn
+    ;; libidn2
+    ;; libksba
+    ;; liblinear
+    ;; liblqr
+    ;; libmng
+    ;; libmpc
+    ;; libmtp
+    ;; libnghttp2
+    ;; libogg
+    ;; libomp
+    ;; libpng
+    ;; libproxy
+    ;; libpthread-stubs
+    ;; libraw
+    ;; librist
+    ;; librsvg
+    ;; libsamplerate
+    ;; libsndfile
+    ;; libsodium
+    ;; libsoxr
+    ;; libssh
+    ;; libssh2
+    ;; libtasn1
+    ;; libtermkey
+    ;; libtiff
+    ;; libtool
+    ;; libunistring
+    ;; libusb
+    ;; libusb-compat
+    ;; libuv
+    ;; libvidstab
+    ;; libvmaf
+    ;; libvorbis
+    ;; libvpx
+    ;; libvterm
+    ;; libx11
+    ;; libxau
+    ;; libxcb
+    ;; libxdmcp
+    ;; libxext
+    ;; libxml2
+    ;; libxrender
+    ;; libxslt
+    ;; libyaml
+    ;; libzip
+    ;; little-cms2
+    ;; llvm
+    ;; lolcat
+    ;; lsd
+    ;; lua
+    ;; lua@5.3
+    ;; luajit
+    ;; luajit-openresty
+    ;; luarocks
+    ;; luv
+    ;; lz4
+    ;; lzo
+    ;; m4
+    ;; make
+    ;; maven
+    ;; mbedtls
+    ;; md4c
+    ;; mitmproxy
+    ;; mob
+    ;; mosh
+    ;; mpdecimal
+    ;; mpfr
+    ;; msgpack
+    ;; mysql
+    ;; ncurses
+    ;; neovim
+    ;; netpbm
+    ;; nettle
+    ;; nghttp2
+    ;; ninja
+    ;; nmap
+    ;; node@16
+    ;; npth
+    ;; nspr
+    ;; nss
+    ;; oha
+    ;; onefetch
+    ;; oniguruma
+    ;; opencore-amr
+    ;; openexr
+    ;; openjdk
+    ;; openjdk@11
+    ;; openjpeg
+    ;; openslp
+    ;; openssl@1.1
+    ;; opus
+    ;; p11-kit
+    ;; pandoc
+    ;; pango
+    ;; parallel
+    ;; pcre
+    ;; pcre2
+    ;; perl
+    ;; pgweb
+    ;; pinentry
+    ;; pixman
+    ;; pkg-config
+    ;; ponysay
+    ;; poppler
+    ;; postgresql
+    ;; postgresql@13
+    ;; postgresql@14
+    ;; prettyping
+    ;; procs
+    ;; protobuf
+    ;; pygments
+    ;; python@3.10
+    ;; python@3.8
+    ;; python@3.9
+    ;; qt
+    ;; qt@5
+    ;; ranger
+    ;; rav1e
+    ;; readline
+    ;; recode
+    ;; ripgrep
+    ;; rlwrap
+    ;; rtmpdump
+    ;; rubberband
+    ;; rust
+    ;; sbt
+    ;; scala
+    ;; scc
+    ;; scio
+    ;; sdl2
+    ;; shared-mime-info
+    ;; shellcheck
+    ;; showkey
+    ;; six
+    ;; sk
+    ;; snappy
+    ;; speedtest-cli
+    ;; speex
+    ;; spgrpcurl
+    ;; spotify-disco
+    ;; spotify-nameless-cli
+    ;; sqlite
+    ;; srt
+    ;; starship
+    ;; stow
+    ;; styx-cli
+    ;; taglib
+    ;; tcl-tk
+    ;; tesseract
+    ;; texinfo
+    ;; theora
+    ;; tmux
+    ;; tree-sitter
+    ;; ttyplot
+    ;; unbound
+    ;; unibilium
+    ;; unixodbc
+    ;; utf8proc
+    ;; v2ray
+    ;; wakatime-cli
+    ;; wangle
+    ;; watchexec
+    ;; watchman
+    ;; webp
+    ;; websocat
+    ;; wget
+    ;; x264
+    ;; x265
+    ;; xmlto
+    ;; xorgproto
+    ;; xvid
+    ;; xz
+    ;; z
+    ;; z3
+    ;; zellij
+    ;; zeromq
+    ;; zimg
+    ;; zlib
+    ;; zoxide
+    ;; zsh
+    ;; zstd
+    ))
 #+end_src
 
-#+Name: brew-cask
-#+begin_src text
-alacritty
-browserosaurus
-chromium
-coconutbattery
-corretto
-corretto8
-edex-ui
-emacsclient
-firefox
-font-code-new-roman-nerd-font
-font-dejavu-sans-mono-nerd-font
-font-droidsansmono-nerd-font
-font-fira-code-nerd-font
-font-firacode-nerd-font
-font-hack-nerd-font
-font-hasklig
-font-hasklig-nerd-font
-font-iosevka-nerd-font
-font-jetbrains-mono-nerd-font
-font-juliamono
-font-lilex
-font-monoid-nerd-font
-font-noto-nerd-font
-font-robotomono-nerd-font
-font-victor-mono-nerd-font
-github-beta
-google-chrome
-google-cloud-sdk
-hammerspoon
-iina
-intellij-idea-ce
-kitty
-lapce
-meetingbar
-neovide
-noisebuddy
-noisy
-oracle-jdk
-pgadmin4
-pycharm
-qutebrowser
-rectangle
-retinizer
-slack
-spectacle
-spotify
-swiftdefaultappsprefpane
-telegram
-telegram-desktop
-todoist
-tomatobar
-vimr
-virtualbox
-virtualbox-extension-pack
-visual-studio-code
-vlc
-webstorm
-xbar
+#+Name: brew-casks
+#+begin_src elisp
+  (quote
+   (;; alacritty
+    ;; browserosaurus
+    ;; chromium
+    ;; coconutbattery
+    ;; corretto
+    ;; corretto8
+    ;; edex-ui
+    ;; emacsclient
+    ;; firefox
+    ;; font-code-new-roman-nerd-font
+    ;; font-dejavu-sans-mono-nerd-font
+    ;; font-droidsansmono-nerd-font
+    ;; font-fira-code-nerd-font
+    ;; font-firacode-nerd-font
+    ;; font-hack-nerd-font
+    ;; font-hasklig
+    ;; font-hasklig-nerd-font
+    ;; font-iosevka-nerd-font
+    ;; font-jetbrains-mono-nerd-font
+    ;; font-juliamono
+    ;; font-lilex
+    ;; font-monoid-nerd-font
+    ;; font-noto-nerd-font
+    ;; font-robotomono-nerd-font
+    ;; font-victor-mono-nerd-font
+    ;; github-beta
+    ;; google-chrome
+    ;; google-cloud-sdk
+    ;; hammerspoon
+    ;; iina
+    ;; intellij-idea-ce
+    ;; kitty
+    ;; lapce
+    ;; meetingbar
+    ;; neovide
+    ;; noisebuddy
+    ;; noisy
+    ;; oracle-jdk
+    ;; pgadmin4
+    ;; pycharm
+    ;; qutebrowser
+    ;; rectangle
+    ;; retinizer
+    ;; slack
+    ;; spectacle
+    ;; spotify
+    ;; swiftdefaultappsprefpane
+    ;; telegram
+    ;; telegram-desktop
+    ;; todoist
+    ;; tomatobar
+    ;; vimr
+    ;; virtualbox
+    ;; virtualbox-extension-pack
+    ;; visual-studio-code
+    ;; vlc
+    ;; webstorm
+    ;; xbar
+    ))
 #+end_src
 
-
-#+Name: source
-#+begin_src elisp :noweb yes
-  (mapconcat (lambda (x) (format "%s" x)) '(
-                                            <<deps>>)
-             " ")
+#+begin_src elisp :results value verbatim :var formula-list=brew-formulas cask-list=brew-casks
+  (let* ((installed-formulas (shell-command-to-string "brew list --formula"))
+         (installed-casks (shell-command-to-string "brew list --cask"))
+         (formula-out (mapconcat (lambda (formula)
+                                   (if (not (string-match-p (format "%s" formula) installed-formulas))
+                                       (shell-command-to-string (format "echo '%s'" formula))
+                                     ""))
+                                 formula-list))
+         (cask-out (mapconcat (lambda (cask)
+                                (if (not (string-match-p (format "%s" cask) installed-casks))
+                                    (shell-command-to-string (format "echo '%s'" cask))
+                                  ""))
+                              cask-list)))
+    (concat formula-out cask-out))
 #+end_src
 
-#+begin_src shell :noweb yes
-  echo '<<source()>>'
-#+end_src
+#+RESULTS:
+: ""
 
 
 ** Link files
