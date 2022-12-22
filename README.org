@@ -56,7 +56,7 @@ then you can run next command to install everything.
 
 To get the list of available commands, run:
 
-#+begin_src shell :results output verbatim
+#+begin_src shell :results output verbatim :exports both
   just
 #+end_src
 
