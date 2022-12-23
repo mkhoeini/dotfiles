@@ -1,29 +1,13 @@
 alias b='brew'
 alias bi='b install'
 alias bs='b search'
-alias bc='b cask'
-alias bci='bc install'
-alias bcs='bc search'
-
-alias j='just'
 
 alias v='lvim-neovide'
-alias fv='nvim -u ~/.config/nvim-fnl/init.lua --cmd "set rtp+=~/.config/nvim-fnl"'
 
-alias le="exa -lahTL 2 --group-directories-first --git"
-alias l="lsd -l"
-alias la='lsd -a'
-alias lla='lsd -la'
-alias lt='lsd --tree'
-
-alias srg="sk --ansi -i -c 'rg --color=always --line-number \"{}\"'"
+alias ll="exa -lahG --group-directories-first --git"
 
 alias ps='procs --tree'
 alias top='btm'
-alias cd='z'
-
-alias kg="kubectl get"
-alias kd="kubectl describe"
 
 alias ec="emacsclient -cqua 'vi'"
 

@@ -39,7 +39,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; homebrew/cask-versions
     ;; homebrew/command-not-found
     mkhoeini/tap ; fortune-mod
-    oven-sh/bun ; bun.sh
+    ;oven-sh/bun ; bun.sh
     ;; remotemobprogramming/brew
     ;; spotify/public
     ;; tnk-studio/tools ; lazykube
@@ -67,7 +67,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; boost
     bottom ; better top util
     ;; brotli
-    bun ; node.js alternative
+    ;bun ; node.js alternative
     ;; burklee
     ;; bzip2
     ;; c-ares
@@ -97,7 +97,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; edencommon
     ;; emacs-plus@29
     ;; entr
-    exa ; another ls alternative. TODO compare with lsd and choose one
+    exa ; better ls alternative
     ;; exiv2
     ;; extra-cmake-modules
     ;; fasd
@@ -176,7 +176,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; jpeg-turbo
     ;; jpeg-xl
     ;; jq
-    just ; better make alternative
+    ;just ; better make alternative
     ;; k6
     ;; kde-extra-cmake-modules
     ;; kf5-kdoctools
@@ -185,7 +185,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; kubectx
     ;; kubernetes-cli
     ;; lame
-    lazygit ; git TUI
+    ;lazygit ; git TUI
     ;; lazykube
     ;; leiningen
     ;; leptonica
@@ -257,7 +257,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; little-cms2
     ;; llvm
     lolcat ; make terminal quotes colorful
-    lsd ; better ls alternative
+    ;lsd ; better ls alternative
     ;; lua
     ;; lua@5.3
     ;; luajit
@@ -326,7 +326,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; python@3.9
     ;; qt
     ;; qt@5
-    ranger ; terminal file manager
+    ;ranger ; terminal file manager
     ;; rav1e
     ;; readline
     ;; recode
@@ -344,7 +344,6 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; shellcheck
     ;; showkey
     ;; six
-    sk ; like fzf. TODO compare with fzf and choose one
     ;; snappy
     ;; speedtest-cli
     ;; speex
@@ -353,7 +352,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; spotify-nameless-cli
     ;; sqlite
     ;; srt
-    starship ; zsh prompt
+    starship ; zsh prompt. TODO replace with powerlevel10k
     stow ; symlink management
     ;; styx-cli
     ;; taglib
