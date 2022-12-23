@@ -34,7 +34,6 @@ I didn't need tap for now. But I will keep it as a reference:
   (quote
    (borkdude/brew ; babashka
     ;; bufbuild/buf
-    d12frosted/emacs-plus ; better emacs for macos
     homebrew/cask-drivers ; device drivers
     homebrew/cask-fonts
     homebrew/cask-versions
@@ -56,9 +55,6 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; asciinema
     asdf ; tools version management
     ;; assimp
-    ;; autoconf
-    ;; automake
-    ;; awk
     babashka ; clojure cli scripting
     bat ; better cat alternative
     ;; bdw-gc
@@ -73,22 +69,21 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; bzip2
     ;; c-ares
     ;; ca-certificates
-    ;; cairo
     ;; cjson
-    ;; clojure
-    ;; clojurescript
+    clojure
+    clojurescript
     ;; cmake
     ;; cmocka
     ;; concurrencykit
-    ;; coreutils
+    coreutils
     cowsay ; terminal eye candy
     ;; ctags
-    ;; curlie
+    curlie ; better curl alternative
     ;; dav1d
     ;; dbus
     ;; deno
     ;; desktop-file-utils
-    ;; direnv
+    direnv
     ;; docbook
     ;; docbook-xsl
     ;; double-conversion
@@ -96,7 +91,6 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; dust
     ;; ebook-tools
     ;; edencommon
-    ;; emacs-plus@29
     ;; entr
     exa ; better ls alternative
     ;; exiv2
@@ -131,8 +125,8 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; ghostscript
     ;; giflib
     git ; version control system
-    ;; git-delta
-    ;; git-gui
+    ;; git-delta ; TODO add the configs
+    git-gui ; gitx and git gui commands
     ;; glib
     ;; glog
     ;; gmp
@@ -154,12 +148,11 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; harfbuzz
     ;; highway
     ;; hmtools
-    ;; httpie
-    ;; hub
+    hub ; convenient github cli. TODO add configs
     ;; hunspell
     hyperfine ; terminal benchmark util
     ;; icu4c
-    ;; ijq
+    ijq ; interactive jq for json manipulation
     ;; ilmbase
     ;; imagemagick
     ;; imath
@@ -171,12 +164,11 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; jbig2dec
     ;; jemalloc
     ;; jet
-    ;; jid
     ;; jlog
     ;; jpeg
     ;; jpeg-turbo
     ;; jpeg-xl
-    ;; jq
+    jq ; commandline json util
     ;just ; better make alternative
     ;; k6
     ;; kde-extra-cmake-modules
@@ -258,7 +250,6 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; little-cms2
     ;; llvm
     lolcat ; make terminal quotes colorful
-    ;lsd ; better ls alternative
     ;; lua
     ;; lua@5.3
     ;; luajit
@@ -287,7 +278,6 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; nghttp2
     ;; ninja
     ;; nmap
-    ;; node@16
     ;; npth
     ;; nspr
     ;; nss
@@ -296,8 +286,6 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; oniguruma
     ;; opencore-amr
     ;; openexr
-    ;; openjdk
-    ;; openjdk@11
     ;; openjpeg
     ;; openslp
     ;; openssl@1.1
@@ -322,17 +310,12 @@ I didn't need tap for now. But I will keep it as a reference:
     procs ; better ps alternative
     ;; protobuf
     ;; pygments
-    ;; python@3.10
-    ;; python@3.8
-    ;; python@3.9
-    ;; qt
-    ;; qt@5
     ;ranger ; terminal file manager
     ;; rav1e
     ;; readline
     ;; recode
-    ;; ripgrep
-    ;; rlwrap
+    ripgrep ; cli search util
+    rlwrap ; readline cli util
     ;; rtmpdump
     ;; rubberband
     ;; rust
@@ -361,7 +344,6 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; tesseract
     ;; texinfo
     ;; theora
-    ;; tmux
     ;; tree-sitter
     ;; ttyplot
     ;; unbound
@@ -389,7 +371,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; zimg
     ;; zlib
     zoxide ; better cd alternative. z command
-    ;; zsh
+    zsh
     ;; zstd
     ))
 #+end_src
@@ -397,26 +379,25 @@ I didn't need tap for now. But I will keep it as a reference:
 #+Name: brew-casks
 #+begin_src elisp
   (quote
-   (;; alacritty
-    ;; browserosaurus
+   (alacritty ; terminal emulator
+    browserosaurus ; select which browser. TODO replace with hammerspoon
     ;; chromium
-    ;; coconutbattery
+    coconutbattery ; battery info util
     ;; corretto
     ;; corretto8
     ;; edex-ui
-    ;; emacsclient
-    ;; firefox
+    firefox
     ;; font-code-new-roman-nerd-font
     ;; font-dejavu-sans-mono-nerd-font
-    ;; font-droidsansmono-nerd-font
+    font-droidsansmono-nerd-font
     ;; font-fira-code-nerd-font
     ;; font-firacode-nerd-font
     ;; font-hack-nerd-font
     ;; font-hasklig
     ;; font-hasklig-nerd-font
-    ;; font-iosevka-nerd-font
-    ;; font-jetbrains-mono-nerd-font
-    ;; font-juliamono
+    font-iosevka-nerd-font
+    font-jetbrains-mono-nerd-font
+    font-juliamono
     ;; font-lilex
     ;; font-monoid-nerd-font
     ;; font-noto-nerd-font
@@ -425,34 +406,26 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; github-beta
     ;; google-chrome
     google-cloud-sdk ; cli for google cloud
-    ;; hammerspoon
-    ;; iina
-    ;; intellij-idea-ce
+    hammerspoon ; desktop automation tool. TODO configs
+    iina ; greate video player
+    intellij-idea-ce
+    itsycal ; calendar menubar
     ;; kitty
     ;; lapce
     ;; meetingbar
     ;; noisebuddy
     ;; noisy
-    ;; oracle-jdk
-    ;; pgadmin4
-    ;; pycharm
     ;; qutebrowser
-    ;; rectangle
+    ;; rectangle ; TODO migrate to hammerspoon
     ;; retinizer
-    ;; slack
-    ;; spectacle
     ;; spotify
     ;; swiftdefaultappsprefpane
-    ;; telegram
+    telegram
     ;; telegram-desktop
     ;; todoist
-    ;; tomatobar
+    tomatobar ; pomodoro menubar
     vimr ; another vim GUI
-    ;; virtualbox
-    ;; virtualbox-extension-pack
-    ;; visual-studio-code
-    ;; vlc
-    ;; webstorm
+    visual-studio-code
     ;; xbar
     ))
 #+end_src
