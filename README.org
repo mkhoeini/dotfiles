@@ -17,10 +17,10 @@ Run this in the terminal. It will setup homebrew and emacs and run [[tldr]] for 
 ** TL;DR
 
 #+Name: tldr
-#+begin_src shell :noweb yes
-  <<install-deps>>
-  <<install-spacemacs>>
-  <<symlink>>
+#+begin_src elisp
+  (org-sbe "install-deps")
+  (org-sbe "install-spacemacs")
+  (org-sbe "symlink")
 #+end_src
 
 
@@ -460,6 +460,7 @@ I didn't need tap for now. But I will keep it as a reference:
 
 ** Spacemacs
 
+#+Name: install-spacemacs
 #+begin_src shell
   if [[ ! -e ~/.emacs.d ]]; then
       echo "Installing Spacemacs";
