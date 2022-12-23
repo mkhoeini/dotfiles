@@ -4,13 +4,20 @@ My personal dotfiles
 
 #+TOC: headlines
 
+* First time setup
+
+Run this in the terminal. It will setup homebrew and emacs and run [[tldr]] for you.
+
+#+begin_src shell
+  ./init.sh
+#+end_src
+
 * Usage
 
 ** TL;DR
 
+#+Name: tldr
 #+begin_src shell :noweb yes
-  <<intall-homebrew>>
-  <<install-emacs>>
   <<install-just>>
   <<do-just-install>>
   <<symlink>>
@@ -18,23 +25,6 @@ My personal dotfiles
 
 
 ** Prerequisites
-
-#+Name: install-homebrew
-#+begin_src shell
-  if ! command -v brew >/dev/null; then
-      echo "Installing HomeBrew"
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  fi
-#+end_src
-
-#+Name: install-emacs
-#+begin_src shell
-  if ! command -v emacs >/dev/null; then
-      echo "Installing Emacs"
-      brew tap d12frosted/emacs-plus
-      brew install emacs-plus@29 --with-native-comp --with-modern-vscode-icon --with-xwidgets --with-imagemagick --with-poll --with-no-frame-refocus
-  fi
-#+end_src
 
 #+Name: install-just
 #+begin_src shell
