@@ -18,20 +18,9 @@ Run this in the terminal. It will setup homebrew and emacs and run [[tldr]] for 
 
 #+Name: tldr
 #+begin_src shell :noweb yes
-  <<install-just>>
+  <<install-deps>>
   <<do-just-install>>
   <<symlink>>
-#+end_src
-
-
-** Prerequisites
-
-#+Name: install-just
-#+begin_src shell
-  if ! command -v just >/dev/null; then
-      echo "Installing Just"
-      brew install just
-  fi
 #+end_src
 
 
@@ -210,7 +199,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; jpeg-turbo
     ;; jpeg-xl
     ;; jq
-    ;; just
+    just
     ;; k6
     ;; kde-extra-cmake-modules
     ;; kf5-kdoctools
@@ -491,6 +480,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ))
 #+end_src
 
+#+Name: install-deps
 #+begin_src elisp :results value verbatim :var formula-list=brew-formulas cask-list=brew-casks tap-list=brew-taps
   (let* ((installed-formulas (shell-command-to-string "brew list --formula"))
          (installed-casks (shell-command-to-string "brew list --cask"))
