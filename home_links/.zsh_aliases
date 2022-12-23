@@ -4,7 +4,8 @@ alias bs='b search'
 
 alias v='lvim-neovide'
 
-alias ll="exa -lahG --group-directories-first --git"
+alias l="exa -aa"
+alias ll="exa -lahG --icons --group-directories-first --git"
 
 alias ps='procs --tree'
 alias top='btm'
