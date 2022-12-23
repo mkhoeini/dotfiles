@@ -32,17 +32,18 @@ I didn't need tap for now. But I will keep it as a reference:
 #+Name: brew-taps
 #+begin_src elisp
   (quote
-   (;; borkdude/brew
+   (borkdude/brew ; babashka
     ;; bufbuild/buf
-    ;; d12frosted/emacs-plus
-    ;; homebrew/cask-fonts
-    ;; homebrew/cask-versions
-    ;; homebrew/command-not-found
+    d12frosted/emacs-plus ; better emacs for macos
+    homebrew/cask-drivers ; device drivers
+    homebrew/cask-fonts
+    homebrew/cask-versions
+    ;homebrew/command-not-found ; It's very slow. Don't use it
     mkhoeini/tap ; fortune-mod
     ;oven-sh/bun ; bun.sh
-    ;; remotemobprogramming/brew
+    remotemobprogramming/brew
     ;; spotify/public
-    ;; tnk-studio/tools ; lazykube
+    ;tnk-studio/tools ; lazykube
     ))
 #+end_src
 
@@ -58,7 +59,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; autoconf
     ;; automake
     ;; awk
-    ;; babashka
+    babashka ; clojure cli scripting
     bat ; better cat alternative
     ;; bdw-gc
     ;; berkeley-db
@@ -272,7 +273,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; mbedtls
     ;; md4c
     ;; mitmproxy
-    ;; mob
+    mob ; mob cli for mobbing
     ;; mosh
     ;; mpdecimal
     ;; mpfr
@@ -446,7 +447,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; telegram-desktop
     ;; todoist
     ;; tomatobar
-    ;; vimr
+    vimr ; another vim GUI
     ;; virtualbox
     ;; virtualbox-extension-pack
     ;; visual-studio-code
