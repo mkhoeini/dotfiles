@@ -19,6 +19,7 @@ Run this in the terminal. It will setup homebrew and emacs and run [[tldr]] for 
 #+Name: tldr
 #+begin_src shell :noweb yes
   <<install-deps>>
+  <<install-spacemacs>>
   <<symlink>>
 #+end_src
 
@@ -455,6 +456,16 @@ I didn't need tap for now. But I will keep it as a reference:
 
 #+RESULTS:
 : ""
+
+
+** Spacemacs
+
+#+begin_src shell
+  if [[ ! -e ~/.emacs.d ]]; then
+      echo "Installing Spacemacs";
+      git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d;
+  fi
+#+end_src
 
 
 ** Link files
