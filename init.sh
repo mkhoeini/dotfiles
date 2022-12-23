@@ -13,4 +13,5 @@ if ! command -v emacs >/dev/null; then
     brew install emacs-plus@29 --with-native-comp --with-modern-vscode-icon --with-xwidgets --with-imagemagick --with-poll --with-no-frame-refocus
 fi
 
+# run all the setup
 home_links/.local/bin/run_org README.org tldr

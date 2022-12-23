@@ -19,31 +19,8 @@ Run this in the terminal. It will setup homebrew and emacs and run [[tldr]] for 
 #+Name: tldr
 #+begin_src shell :noweb yes
   <<install-deps>>
-  <<do-just-install>>
   <<symlink>>
 #+end_src
-
-
-** Install
-
-then you can run next command to install everything.
-
-#+Name: do-just-install
-#+begin_src shell
-  just install
-#+end_src
-
-To get the list of available commands, run:
-
-#+begin_src shell :results output verbatim :exports both
-  just
-#+end_src
-
-#+RESULTS:
-: Available recipes:
-:     brew-install # Install HomeBrew dependencies
-:     default      # List available commands
-:     install      # Install all dot files and dependencies
 
 
 ** Dependencies
@@ -61,11 +38,11 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; homebrew/cask-fonts
     ;; homebrew/cask-versions
     ;; homebrew/command-not-found
-    ;; mkhoeini/tap
-    ;; oven-sh/bun
+    mkhoeini/tap ; fortune-mod
+    oven-sh/bun ; bun.sh
     ;; remotemobprogramming/brew
     ;; spotify/public
-    ;; tnk-studio/tools
+    ;; tnk-studio/tools ; lazykube
     ))
 #+end_src
 
@@ -73,24 +50,24 @@ I didn't need tap for now. But I will keep it as a reference:
 #+begin_src elisp
   (quote
    (;; adns
-    ;; antigen
+    antigen ; ZSH plugin management. TODO replace with antidote
     ;; aom
     ;; asciinema
-    ;; asdf
+    asdf ; tools version management
     ;; assimp
     ;; autoconf
     ;; automake
     ;; awk
     ;; babashka
-    ;; bat
+    bat ; better cat alternative
     ;; bdw-gc
     ;; berkeley-db
     ;; bison
     ;; black
     ;; boost
-    ;; bottom
+    bottom ; better top util
     ;; brotli
-    ;; bun
+    bun ; node.js alternative
     ;; burklee
     ;; bzip2
     ;; c-ares
@@ -103,7 +80,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; cmocka
     ;; concurrencykit
     ;; coreutils
-    ;; cowsay
+    cowsay ; terminal eye candy
     ;; ctags
     ;; curlie
     ;; dav1d
@@ -120,13 +97,13 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; edencommon
     ;; emacs-plus@29
     ;; entr
-    ;; exa
+    exa ; another ls alternative. TODO compare with lsd and choose one
     ;; exiv2
     ;; extra-cmake-modules
     ;; fasd
     ;; fb303
     ;; fbthrift
-    ;; fd
+    fd ; better find util
     ;; ffmpeg
     ;; fizz
     ;; flac
@@ -135,12 +112,12 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; fmt
     ;; folly
     ;; fontconfig
-    ;; fortune-mod
+    fortune-mod ; beautiful quotes in the terminal. TODO include more quotes
     ;; freetype
     ;; frei0r
     ;; fribidi
     ;; fx
-    ;; fzf
+    fzf ; fuzzy search util
     ;; fzy
     ;; gcc
     ;; gd
@@ -152,14 +129,14 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; ghc
     ;; ghostscript
     ;; giflib
-    ;; git
+    git ; version control system
     ;; git-delta
     ;; git-gui
     ;; glib
     ;; glog
     ;; gmp
     ;; gnu-getopt
-    ;; gnu-sed
+    gnu-sed ; standard sed util implementation
     ;; gnu-tar
     ;; gnupg
     ;; gnutls
@@ -179,7 +156,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; httpie
     ;; hub
     ;; hunspell
-    ;; hyperfine
+    hyperfine ; terminal benchmark util
     ;; icu4c
     ;; ijq
     ;; ilmbase
@@ -199,7 +176,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; jpeg-turbo
     ;; jpeg-xl
     ;; jq
-    just
+    just ; better make alternative
     ;; k6
     ;; kde-extra-cmake-modules
     ;; kf5-kdoctools
@@ -208,7 +185,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; kubectx
     ;; kubernetes-cli
     ;; lame
-    ;; lazygit
+    lazygit ; git TUI
     ;; lazykube
     ;; leiningen
     ;; leptonica
@@ -279,8 +256,8 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; libzip
     ;; little-cms2
     ;; llvm
-    ;; lolcat
-    ;; lsd
+    lolcat ; make terminal quotes colorful
+    lsd ; better ls alternative
     ;; lua
     ;; lua@5.3
     ;; luajit
@@ -302,7 +279,8 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; msgpack
     ;; mysql
     ;; ncurses
-    ;; neovim
+    neovide ; GUI for neovim
+    neovim ; better vim alternative
     ;; netpbm
     ;; nettle
     ;; nghttp2
@@ -334,13 +312,13 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; pinentry
     ;; pixman
     ;; pkg-config
-    ;; ponysay
+    ponysay ; cowsay alternative
     ;; poppler
     ;; postgresql
     ;; postgresql@13
     ;; postgresql@14
     ;; prettyping
-    ;; procs
+    procs ; better ps alternative
     ;; protobuf
     ;; pygments
     ;; python@3.10
@@ -348,7 +326,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; python@3.9
     ;; qt
     ;; qt@5
-    ;; ranger
+    ranger ; terminal file manager
     ;; rav1e
     ;; readline
     ;; recode
@@ -366,7 +344,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; shellcheck
     ;; showkey
     ;; six
-    ;; sk
+    sk ; like fzf. TODO compare with fzf and choose one
     ;; snappy
     ;; speedtest-cli
     ;; speex
@@ -375,8 +353,8 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; spotify-nameless-cli
     ;; sqlite
     ;; srt
-    ;; starship
-    ;; stow
+    starship ; zsh prompt
+    stow ; symlink management
     ;; styx-cli
     ;; taglib
     ;; tcl-tk
@@ -393,7 +371,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; v2ray
     ;; wakatime-cli
     ;; wangle
-    ;; watchexec
+    watchexec ; run commands on file change
     ;; watchman
     ;; webp
     ;; websocat
@@ -406,11 +384,11 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; xz
     ;; z
     ;; z3
-    ;; zellij
+    zellij ; better tmux alternative
     ;; zeromq
     ;; zimg
     ;; zlib
-    ;; zoxide
+    zoxide ; better cd alternative. z command
     ;; zsh
     ;; zstd
     ))
@@ -446,14 +424,13 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; font-victor-mono-nerd-font
     ;; github-beta
     ;; google-chrome
-    ;; google-cloud-sdk
+    google-cloud-sdk ; cli for google cloud
     ;; hammerspoon
     ;; iina
     ;; intellij-idea-ce
     ;; kitty
     ;; lapce
     ;; meetingbar
-    ;; neovide
     ;; noisebuddy
     ;; noisy
     ;; oracle-jdk
@@ -487,17 +464,17 @@ I didn't need tap for now. But I will keep it as a reference:
          (installed-taps (shell-command-to-string "brew tap"))
          (tap-out (mapconcat (lambda (tap)
                                (if (not (string-match-p (format "%s" tap) installed-taps))
-                                   (shell-command-to-string (format "echo %s" tap))
+                                   (shell-command-to-string (format "brew tap '%s'" tap))
                                  ""))
                              tap-list))
          (formula-out (mapconcat (lambda (formula)
                                    (if (not (string-match-p (format "%s" formula) installed-formulas))
-                                       (shell-command-to-string (format "echo '%s'" formula))
+                                       (shell-command-to-string (format "brew install '%s'" formula))
                                      ""))
                                  formula-list))
          (cask-out (mapconcat (lambda (cask)
                                 (if (not (string-match-p (format "%s" cask) installed-casks))
-                                    (shell-command-to-string (format "echo '%s'" cask))
+                                    (shell-command-to-string (format "brew install --cask '%s'" cask))
                                   ""))
                               cask-list)))
     (concat formula-out cask-out))
