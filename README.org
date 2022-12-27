@@ -496,20 +496,19 @@ I didn't need tap for now. But I will keep it as a reference:
 *** Brew install
 
 #+Name: install-deps
-#+begin_src elisp :var formula-list=brew-formulas cask-list=brew-casks tap-list=brew-taps
-  (let* ((tap-out (mapconcat (lambda (tap) (shell-command-to-string (format "echo brew tap '%s'" tap)))
-                             tap-list))
-         (formula-out (mapconcat (lambda (formula) (shell-command-to-string (format "echo brew install '%s'" formula)))
-                                 formula-list))
-         (cask-out (mapconcat (lambda (cask) (shell-command-to-string (format "echo brew install --cask '%s'" cask)))
-                              cask-list)))
-    (concat tap-out formula-out cask-out))
+#+begin_src shell :tangle setup.sh :var formula_list=brew-formulas cask_list=brew-casks tap_list=brew-taps
+  while read -r tap || [[ -n "$tap" ]]; do
+    brew tap "$tap";
+  done <<< $tap_list
+  while read -r formula || [[ -n "$formula" ]]; do
+    brew install "$formula";
+  done <<< $formula_list
+  while read -r cask || [[ -n "$cask" ]]; do
+    brew install --cask "$cask";
+  done <<< $cask_list
 #+end_src
 
 #+RESULTS: install-deps
-
-#+RESULTS:
-: ""
 
 
 ** Spacemacs
