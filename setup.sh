@@ -12,4 +12,9 @@ fi
 
 home_links/.local/bin/run_org README.org tldr
 
+if [[ ! -e ~/.emacs.d ]]; then
+    echo "Installing Spacemacs";
+    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d;
+fi
+
 stow -t $HOME home_links

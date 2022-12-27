@@ -47,7 +47,6 @@ Run this in the terminal. It will setup homebrew and emacs and run [[tldr]] elis
 #+Name: tldr
 #+begin_src elisp
   (org-sbe "install-deps")
-  (org-sbe "install-spacemacs")
 #+end_src
 
 
@@ -488,7 +487,7 @@ I didn't need tap for now. But I will keep it as a reference:
 ** Spacemacs
 
 #+Name: install-spacemacs
-#+begin_src shell
+#+begin_src shell :tangle setup.sh
   if [[ ! -e ~/.emacs.d ]]; then
       echo "Installing Spacemacs";
       git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d;
