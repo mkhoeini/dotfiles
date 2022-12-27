@@ -432,6 +432,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; corretto8
     ;; edex-ui
     firefox
+    flux
     ;; font-code-new-roman-nerd-font
     ;; font-dejavu-sans-mono-nerd-font
     font-droid-sans-mono-nerd-font
