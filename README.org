@@ -16,8 +16,13 @@ Run this in the terminal. It will setup homebrew and emacs and run [[tldr]] elis
 
 ** Setup script
 :PROPERTIES:
-:header-args: :tangle setup.sh :shebang "#!/bin/sh"
+:header-args: :tangle setup.sh :shebang "#!/usr/bin/env zsh"
 :END:
+
+*** Script preamble
+#+begin_src shell
+  set -euo pipefail
+#+end_src
 
 *** Install HomeBrew
 #+begin_src shell
