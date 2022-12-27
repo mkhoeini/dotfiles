@@ -112,3 +112,5 @@ export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 eval "$(zoxide init zsh)"
+
+export PATH="$HOME/Library/Python/3.9/bin:$PATH"
