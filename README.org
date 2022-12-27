@@ -56,7 +56,9 @@ I didn't need tap for now. But I will keep it as a reference:
 
     kde-mac/kde https://invent.kde.org/packaging/homebrew-kde.git
 
-#+Name: brew-taps
+*** Brew taps
+
+#+Name: brew-taps-requested
 #+begin_src elisp
   (quote
    (borkdude/brew ; babashka
@@ -73,7 +75,19 @@ I didn't need tap for now. But I will keep it as a reference:
     ))
 #+end_src
 
-#+Name: brew-formulas
+#+Name: brew-taps
+#+begin_src elisp :var tap-list=brew-taps-requested
+  (let* ((installed-taps (shell-command-to-string "brew tap"))
+         (is-not-installed (lambda (tap) (not (string-match-p (format "%s" tap) installed-taps)))))
+    (-filter is-not-installed tap-list))
+#+end_src
+
+#+RESULTS: brew-taps
+: nil
+
+*** Brew formulas
+
+#+Name: brew-formulas-requested
 #+begin_src elisp
   (quote
    (;; adns
@@ -403,7 +417,19 @@ I didn't need tap for now. But I will keep it as a reference:
     ))
 #+end_src
 
-#+Name: brew-casks
+#+Name: brew-formulas
+#+begin_src elisp :var formula-list=brew-formulas-requested
+  (let* ((installed-formulas (shell-command-to-string "brew list --formula"))
+         (is-not-installed (lambda (formula) (not (string-match-p (format "%s" formula) installed-formulas)))))
+    (-filter is-not-installed formula-list))
+#+end_src
+
+#+RESULTS: brew-formulas
+: nil
+
+*** Brew casks
+
+#+Name: brew-casks-requested
 #+begin_src elisp
   (quote
    (alacritty ; terminal emulator
@@ -457,28 +483,30 @@ I didn't need tap for now. But I will keep it as a reference:
     ))
 #+end_src
 
-#+Name: install-deps
-#+begin_src elisp :results value verbatim :var formula-list=brew-formulas cask-list=brew-casks tap-list=brew-taps
-  (let* ((installed-formulas (shell-command-to-string "brew list --formula"))
-         (installed-casks (shell-command-to-string "brew list --cask"))
-         (installed-taps (shell-command-to-string "brew tap"))
-         (tap-out (mapconcat (lambda (tap)
-                               (if (not (string-match-p (format "%s" tap) installed-taps))
-                                   (shell-command-to-string (format "brew tap '%s'" tap))
-                                 ""))
-                             tap-list))
-         (formula-out (mapconcat (lambda (formula)
-                                   (if (not (string-match-p (format "%s" formula) installed-formulas))
-                                       (shell-command-to-string (format "brew install '%s'" formula))
-                                     ""))
-                                 formula-list))
-         (cask-out (mapconcat (lambda (cask)
-                                (if (not (string-match-p (format "%s" cask) installed-casks))
-                                    (shell-command-to-string (format "brew install --cask '%s'" cask))
-                                  ""))
-                              cask-list)))
-    (concat formula-out cask-out))
+#+Name: brew-casks
+#+begin_src elisp :var cask-list=brew-casks-requested
+  (let* ((installed-casks (shell-command-to-string "brew list --cask"))
+         (is-not-installed (lambda (cask) (not (string-match-p (format "%s" cask) installed-casks)))))
+    (-filter is-not-installed cask-list))
 #+end_src
+
+#+RESULTS: brew-casks
+: nil
+
+*** Brew install
+
+#+Name: install-deps
+#+begin_src elisp :var formula-list=brew-formulas cask-list=brew-casks tap-list=brew-taps
+  (let* ((tap-out (mapconcat (lambda (tap) (shell-command-to-string (format "echo brew tap '%s'" tap)))
+                             tap-list))
+         (formula-out (mapconcat (lambda (formula) (shell-command-to-string (format "echo brew install '%s'" formula)))
+                                 formula-list))
+         (cask-out (mapconcat (lambda (cask) (shell-command-to-string (format "echo brew install --cask '%s'" cask)))
+                              cask-list)))
+    (concat tap-out formula-out cask-out))
+#+end_src
+
+#+RESULTS: install-deps
 
 #+RESULTS:
 : ""
