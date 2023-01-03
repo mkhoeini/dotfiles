@@ -447,7 +447,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; font-lilex
     ;; font-monoid-nerd-font
     ;; font-noto-nerd-font
-    font-robotomono-nerd-font ; used for alacritty
+    font-roboto-mono-nerd-font ; used for alacritty
     ;; font-victor-mono-nerd-font
     ;; github-beta
     ;; google-chrome
@@ -458,6 +458,7 @@ I didn't need tap for now. But I will keep it as a reference:
     itsycal ; calendar menubar
     ;; kitty
     ;; lapce
+    logseq ; personal knowledge management
     ;; meetingbar
     ;; noisebuddy
     ;; noisy
