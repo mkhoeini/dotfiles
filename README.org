@@ -80,9 +80,9 @@ I didn't need tap for now. But I will keep it as a reference:
 *** Brew formulas
 
 #+Name: brew-formulas-requested
-#+begin_src elisp
-  (quote
-   (;; adns
+#+begin_src ruby
+  <<HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
+    ;; adns
     antigen ; ZSH plugin management. TODO replace with antidote
     ;; aom
     ;; asciinema
@@ -406,18 +406,16 @@ I didn't need tap for now. But I will keep it as a reference:
     zoxide ; better cd alternative. z command
     zsh
     ;; zstd
-    ))
+  HEREDOC
 #+end_src
 
 #+Name: brew-formulas
-#+begin_src elisp :var formula-list=brew-formulas-requested
-  (let* ((installed-formulas (shell-command-to-string "brew list --formula"))
-         (is-not-installed (lambda (formula) (not (string-match-p (format "%s" formula) installed-formulas)))))
-    (-filter is-not-installed formula-list))
+#+begin_src ruby :var formula_list=brew-formulas-requested
+  installed = `brew list --formula`
+  formula_list.reject { |formula| installed.include? formula }
 #+end_src
 
 #+RESULTS: brew-formulas
-: nil
 
 *** Brew casks
 
