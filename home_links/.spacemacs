@@ -718,7 +718,11 @@ before packages are loaded."
   (with-eval-after-load 'evil-goggles
     (setq evil-goggles-async-duration 0.3))
   (with-eval-after-load 'org
-    (setq org-default-notes-file "~/Documents/org/notes.org"))
+    (setq org-default-notes-file "~/Documents/org/notes.org")
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((ruby . t)
+       )))
   (with-eval-after-load 'org-roam
     (org-roam-db-autosync-mode))
   (pixel-scroll-precision-mode)
