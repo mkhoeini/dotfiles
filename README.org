@@ -496,6 +496,15 @@ I didn't need tap for now. But I will keep it as a reference:
   done <<< $cask_list
 #+end_src
 
+#+begin_src ruby :var formula_list=brew-formulas cask_list=brew-casks tap_list=brew-taps
+  tap_list.each { |tap| `brew tap "#{tap}"` }
+  formula_list.each { |formula| `brew install "#{formula}"` }
+  cask_list.each { |cask| `brew install --cask "#{cask}"` }
+#+end_src
+
+#+RESULTS:
+
+
 #+RESULTS: install-deps
 
 
