@@ -121,7 +121,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; docbook-xsl
     ;; double-conversion
     ;; doxygen
-    ;; dust
+    dust ; better du alternative for measuring dir size
     ;; ebook-tools
     ;; edencommon
     ;; entr
