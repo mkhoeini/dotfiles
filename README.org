@@ -478,14 +478,12 @@ I didn't need tap for now. But I will keep it as a reference:
 #+end_src
 
 #+Name: brew-casks
-#+begin_src elisp :var cask-list=brew-casks-requested
-  (let* ((installed-casks (shell-command-to-string "brew list --cask"))
-         (is-not-installed (lambda (cask) (not (string-match-p (format "%s" cask) installed-casks)))))
-    (-filter is-not-installed cask-list))
+#+begin_src ruby :var cask_list=brew-casks-requested
+  installed = `brew list --cask`
+  cask_list.reject { |cask| installed.include? cask }
 #+end_src
 
 #+RESULTS: brew-casks
-: nil
 
 *** Brew install
 
