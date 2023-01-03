@@ -422,9 +422,9 @@ I didn't need tap for now. But I will keep it as a reference:
 *** Brew casks
 
 #+Name: brew-casks-requested
-#+begin_src elisp
-  (quote
-   (alacritty ; terminal emulator
+#+begin_src ruby
+  <<HEREDOC.gsub(/;.*$/, '').split(/\s+/)
+    alacritty ; terminal emulator
     browserosaurus ; select which browser. TODO replace with hammerspoon
     ;; chromium
     coconutbattery ; battery info util
@@ -447,7 +447,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; font-lilex
     ;; font-monoid-nerd-font
     ;; font-noto-nerd-font
-    ;; font-robotomono-nerd-font
+    font-robotomono-nerd-font ; used for alacritty
     ;; font-victor-mono-nerd-font
     ;; github-beta
     ;; google-chrome
@@ -473,7 +473,7 @@ I didn't need tap for now. But I will keep it as a reference:
     vimr ; another vim GUI
     visual-studio-code
     ;; xbar
-    ))
+  HEREDOC
 #+end_src
 
 #+Name: brew-casks
