@@ -19,20 +19,20 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 :header-args: :tangle setup.sh :shebang "#!/usr/bin/env zsh"
 :END:
 
-*** Script preamble
+*** Fundamentals
+**** Script preamble
 #+begin_src shell
   set -euo pipefail
 #+end_src
 
-*** Install HomeBrew
+**** Install HomeBrew
 #+begin_src shell
   if ! command -v brew >/dev/null; then
       echo "Installing HomeBrew"
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
 #+end_src
-
-*** Install Emacs
+**** Install Emacs
 #+begin_src shell
   if ! command -v emacs >/dev/null; then
       echo "Installing Emacs"
@@ -44,11 +44,16 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 
 ** Dependencies
 
+*** Homebrew Managed Dependencies
+:PROPERTIES:
+:header-args: :tangle setup.rb :shebang "#!/usr/bin/env ruby"
+:END:
+
+**** Taps
+
 I didn't need tap for now. But I will keep it as a reference:
 
     kde-mac/kde https://invent.kde.org/packaging/homebrew-kde.git
-
-*** Brew taps
 
 #+Name: brew-taps-requested
 #+begin_src ruby
@@ -74,8 +79,7 @@ I didn't need tap for now. But I will keep it as a reference:
 #+end_src
 
 #+RESULTS: brew-taps
-
-*** Brew formulas
+**** Formulas
 
 #+Name: brew-formulas-requested
 #+begin_src ruby
@@ -414,8 +418,7 @@ I didn't need tap for now. But I will keep it as a reference:
 #+end_src
 
 #+RESULTS: brew-formulas
-
-*** Brew casks
+**** Casks
 
 #+Name: brew-casks-requested
 #+begin_src ruby
@@ -480,8 +483,7 @@ I didn't need tap for now. But I will keep it as a reference:
 #+end_src
 
 #+RESULTS: brew-casks
-
-*** Brew install
+**** Install
 
 #+Name: install-deps
 #+begin_src shell :tangle setup.sh :var formula_list=brew-formulas cask_list=brew-casks tap_list=brew-taps
