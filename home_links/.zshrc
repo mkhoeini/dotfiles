@@ -3,7 +3,7 @@ RUN_ZPROF=false
 
 # This should remain at the top of file to do a proper profiling
 if $RUN_ZPROF; then
-  zmodload zsh/zprof
+    zmodload zsh/zprof
 fi
 
 # The following lines were added by compinstall
@@ -13,6 +13,10 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower
 zstyle :compinstall filename "$HOME/.zshrc"
 
 fpath+=~/.zfunc
+
+if [[ -e "$(brew --prefix)/share/zsh/site-functions" ]]; then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
 
 autoload -Uz compinit
 compinit
@@ -64,16 +68,16 @@ source ~/.zsh_aliases
 # Configs
 
 if [[ -e  "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ]]; then
-  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
-[[ -n $commands[starship] ]] && . <(starship init zsh)
+[[ -n $commands[starship] ]] && source <(starship init zsh)
 
 function username_to_userid {
- jhurl -p --site services.gew1 --method GET "hm://userdata/account?username=$1" 2>/dev/null | jq ".[] | .user_id"
+    jhurl -p --site services.gew1 --method GET "hm://userdata/account?username=$1" 2>/dev/null | jq ".[] | .user_id"
 }
 
 function userid_to_username {
-  jhurl -p --site services.gew1 --method GET "hm://userdata/account?user_id=$1" 2>/dev/null | jq ".[] | .username"
+    jhurl -p --site services.gew1 --method GET "hm://userdata/account?user_id=$1" 2>/dev/null | jq ".[] | .username"
 }
 
 bindkey '^G' per-directory-history-toggle-history
@@ -87,20 +91,20 @@ fortune | eval $(shuf -n 1 -e "$PONYSAY" "$COWSAY" $(jot -b cat 20))
 
 # This should remain as the last command in file to properly profile everything
 if $RUN_ZPROF; then
-  zprof
+    zprof
 fi
 
 # bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+[[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
 # Bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-[[ -x $(brew --prefix asdf)/libexec/asdf.sh ]] && . $(brew --prefix asdf)/libexec/asdf.sh
+[[ -s $(brew --prefix asdf)/libexec/asdf.sh ]] && source $(brew --prefix asdf)/libexec/asdf.sh
 # source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
-[[ -x ~/.asdf/plugins/java/set-java-home.zsh ]] && . ~/.asdf/plugins/java/set-java-home.zsh
+[[ -s ~/.asdf/plugins/java/set-java-home.zsh ]] && source ~/.asdf/plugins/java/set-java-home.zsh
 
 if [[ $TERMINAL_EMULATOR != "JetBrains-JediTerm" ]]; then
     eval "$(zellij setup --generate-auto-start zsh)"
