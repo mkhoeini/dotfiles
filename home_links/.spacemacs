@@ -151,6 +151,7 @@ This function should only modify configuration layer settings."
             shell-default-shell 'eshell
             shell-enable-smart-eshell t)
      shell-scripts
+     spacemacs-org
      spacemacs-purpose
      spell-checking
      ;; spotify
