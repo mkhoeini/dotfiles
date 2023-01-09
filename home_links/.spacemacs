@@ -4,7 +4,7 @@
 
 (defun dotspacemacs/layers ()
   "Layer configuration:
-This function should only modify configuration layer settings."
+ This function should only modify configuration layer settings."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
@@ -207,9 +207,9 @@ This function should only modify configuration layer settings."
 
 (defun dotspacemacs/init ()
   "Initialization:
-This function is called at the very beginning of Spacemacs startup,
-before layer configuration.
-It should only modify the values of Spacemacs settings."
+ This function is called at the very beginning of Spacemacs startup,
+ before layer configuration.
+ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
@@ -680,19 +680,19 @@ It should only modify the values of Spacemacs settings."
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
-This function defines the environment variables for your Emacs session. By
-default it calls `spacemacs/load-spacemacs-env' which loads the environment
-variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
-See the header of this file for more information."
+ This function defines the environment variables for your Emacs session. By
+ default it calls `spacemacs/load-spacemacs-env' which loads the environment
+ variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
+ See the header of this file for more information."
   (spacemacs/load-spacemacs-env))
 
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
-This function is called immediately after `dotspacemacs/init', before layer
-configuration.
-It is mostly for variables that should be set before packages are loaded.
-If you are unsure, try setting them in `dotspacemacs/user-config' first.")
+ This function is called immediately after `dotspacemacs/init', before layer
+ configuration.
+ It is mostly for variables that should be set before packages are loaded.
+ If you are unsure, try setting them in `dotspacemacs/user-config' first.")
   ;; (setq initial-frame-alist '((font ("JuliaMono:pixelsize=16:weight=regular:slant=normal:width=normal:spacing=100:scalable=true"))
   ;;                             (top . 5) (left . 10) (width . 120) (height . 40))))
 
@@ -700,18 +700,18 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first.")
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
-This function is called only while dumping Spacemacs configuration. You can
-`require' or `load' the libraries of your choice that will be included in the
-dump.")
+ This function is called only while dumping Spacemacs configuration. You can
+ `require' or `load' the libraries of your choice that will be included in the
+ dump.")
 
 
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
-This function is called at the very end of Spacemacs startup, after layer
-configuration.
-Put your configuration code here, except for variables that should be set
-before packages are loaded."
+ This function is called at the very end of Spacemacs startup, after layer
+ configuration.
+ Put your configuration code here, except for variables that should be set
+ before packages are loaded."
   ;; Configurations
   (setq scroll-margin 4)
   (setq-default line-spacing 8)
@@ -722,8 +722,8 @@ before packages are loaded."
     (setq org-default-notes-file "~/Documents/org/notes.org")
     (org-babel-do-load-languages
      'org-babel-load-languages
-     '((ruby . t)
-       )))
+     '((ruby . t))))
+
   (with-eval-after-load 'org-roam
     (org-roam-db-autosync-mode))
   (pixel-scroll-precision-mode)
@@ -753,7 +753,8 @@ before packages are loaded."
   ;; Global Modes
   (auto-save-visited-mode)
   (global-auto-revert-mode)
-  (global-company-mode))
+  (global-company-mode)
+  (global-display-line-numbers-mode))
 
 
 
@@ -761,9 +762,9 @@ before packages are loaded."
 ;; auto-generate custom variable definitions.
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
+ This is an auto-generated function, do not modify its content directly, use
+ Emacs customize menu instead.
+ This function is called at the very end of Spacemacs initialization."
  (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
