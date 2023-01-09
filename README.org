@@ -307,7 +307,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; lzo
     ;; m4
     ;; make
-    ;; maven
+    maven ; java package manager
     ;; mbedtls
     ;; md4c
     ;; mitmproxy
