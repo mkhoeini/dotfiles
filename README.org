@@ -45,12 +45,17 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 *** Other Setup
 **** Install Spacemacs
 
-#+Name: install-spacemacs
-#+begin_src shell :tangle setup.sh
+#+begin_src shell
   if [[ ! -e ~/.emacs.d ]]; then
       echo "Installing Spacemacs";
       git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d;
   fi
+#+end_src
+
+**** Enable repeat keys
+
+#+begin_src shell
+  defaults write -g ApplePressAndHoldEnabled -bool false
 #+end_src
 
 
