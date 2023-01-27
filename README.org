@@ -436,8 +436,9 @@ I didn't need tap for now. But I will keep it as a reference:
 #+begin_src ruby
   <<HEREDOC.gsub(/;.*$/, '').split(/\s+/)
     alacritty ; terminal emulator
+    ;blurred ; dim background apps windows
     browserosaurus ; select which browser. TODO replace with hammerspoon
-    ;; chromium
+    chromium
     coconutbattery ; battery info util
     ;; corretto
     ;; corretto8
@@ -464,6 +465,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; google-chrome
     google-cloud-sdk ; cli for google cloud
     hammerspoon ; desktop automation tool. TODO configs
+    hiddenbar ; make taskbar icons hidden
     iina ; greate video player
     intellij-idea-ce
     itsycal ; calendar menubar
