@@ -5,7 +5,7 @@ export LC_CTYPE="en_US.UTF-8"
 
 export PATH="$HOME/.local/bin/:$HOME/.poetry/bin:$HOME/.cargo/bin:/usr/local/bin:$PATH"
 
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 
 
 # Added by Toolbox App
