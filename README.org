@@ -2,8 +2,6 @@
 
 My personal dotfiles
 
-#+TOC: headlines
-
 * TL;DR
 
 Run this in the terminal. It will setup homebrew and emacs and install dependencies for you.
@@ -11,6 +9,7 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 #+begin_src shell
   ./setup.sh
 #+end_src
+
 
 * Code
 
@@ -97,6 +96,8 @@ I didn't need tap for now. But I will keep it as a reference:
 
 #+RESULTS: brew-taps
 **** Formulas
+
+- [ ] TODO Find a good docker setup 
 
 #+Name: brew-formulas-requested
 #+begin_src ruby
@@ -449,7 +450,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; corretto8
     ;; edex-ui
     firefox
-    flux
+    flux ; set color temp at evening
     ;; font-code-new-roman-nerd-font
     ;; font-dejavu-sans-mono-nerd-font
     font-droid-sans-mono-nerd-font
@@ -480,18 +481,20 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; meetingbar
     ;; noisebuddy
     ;; noisy
+    ;onething ; TODO doesn't exist - focus on one thing at a time
     ;; qutebrowser
-    ;; rectangle ; TODO migrate to hammerspoon
+    rectangle ; TODO migrate to hammerspoon
     ;; retinizer
     ;; spotify
     ;; swiftdefaultappsprefpane
     telegram
-    ;; telegram-desktop
+    ;; telegram-desktop ; electron based
     ;; todoist
     tomatobar ; pomodoro menubar
+    ;vimac ; TODO doesn't exist - mac vim mode hints overlay
     vimr ; another vim GUI
     visual-studio-code
-    ;; xbar
+    ;; xbar ; menubar super app
   HEREDOC
 #+end_src
 
