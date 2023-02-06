@@ -558,3 +558,298 @@ I didn't need tap for now. But I will keep it as a reference:
 #+end_src
 
 
+* TODO backups
+** zplug packages
+
+#+begin_quote
+───────┬──────────────────────────────────────────────────────────────────────────────────────────────
+       │ File: .zplug.tmp/packages.zsh
+───────┼──────────────────────────────────────────────────────────────────────────────────────────────
+   1   │ zplug "zsh-users/zsh-autosuggestions"
+   2   │ zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+   3   │ zplug "plugins/gitfast", from:oh-my-zsh
+   4   │ zplug "plugins/httpie", from:oh-my-zsh
+   5   │ zplug "plugins/lol", from:oh-my-zsh
+   6   │ zplug "plugins/git-extras", from:oh-my-zsh
+   7   │ zplug "plugins/osx", from:oh-my-zsh
+   8   │ zplug "plugins/gitignore", from:oh-my-zsh
+   9   │ zplug "plugins/github", from:oh-my-zsh
+  10   │ zplug "plugins/docker", from:oh-my-zsh
+  11   │ zplug "plugins/z", from:oh-my-zsh
+  12   │ zplug "plugins/fasd", from:oh-my-zsh
+  13   │ zplug "plugins/vi-mode", from:oh-my-zsh
+  14   │ zplug "plugins/tmux", from:oh-my-zsh
+  15   │ zplug "plugins/kubectl", from:oh-my-zsh
+  16   │ zplug "plugins/colored-man-pages", from:oh-my-zsh
+  17   │ zplug "zsh-users/zsh-syntax-highlighting", defer:2
+  18   │ zplug "plugins/history-substring-search", from:oh-my-zsh, defer:2
+  19   │ # zplug "b4b4r07/enhancd", use:init.sh
+  20   │ # zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, as:theme
+  21   │ zplug "zpm-zsh/colors"
+  22   │ zplug "zdharma/zsh-diff-so-fancy", as:command, use:bin/git-dsf
+  23   │ zplug "wfxr/forgit", defer:1
+  24   │ zplug "leophys/zsh-plugin-fzf-finder"
+  25   │ zplug "aperezdc/zsh-fzy"
+  26   │ zplug "oldratlee/hacker-quotes"
+  27   │ zplug "zsh-users/zaw", use:zaw.zsh
+  28   │ zplug "scmbreeze/scm_breeze"
+  29   │ zplug "psprint/zsh-navigation-tools"
+───────┴──────────────────────────────────────────────────────────────────────────────────────────────
+#+end_quote
+
+** intellimacs
+
+https://github.com/MarcoIeni/intellimacs
+
+** spacevim
+
+#+begin_quote
+#=============================================================================
+# dark_powered.toml --- dark powered configuration example for SpaceVim
+# Copyright (c) 2016-2017 Wang Shidong & Contributors
+# Author: Wang Shidong < wsdjeg at 163.com >
+# URL: https://spacevim.org
+# License: GPLv3
+#=============================================================================
+
+
+# All SpaceVim option below [option] section
+[options]
+# set spacevim theme. by default colorscheme layer is not loaded,
+# if you want to use more colorscheme, please load the colorscheme
+# layer
+colorscheme = "moonlight"
+colorscheme_bg = "dark"
+# Disable guicolors in basic mode, many terminal do not support 24bit
+# true colors
+enable_guicolors = true
+# Disable statusline separator, if you want to use other value, please
+# install nerd fonts
+statusline_separator = "arrow"
+statusline_inactive_separator = "arrow"
+buffer_index_type = 4
+enable_tabline_filetype_icon = true
+enable_statusline_mode = false
+# autocomplete_method = "coc"
+enable_neomake = false
+enable_ale = true
+lint_on_the_fly = true
+bootstrap_before = "myspacevim#before"
+bootstrap_after = "myspacevim#after"
+filemanager = "nerdtree"
+enable_vimfiler_welcome = false
+enable_vimfiler_gitstatus = true
+disabled_plugins = ["vim-signify"]
+lsp_engine = "coc"
+
+[[layers]]
+name = 'autocomplete'
+auto-completion-return-key-behavior = "complete"
+auto-completion-tab-key-behavior = "smart"
+# [layers.override_cmd]
+# ruby = ['solargraph', 'stdio']
+# typescript = ['typescript-language-server', '--stdio']
+
+[[layers]]
+name = "checkers"
+
+# [[layers]]
+# name = 'colorscheme'
+
+# [[layers]]
+# name = 'denite'
+
+# [[layers]]
+# name = "leaderf"
+
+# [[layers]]
+# name = "unite"
+
+[[layers]]
+name = "fzf"
+
+[[layers]]
+name = 'edit'
+textobj = ['indent', 'line', 'entire']
+
+[[layers]]
+name = 'git'
+git-plugin = 'gina'
+
+[[layers]]
+name = 'lang#dockerfile'
+
+[[layers]]
+name = 'lang#elixir'
+
+[[layers]]
+name = 'lang#graphql'
+
+[[layers]]
+name = 'lang#html'
+
+[[layers]]
+name = 'lang#javascript'
+
+[[layers]]
+name = 'lang#markdown'
+
+[[layers]]
+name = "lang#python"
+
+[[layers]]
+name = 'lang#ruby'
+repl_command = "pry"
+
+# [[layers]]
+# name = 'lang#typescript'
+
+[[layers]]
+  name = "lang#typescript"
+
+[[layers]]
+name = 'lsp'
+filetypes = [ "javascript", "typescript", "css" ]
+
+[[layers]]
+name = 'shell'
+default_position = 'float'
+default_height = 30
+
+[[layers]]
+name = 'sudo'
+
+[[layers]]
+name = 'tmux'
+
+[[layers]]
+name = 'VersionControl'
+
+[[custom_plugins]]
+name = "tpope/vim-vinegar"
+
+[[custom_plugins]]
+name = "mhartington/oceanic-next"
+
+[[custom_plugins]]
+name = "fenetikm/falcon"
+
+[[custom_plugins]]
+name = "airblade/vim-gitgutter"
+
+[[custom_plugins]]
+name = "jsfaint/coc-neoinclude"
+
+[[custom_plugins]]
+name = "neoclide/coc-sources"
+
+[[custom_plugins]]
+name = "tpope/vim-obsession"
+
+[[custom_plugins]]
+name = "tpope/vim-projectionist"
+
+[[custom_plugins]]
+name = "mgedmin/python-imports.vim"
+
+[[custom_plugins]]
+name = "ludovicchabant/vim-gutentags"
+
+[[custom_plugins]]
+name = "leafgarland/typescript-vim"
+
+[[custom_plugins]]
+name = "peitalin/vim-jsx-typescript"
+
+[[custom_plugins]]
+name = "mbbill/undotree"
+
+[[custom_plugins]]
+name = "Olical/aniseed"
+
+[[custom_plugins]]
+name = "Olical/nvim-local-fennel"
+
+[[custom_plugins]]
+name = "bakpakin/fennel.vim"
+
+[[custom_plugins]]
+name = "Olical/conjure"
+
+[[custom_plugins]]
+name = "eraserhd/parinfer-rust"
+
+[[custom_plugins]]
+name = "NoahTheDuke/vim-just"
+
+[[custom_plugins]]
+name = "dracula/vim"
+
+[[custom_plugins]]
+name = "shaunsingh/moonlight.nvim"
+
+#+end_quote
+
+** tmux
+
+#+begin_quote
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-open'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-pain-control'
+set -g @plugin 'tmux-plugins/tmux-sessionist'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+set -g @plugin 'tmux-plugins/tmux-online-status'
+set -g @plugin 'tmux-plugins/tmux-net-speed'
+set -g @plugin 'tmux-plugins/tmux-battery'
+set -g @plugin 'christoomey/vim-tmux-navigator'
+
+set -g @plugin 'arcticicestudio/nord-tmux'
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'git@github.com/user/plugin'
+# set -g @plugin 'git@bitbucket.com/user/plugin'
+
+set -g @resurrect-strategy-vim 'session'
+set -g @resurrect-strategy-nvim 'session'
+set -g @resurrect-capture-pane-contents 'on'
+set -g @resurrect-save-shell-history 'on'
+set -g @continuum-restore 'on'
+
+# Ring the bell if any background window rang a bell
+set -g @plugin 'arcticicestudio/nord-tmux'
+
+# Default termtype. If the rcfile sets $TERM, that overrides this value.
+set -g default-terminal screen-256color
+
+# Keep your finger on ctrl, or don't
+bind-key ^D detach-client
+
+# Create splits and vertical splits
+bind-key v split-window -h
+bind-key ^V split-window -h
+bind-key s split-window
+bind-key ^S split-window
+
+# easily toggle synchronization (mnemonic: e is for echo)
+# sends input to all panes in a given window.
+bind e setw synchronize-panes on
+bind E setw synchronize-panes off
+
+# set first window to index 1 (not 0) to map more to the keyboard layout...
+set-option -g base-index 1
+set-window-option -g pane-base-index 1
+
+set-option -g mouse on
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run -b '~/.tmux/plugins/tpm/tpm'
+
+#+end_quote
