@@ -188,7 +188,10 @@
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(just-mode)
+   dotspacemacs-additional-packages
+   '(just-mode
+     inf-ruby
+     (asdf :location (recipe :fetcher github :repo "tabfugnic/asdf.el")))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -752,11 +755,15 @@
   (push '(height . 80) default-frame-alist)
   ;; (push '(font ("JuliaMono:pixelsize=16:weight=regular:slant=normal:width=normal:spacing=100:scalable=true")) default-frame-alist)
 
+  (require 'asdf)
+  (asdf-enable)
+
   ;; Global Modes
   (auto-save-visited-mode)
   (global-auto-revert-mode)
   (global-company-mode)
   (global-display-line-numbers-mode))
+
 
 
 
