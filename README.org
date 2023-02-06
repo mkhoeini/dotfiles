@@ -14,15 +14,10 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 
 ** Setup script
 :PROPERTIES:
-:header-args: :tangle setup.sh :shebang "#!/usr/bin/env zsh"
+:header-args: :tangle setup.sh :shebang "#!/usr/bin/env zsh\nset -euo pipefail"
 :END:
 
 *** Fundamentals
-**** Script preamble
-#+begin_src shell
-  set -euo pipefail
-#+end_src
-
 **** Install HomeBrew
 #+begin_src shell
   if ! command -v brew >/dev/null; then
@@ -31,12 +26,28 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
   fi
 #+end_src
 **** Install Emacs
+
 #+begin_src shell
   if ! command -v emacs >/dev/null; then
       echo "Installing Emacs"
       brew tap d12frosted/emacs-plus
       brew install emacs-plus@29 --with-native-comp --with-modern-vscode-icon --with-xwidgets --with-imagemagick --with-poll --with-no-frame-refocus
   fi
+#+end_src
+
+**** Install GNU Stow
+
+#+begin_src shell
+  if ! command -v stow >/dev/null; then
+      echo "Installing GNU Stow"
+      brew install stow
+  fi
+#+end_src
+
+**** Link files
+
+#+begin_src shell
+  stow -t $HOME home_links
 #+end_src
 
 *** Other Setup
@@ -55,6 +66,12 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
   defaults write -g ApplePressAndHoldEnabled -bool false
 #+end_src
 
+**** Install dependencies
+
+#+begin_src shell
+  ./setup.rb
+#+end_src
+
 ** Dependencies
 :PROPERTIES:
 :header-args: :tangle setup.rb :shebang "#!/usr/bin/env ruby"
@@ -67,9 +84,8 @@ I didn't need tap for now. But I will keep it as a reference:
 
     kde-mac/kde https://invent.kde.org/packaging/homebrew-kde.git
 
-#+Name: brew-taps-requested
 #+begin_src ruby
-  <<HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
+  tap_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
     borkdude/brew ; babashka
     ;; bufbuild/buf
     homebrew/cask-drivers ; device drivers
@@ -84,20 +100,15 @@ I didn't need tap for now. But I will keep it as a reference:
   HEREDOC
 #+end_src
 
-#+Name: brew-taps
-#+begin_src ruby :var tap_list=brew-taps-requested
-  installed = `brew tap`
-  tap_list.reject { |tap| installed.include? tap }
+#+begin_src ruby
 #+end_src
 
-#+RESULTS: brew-taps
 **** Formulas
 
 - [ ] TODO Find a good docker setup 
 
-#+Name: brew-formulas-requested
 #+begin_src ruby
-  <<HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
+  formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
     ;; adns
     antigen ; ZSH plugin management. TODO replace with antidote
     ;; aom
@@ -427,18 +438,10 @@ I didn't need tap for now. But I will keep it as a reference:
   HEREDOC
 #+end_src
 
-#+Name: brew-formulas
-#+begin_src ruby :var formula_list=brew-formulas-requested
-  installed = `brew list --formula`
-  formula_list.reject { |formula| installed.include? formula }
-#+end_src
-
-#+RESULTS: brew-formulas
 **** Casks
 
-#+Name: brew-casks-requested
 #+begin_src ruby
-  <<HEREDOC.gsub(/;.*$/, '').split(/\s+/)
+  cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
     alacritty ; terminal emulator
     ;blurred ; dim background apps windows
     browserosaurus ; select which browser. TODO replace with hammerspoon
@@ -498,38 +501,24 @@ I didn't need tap for now. But I will keep it as a reference:
   HEREDOC
 #+end_src
 
-#+Name: brew-casks
-#+begin_src ruby :var cask_list=brew-casks-requested
-  installed = `brew list --cask`
-  cask_list.reject { |cask| installed.include? cask }
-#+end_src
-
-#+RESULTS: brew-casks
 **** Install
 
-#+Name: install-deps
-#+begin_src shell :tangle setup.sh :var formula_list=brew-formulas cask_list=brew-casks tap_list=brew-taps
-  while read -r tap || [[ -n "$tap" ]]; do
-    brew tap "$tap";
-  done <<< $tap_list
-  while read -r formula || [[ -n "$formula" ]]; do
-    brew install "$formula";
-  done <<< $formula_list
-  while read -r cask || [[ -n "$cask" ]]; do
-    brew install --cask "$cask";
-  done <<< $cask_list
+#+begin_src ruby
+  installed_taps = `brew tap`
+  tap_list
+    .reject { |tap| installed_taps.include? tap }
+    .each { |tap| `brew tap "#{tap}"` }
+
+  installed_formulas = `brew list --formula`
+  formula_list
+    .reject { |formula| installed_formulas.include? formula }
+    .each { |formula| `brew install "#{formula}"` }
+
+  installed_casks = `brew list --cask`
+  cask_list
+    .reject { |cask| installed_casks.include? cask }
+    .each { |cask| `brew install --cask "#{cask}"` }
 #+end_src
-
-#+begin_src ruby :var formula_list=brew-formulas cask_list=brew-casks tap_list=brew-taps
-  tap_list.each { |tap| `brew tap "#{tap}"` }
-  formula_list.each { |formula| `brew install "#{formula}"` }
-  cask_list.each { |cask| `brew install --cask "#{cask}"` }
-#+end_src
-
-#+RESULTS:
-
-
-#+RESULTS: install-deps
 
 *** ASDF dependencies
 **** Plugins
@@ -552,13 +541,6 @@ I didn't need tap for now. But I will keep it as a reference:
       `asdf install "#{plugin}" latest`
     end
 #+end_src
-
-** Link files
-
-#+begin_src shell :tangle setup.sh
-  stow -t $HOME home_links
-#+end_src
-
 
 * TODO backups
 ** zplug packages

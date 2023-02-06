@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-<<HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
+tap_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   borkdude/brew ; babashka
   ;; bufbuild/buf
   homebrew/cask-drivers ; device drivers
@@ -13,11 +13,9 @@
   ;tnk-studio/tools ; lazykube
 HEREDOC
 
-tap_list=["borkdude/brew", "homebrew/cask-drivers", "homebrew/cask-fonts", "homebrew/cask-versions", "mkhoeini/tap", "remotemobprogramming/brew"]
-installed = `brew tap`
-tap_list.reject { |tap| installed.include? tap }
 
-<<HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
+
+formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;; adns
   antigen ; ZSH plugin management. TODO replace with antidote
   ;; aom
@@ -260,6 +258,7 @@ tap_list.reject { |tap| installed.include? tap }
   ;; openssl@1.1
   ;; opus
   ;; p11-kit
+  p7zip ; 7zip compression with new extentions
   ;; pandoc
   ;; pango
   ;; parallel
@@ -314,6 +313,7 @@ tap_list.reject { |tap| installed.include? tap }
   ;; texinfo
   ;; theora
   ;; tree-sitter
+  triangle ; Convert images to triangulation art
   ;; ttyplot
   ;; unbound
   ;; unibilium
@@ -344,11 +344,7 @@ tap_list.reject { |tap| installed.include? tap }
   ;; zstd
 HEREDOC
 
-formula_list=["antigen", "asdf", "babashka", "bat", "bottom", "clojure", "clojurescript", "coreutils", "cowsay", "curlie", "direnv", "dust", "exa", "fd", "fortune-mod", "fzf", "git", "git-gui", "gnu-sed", "hub", "hyperfine", "ijq", "jq", "lolcat", "maven", "mob", "neovide", "neovim", "ponysay", "procs", "ripgrep", "rlwrap", "starship", "stow", "watchexec", "zellij", "zoxide", "zsh"]
-installed = `brew list --formula`
-formula_list.reject { |formula| installed.include? formula }
-
-<<HEREDOC.gsub(/;.*$/, '').split(/\s+/)
+cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   alacritty ; terminal emulator
   ;blurred ; dim background apps windows
   browserosaurus ; select which browser. TODO replace with hammerspoon
@@ -356,9 +352,10 @@ formula_list.reject { |formula| installed.include? formula }
   coconutbattery ; battery info util
   ;; corretto
   ;; corretto8
+  docker ; docker desktop. Uses correct arch
   ;; edex-ui
   firefox
-  flux
+  flux ; set color temp at evening
   ;; font-code-new-roman-nerd-font
   ;; font-dejavu-sans-mono-nerd-font
   font-droid-sans-mono-nerd-font
@@ -384,32 +381,52 @@ formula_list.reject { |formula| installed.include? formula }
   intellij-idea-ce
   itsycal ; calendar menubar
   ;; kitty
-  ;; lapce
+  ;; lapce ; Rust based GUI editor
   logseq ; personal knowledge management
   ;; meetingbar
   ;; noisebuddy
   ;; noisy
+  ;onething ; TODO doesn't exist - focus on one thing at a time
   ;; qutebrowser
-  ;; rectangle ; TODO migrate to hammerspoon
+  rectangle ; TODO migrate to hammerspoon
   ;; retinizer
   ;; spotify
   ;; swiftdefaultappsprefpane
   telegram
-  ;; telegram-desktop
+  ;; telegram-desktop ; electron based
   ;; todoist
   tomatobar ; pomodoro menubar
+  tribler ; torrent download client
+  ;vimac ; TODO doesn't exist - mac vim mode hints overlay
   vimr ; another vim GUI
   visual-studio-code
-  ;; xbar
+  ;; xbar ; menubar super app
 HEREDOC
 
-cask_list=["", "alacritty", "browserosaurus", "chromium", "coconutbattery", "firefox", "flux", "font-droid-sans-mono-nerd-font", "font-iosevka-nerd-font", "font-jetbrains-mono-nerd-font", "font-juliamono", "font-roboto-mono-nerd-font", "google-cloud-sdk", "hammerspoon", "hiddenbar", "iina", "intellij-idea-ce", "itsycal", "logseq", "telegram", "tomatobar", "vimr", "visual-studio-code"]
-installed = `brew list --cask`
-cask_list.reject { |cask| installed.include? cask }
+installed_taps = `brew tap`
+tap_list
+  .reject { |tap| installed_taps.include? tap }
+  .each { |tap| `brew tap "#{tap}"` }
 
-formula_list=""
-cask_list=""
-tap_list=""
-tap_list.each { |tap| `brew tap "#{tap}"` }
-formula_list.each { |formula| `brew install "#{formula}"` }
-cask_list.each { |cask| `brew install --cask "#{cask}"` }
+installed_formulas = `brew list --formula`
+formula_list
+  .reject { |formula| installed_formulas.include? formula }
+  .each { |formula| `brew install "#{formula}"` }
+
+installed_casks = `brew list --cask`
+cask_list
+  .reject { |cask| installed_casks.include? cask }
+  .each { |cask| `brew install --cask "#{cask}"` }
+
+requested_asdf_plugins = <<-HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
+  nodejs
+  rust
+HEREDOC
+
+installed_asdf_plugins = `asdf plugin list`
+requested_asdf_plugins
+  .reject { |plugin| installed_asdf_plugins.include? plugin }
+  .each do |plugin|
+    `asdf plugin add "#{plugin}"`
+    `asdf install "#{plugin}" latest`
+  end
