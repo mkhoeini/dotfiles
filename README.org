@@ -10,7 +10,6 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
   ./setup.sh
 #+end_src
 
-
 * Code
 
 ** Setup script
@@ -40,7 +39,6 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
   fi
 #+end_src
 
-
 *** Other Setup
 **** Install Spacemacs
 
@@ -57,14 +55,12 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
   defaults write -g ApplePressAndHoldEnabled -bool false
 #+end_src
 
-
 ** Dependencies
-
-*** Homebrew Managed Dependencies
 :PROPERTIES:
 :header-args: :tangle setup.rb :shebang "#!/usr/bin/env ruby"
 :END:
 
+*** Homebrew Managed Dependencies
 **** Taps
 
 I didn't need tap for now. But I will keep it as a reference:
@@ -398,6 +394,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; texinfo
     ;; theora
     ;; tree-sitter
+    triangle ; Convert images to triangulation art
     ;; ttyplot
     ;; unbound
     ;; unibilium
@@ -476,7 +473,7 @@ I didn't need tap for now. But I will keep it as a reference:
     intellij-idea-ce
     itsycal ; calendar menubar
     ;; kitty
-    ;; lapce
+    ;; lapce ; Rust based GUI editor
     logseq ; personal knowledge management
     ;; meetingbar
     ;; noisebuddy
@@ -491,6 +488,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; telegram-desktop ; electron based
     ;; todoist
     tomatobar ; pomodoro menubar
+    tribler ; torrent download client
     ;vimac ; TODO doesn't exist - mac vim mode hints overlay
     vimr ; another vim GUI
     visual-studio-code
@@ -531,11 +529,9 @@ I didn't need tap for now. But I will keep it as a reference:
 
 #+RESULTS: install-deps
 
-
 *** ASDF dependencies
 **** Plugins
 
-#+Name: requested_asdf_plugins
 #+begin_src ruby
   requested_asdf_plugins = <<-HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
     nodejs
@@ -544,9 +540,8 @@ I didn't need tap for now. But I will keep it as a reference:
 #+end_src
 
 #+RESULTS:
-| node | rust |
 
-#+begin_src ruby :var requested_asdf_plugins=requested_asdf_plugins
+#+begin_src ruby
   installed_asdf_plugins = `asdf plugin list`
   requested_asdf_plugins
     .reject { |plugin| installed_asdf_plugins.include? plugin }
@@ -556,15 +551,10 @@ I didn't need tap for now. But I will keep it as a reference:
     end
 #+end_src
 
-#+RESULTS:
-
-
-
 ** Link files
 
-#+Name: symlink
 #+begin_src shell :tangle setup.sh
   stow -t $HOME home_links
 #+end_src
 
-#+RESULTS: symlink
+
