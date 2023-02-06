@@ -340,6 +340,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; openssl@1.1
     ;; opus
     ;; p11-kit
+    p7zip ; 7zip compression with new extentions
     ;; pandoc
     ;; pango
     ;; parallel
@@ -445,6 +446,7 @@ I didn't need tap for now. But I will keep it as a reference:
     coconutbattery ; battery info util
     ;; corretto
     ;; corretto8
+    docker ; docker desktop. Uses correct arch
     ;; edex-ui
     firefox
     flux ; set color temp at evening
