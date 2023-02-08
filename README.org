@@ -185,7 +185,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; ghostscript
     ;; giflib
     git ; version control system
-    ;; git-delta ; TODO add the configs
+    git-delta ; show beautiful git diffs in terminal
     git-gui ; gitx and git gui commands
     ;; glib
     ;; glog

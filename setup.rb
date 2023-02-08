@@ -92,7 +92,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; ghostscript
   ;; giflib
   git ; version control system
-  ;; git-delta ; TODO add the configs
+  git-delta ; show beautiful git diffs in terminal
   git-gui ; gitx and git gui commands
   ;; glib
   ;; glog
