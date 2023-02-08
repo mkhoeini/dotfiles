@@ -1,9 +1,9 @@
 # This is Git's per-user configuration file.
 [user]
 # Please adapt and uncomment the following lines:
-name = Mohammad Sadegh Khoeini
-email = mohammadk@spotify.com
-	signingkey = AF5A796642E9D9F4
+	name = Mohammad Sadegh Khoeini
+	email = mohammadk@spotify.com
+	signingkey = /Users/mohammadk/.ssh/id_rsa.pub
 [hub]
 	host = ghe.spotify.net
 [merge]
@@ -36,7 +36,7 @@ email = mohammadk@spotify.com
 	ff = only
 [commit]
 	gpgsign = true
-[gpg]
-	program = /usr/local/bin/gpg
 [init]
 	defaultBranch = main
+[gpg]
+	format = ssh
