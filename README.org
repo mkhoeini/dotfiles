@@ -60,6 +60,15 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
   fi
 #+end_src
 
+**** Instal Intellimacs
+
+#+begin_src shell
+  if [[ ! -e ~/.intellimacs ]]; then
+      echo "Installing Intellimacs";
+      git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs;
+  fi
+#+end_src
+
 **** Enable repeat keys
 
 #+begin_src shell

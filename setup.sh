@@ -23,6 +23,11 @@ if [[ ! -e ~/.emacs.d ]]; then
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d;
 fi
 
+if [[ ! -e ~/.intellimacs ]]; then
+    echo "Installing Intellimacs";
+    git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs;
+fi
+
 defaults write -g ApplePressAndHoldEnabled -bool false
 
 ./setup.rb
