@@ -114,8 +114,6 @@ I didn't need tap for now. But I will keep it as a reference:
 
 **** Formulas
 
-- [ ] TODO Find a good docker setup 
-
 #+begin_src ruby
   formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
     ;; adns
