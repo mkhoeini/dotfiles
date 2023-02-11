@@ -96,6 +96,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   git-gui ; gitx and git gui commands
   ;; glib
   ;; glog
+  glow ; Beautiful Terminal Markdown Renderer
   ;; gmp
   ;; gnu-getopt
   gnu-sed ; standard sed util implementation
@@ -329,6 +330,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; wget
   ;; x264
   ;; x265
+  xdg-ninja ; Config dotfiles to be in XDG folders - TODO apply suggestions
   ;; xmlto
   ;; xorgproto
   ;; xvid
