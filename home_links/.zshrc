@@ -118,3 +118,7 @@ export PATH="$PNPM_HOME:$PATH"
 eval "$(zoxide init zsh)"
 
 export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/mohammadk/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

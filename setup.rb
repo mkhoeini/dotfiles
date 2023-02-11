@@ -352,7 +352,7 @@ cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   coconutbattery ; battery info util
   ;; corretto
   ;; corretto8
-  docker ; docker desktop. Uses correct arch
+  ;docker ; docker desktop. Uses correct arch
   ;; edex-ui
   firefox
   flux ; set color temp at evening
@@ -388,6 +388,7 @@ cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;; noisy
   ;onething ; TODO doesn't exist - focus on one thing at a time
   ;; qutebrowser
+  rancher ; Docker Desktop replacement
   rectangle ; TODO migrate to hammerspoon
   ;; retinizer
   ;; spotify

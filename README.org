@@ -458,7 +458,7 @@ I didn't need tap for now. But I will keep it as a reference:
     coconutbattery ; battery info util
     ;; corretto
     ;; corretto8
-    docker ; docker desktop. Uses correct arch
+    ;docker ; docker desktop. Uses correct arch
     ;; edex-ui
     firefox
     flux ; set color temp at evening
@@ -494,6 +494,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; noisy
     ;onething ; TODO doesn't exist - focus on one thing at a time
     ;; qutebrowser
+    rancher ; Docker Desktop replacement
     rectangle ; TODO migrate to hammerspoon
     ;; retinizer
     ;; spotify
