@@ -553,6 +553,9 @@ I didn't need tap for now. But I will keep it as a reference:
     end
 #+end_src
 
+* TODO setup
+- [ ] Setup https://gitlab.com/mtekman/org-tanglesync.el for diffing on tangling
+
 * TODO backups
 ** zplug packages
 
