@@ -106,7 +106,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 [[ -s ~/.asdf/plugins/java/set-java-home.zsh ]] && source ~/.asdf/plugins/java/set-java-home.zsh
 
-if [[ $TERMINAL_EMULATOR != "JetBrains-JediTerm" ]]; then
+# Only launch zellij if it's in Alacritty
+if [[ -n "$ALACRITTY_WINDOW_ID" ]]; then
     eval "$(zellij setup --generate-auto-start zsh)"
 fi
 
