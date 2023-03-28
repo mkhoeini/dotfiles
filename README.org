@@ -536,7 +536,11 @@ I didn't need tap for now. But I will keep it as a reference:
 
 #+begin_src ruby
   requested_asdf_plugins = <<-HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
+    kotlin
+    kscript
+    java
     nodejs
+    ruby
     rust
   HEREDOC
 #+end_src

@@ -354,6 +354,7 @@ cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   coconutbattery ; battery info util
   ;; corretto
   ;; corretto8
+  diffusionbee ; Stable Diffusion mac image tool
   ;docker ; docker desktop. Uses correct arch
   ;; edex-ui
   firefox
@@ -422,7 +423,11 @@ cask_list
   .each { |cask| `brew install --cask "#{cask}"` }
 
 requested_asdf_plugins = <<-HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
+  kotlin
+  kscript
+  java
   nodejs
+  ruby
   rust
 HEREDOC
 

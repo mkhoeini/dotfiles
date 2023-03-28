@@ -2,4 +2,6 @@ nodejs lts
 java graalvm-22.1.0+java17
 python 3.10.5
 rust beta
-ruby 3.2.0
+ruby 3.2.1
+kotlin 1.8.10
+kscript 4.2.1
