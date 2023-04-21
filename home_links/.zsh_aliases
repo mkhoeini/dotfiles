@@ -1,3 +1,9 @@
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g L='| less -R'
+alias -g G='| grep -i'
+
 alias b='brew'
 alias bi='brew install'
 alias bs='brew search'
@@ -13,8 +19,4 @@ alias top='btm'
 
 alias ec="emacsclient -cqua 'vi'"
 
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-alias -g L='| less -R'
-alias -g G='| grep -i'
+alias w='type -a'
