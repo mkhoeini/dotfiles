@@ -54,9 +54,18 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 **** Install Spacemacs
 
 #+begin_src shell
-  if [[ ! -e ~/.emacs.d ]]; then
+  if [[ ! -e ~/dotemacs/spacemacs ]]; then
       echo "Installing Spacemacs";
-      git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d;
+      git clone https://github.com/syl20bnr/spacemacs ~/dotemacs/spacemacs;
+  fi
+#+end_src
+
+**** Install Doom
+
+#+begin_src shell
+  if [[ ! -e ~/dotemacs/doom ]]; then
+      echo "Installing Doom Emacs";
+      git clone --depth 1 https://github.com/doomemacs/doomemacs ~/dotemacs/doom;
   fi
 #+end_src
 
@@ -107,9 +116,6 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; spotify/public
     ;tnk-studio/tools ; lazykube
   HEREDOC
-#+end_src
-
-#+begin_src ruby
 #+end_src
 
 **** Formulas

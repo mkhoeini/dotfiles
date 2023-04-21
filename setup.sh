@@ -8,7 +8,7 @@ fi
 if ! command -v emacs >/dev/null; then
     echo "Installing Emacs"
     brew tap d12frosted/emacs-plus
-    brew install emacs-plus@29 --with-native-comp --with-modern-vscode-icon --with-xwidgets --with-imagemagick --with-poll --with-no-frame-refocus
+    brew install emacs-plus@30 --with-native-comp --with-modern-vscode-icon --with-xwidgets --with-imagemagick --with-poll --with-no-frame-refocus
 fi
 
 if ! command -v stow >/dev/null; then
@@ -18,9 +18,14 @@ fi
 
 stow -t $HOME home_links
 
-if [[ ! -e ~/.emacs.d ]]; then
+if [[ ! -e ~/dotemacs/spacemacs ]]; then
     echo "Installing Spacemacs";
-    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d;
+    git clone https://github.com/syl20bnr/spacemacs ~/dotemacs/spacemacs;
+fi
+
+if [[ ! -e ~/dotemacs/doom ]]; then
+    echo "Installing Doom Emacs";
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/dotemacs/doom;
 fi
 
 if [[ ! -e ~/.intellimacs ]]; then

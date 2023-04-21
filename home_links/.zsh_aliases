@@ -18,5 +18,7 @@ alias ps='procs --tree'
 alias top='btm'
 
 alias ec="emacsclient -cqua 'vi'"
+alias sp="emacs --init-directory dotemacs/spacemacs"
+alias de="emacs --init-directory dotemacs/doom"
 
 alias w='type -a'

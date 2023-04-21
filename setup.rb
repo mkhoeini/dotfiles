@@ -13,8 +13,6 @@ tap_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;tnk-studio/tools ; lazykube
 HEREDOC
 
-
-
 formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;; adns
   antigen ; ZSH plugin management. TODO replace with antidote
