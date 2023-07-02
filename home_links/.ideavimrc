@@ -53,10 +53,11 @@ vmap m :action SelectNextOccurrence<CR>
 " nmap <leader>mfj <leader>mri:action ReformatWithPrettierAction<cr>
 " nmap <leader>mfo <leader>mri:action OptimizeImports<cr>
 
-unmap grr
 nmap gu <leader>mhU
 nmap gU <leader>mhu
-nmap gr <leader>mrR
+
+" Refactor
+nmap \r <leader>mrR
 
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j
