@@ -9,7 +9,7 @@ spoon.SpoonInstall:andUse("ClipboardTool", { start = true })
 spoon.SpoonInstall:andUse("Emojis", {})
 
 -- Make setFrame behave more correctly. e.g. terminal windows
-hs.window.setFrameCorrectness = true
+--hs.window.setFrameCorrectness = true
 
 function toggleEmojis()
   if spoon.Emojis.chooser:isVisible() then
