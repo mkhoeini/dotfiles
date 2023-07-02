@@ -111,7 +111,7 @@ I didn't need tap for now. But I will keep it as a reference:
     homebrew/cask-versions
     ;homebrew/command-not-found ; It's very slow. Don't use it
     mkhoeini/tap ; fortune-mod
-    ;oven-sh/bun ; bun.sh
+    oven-sh/bun ; bun.sh
     remotemobprogramming/brew
     ;; spotify/public
     ;tnk-studio/tools ; lazykube
@@ -137,7 +137,7 @@ I didn't need tap for now. But I will keep it as a reference:
     ;; boost
     bottom ; better top util
     ;; brotli
-    ;bun ; node.js alternative
+    bun ; node.js alternative
     ;; burklee
     ;; bzip2
     ;; c-ares

@@ -7,7 +7,7 @@ tap_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   homebrew/cask-versions
   ;homebrew/command-not-found ; It's very slow. Don't use it
   mkhoeini/tap ; fortune-mod
-  ;oven-sh/bun ; bun.sh
+  oven-sh/bun ; bun.sh
   remotemobprogramming/brew
   ;; spotify/public
   ;tnk-studio/tools ; lazykube
@@ -29,7 +29,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; boost
   bottom ; better top util
   ;; brotli
-  ;bun ; node.js alternative
+  bun ; node.js alternative
   ;; burklee
   ;; bzip2
   ;; c-ares
