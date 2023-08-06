@@ -18,6 +18,14 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 :END:
 
 *** Fundamentals
+**** Install tea
+#+begin_src shell
+if ! command -v tea >/dev/null; then
+    echo "Installing tea"
+    sh <(curl https://tea.xyz)
+fi
+#+end_src
+
 **** Install HomeBrew
 #+begin_src shell
 if ! command -v brew >/dev/null; then

@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 set -euo pipefail
+if ! command -v tea >/dev/null; then
+    echo "Installing tea"
+    sh <(curl https://tea.xyz)
+fi
+
 if ! command -v brew >/dev/null; then
     echo "Installing HomeBrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

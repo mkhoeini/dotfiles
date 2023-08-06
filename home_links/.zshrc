@@ -125,3 +125,5 @@ export PATH="/Users/mohammadk/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
 export PATH=$HOME/dotemacs/doom/bin:$PATH
+
+test -d "$HOME/.tea" && source <("$HOME/.tea/tea.xyz/v*/bin/tea" --magic=zsh --silent)
