@@ -28,6 +28,11 @@ if [[ ! -e ~/dotemacs/doom ]]; then
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/dotemacs/doom;
 fi
 
+if [[ ! -e ~/.config/nvim ]]; then
+    echo "Installing LazyVim";
+    git clone https://github.com/LazyVim/starter ~/.config/nvim;
+fi
+
 if [[ ! -e ~/.intellimacs ]]; then
     echo "Installing Intellimacs";
     git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs;
