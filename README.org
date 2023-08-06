@@ -25,8 +25,8 @@ if ! command -v brew >/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 #+end_src
-**** Install Emacs
 
+**** Install Emacs
 #+begin_src shell
 if ! command -v emacs >/dev/null; then
     echo "Installing Emacs"
@@ -36,7 +36,6 @@ fi
 #+end_src
 
 **** Install GNU Stow
-
 #+begin_src shell
 if ! command -v stow >/dev/null; then
     echo "Installing GNU Stow"
@@ -45,14 +44,12 @@ fi
 #+end_src
 
 **** Link files
-
 #+begin_src shell
 stow -t $HOME home_links
 #+end_src
 
 *** Other Setup
 **** Install Spacemacs
-
 #+begin_src shell
 if [[ ! -e ~/dotemacs/spacemacs ]]; then
     echo "Installing Spacemacs";
@@ -61,7 +58,6 @@ fi
 #+end_src
 
 **** Install Doom
-
 #+begin_src shell
 if [[ ! -e ~/dotemacs/doom ]]; then
     echo "Installing Doom Emacs";
@@ -70,7 +66,6 @@ fi
 #+end_src
 
 **** Install LazyVim
-
 #+begin_src shell
 if [[ ! -e ~/.config/nvim ]]; then
     echo "Installing LazyVim";
@@ -79,7 +74,6 @@ fi
 #+end_src
 
 **** Instal Intellimacs
-
 #+begin_src shell
 if [[ ! -e ~/.intellimacs ]]; then
     echo "Installing Intellimacs";
@@ -88,13 +82,11 @@ fi
 #+end_src
 
 **** Enable repeat keys
-
 #+begin_src shell
 defaults write -g ApplePressAndHoldEnabled -bool false
 #+end_src
 
 **** Install dependencies
-
 #+begin_src shell
 ./setup.rb
 #+end_src
@@ -106,7 +98,6 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 
 *** Homebrew Managed Dependencies
 **** Taps
-
 I didn't need tap for now. But I will keep it as a reference:
 
     kde-mac/kde https://invent.kde.org/packaging/homebrew-kde.git
@@ -128,7 +119,6 @@ HEREDOC
 #+end_src
 
 **** Formulas
-
 #+begin_src ruby
 formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;; adns
@@ -463,7 +453,6 @@ HEREDOC
 #+end_src
 
 **** Casks
-
 #+begin_src ruby
 cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   alacritty ; terminal emulator
@@ -528,7 +517,6 @@ HEREDOC
 #+end_src
 
 **** Install
-
 #+begin_src ruby
 installed_taps = `brew tap`
 tap_list
@@ -548,7 +536,6 @@ cask_list
 
 *** ASDF dependencies
 **** Plugins
-
 #+begin_src ruby
 requested_asdf_plugins = <<-HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
   kotlin
@@ -560,8 +547,7 @@ requested_asdf_plugins = <<-HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
 HEREDOC
 #+end_src
 
-#+RESULTS:
-
+**** Install
 #+begin_src ruby
 installed_asdf_plugins = `asdf plugin list`
 requested_asdf_plugins
