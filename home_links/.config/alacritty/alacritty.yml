@@ -52,6 +52,9 @@ window:
   #     - transparent: Title bar, transparent background, but no title bar buttons
   decorations: transparent
 
+  # make option key act as alt
+  option_as_alt: Both
+
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
