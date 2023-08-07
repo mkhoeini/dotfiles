@@ -1,0 +1,21 @@
+
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/colored-man-pages
+ohmyzsh/ohmyzsh path:plugins/command-not-found
+ohmyzsh/ohmyzsh path:plugins/common-aliases
+ohmyzsh/ohmyzsh path:plugins/direnv
+ohmyzsh/ohmyzsh path:plugins/fzf
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/gitfast
+ohmyzsh/ohmyzsh path:plugins/history-substring-search
+
+# ohmyzsh/ohmyzsh path:plugins/httpie
+lincheney/fzf-tab-completion path:/zsh/fzf-zsh-completion.sh
+# ohmyzsh/ohmyzsh path:plugins/osx
+
+ohmyzsh/ohmyzsh path:plugins/per-directory-history
+ohmyzsh/ohmyzsh path:plugins/vi-mode
+
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+zsh-users/zsh-syntax-highlighting

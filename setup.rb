@@ -15,7 +15,8 @@ HEREDOC
 
 formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;; adns
-  antigen ; ZSH plugin management. TODO replace with antidote
+  antidote ; ZSH plugin manager.
+  ;antigen ; ZSH plugin management. outdated. use antidote instead
   ;; aom
   ;; asciinema
   asdf ; tools version management

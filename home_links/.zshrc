@@ -54,10 +54,10 @@ zstyle ':completion:*' group-name ''
 export EDITOR='nvim'
 
 
-# Antigen
+# Antidote
 
-source "$(brew --prefix)/share/antigen/antigen.zsh"
-antigen init ~/.antigenrc
+source "$(brew --prefix)/share/antidote/antidote.zsh"
+antidote load ~/.config/antidote/plugins.txt
 
 
 # Aliases
