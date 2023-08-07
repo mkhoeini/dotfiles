@@ -419,7 +419,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; spotify-nameless-cli
   ;; sqlite
   ;; srt
-  starship ; zsh prompt. TODO replace with powerlevel10k
+  ;starship ; zsh prompt. instead use powerlevel10k
   stow ; symlink management
   ;; styx-cli
   ;; taglib

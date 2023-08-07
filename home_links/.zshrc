@@ -6,6 +6,17 @@ if $RUN_ZPROF; then
     zmodload zsh/zprof
 fi
 
+PONYSAY="$(shuf -n 1 -e ponysay ponythink) -f $(shuf -n 1 -e $(ponysay --all | grep -v 'ponies located in'))"
+COWSAY="$(shuf -n 1 -e cowsay cowthink) -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n | lolcat"
+fortune | eval $(shuf -n 1 -e "$PONYSAY" "$COWSAY" $(jot -b cat 20))
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
@@ -70,7 +81,6 @@ source ~/.zsh_aliases
 if [[ -e  "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ]]; then
     source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
-[[ -n $commands[starship] ]] && source <(starship init zsh)
 
 function username_to_userid {
     jhurl -p --site services.gew1 --method GET "hm://userdata/account?username=$1" 2>/dev/null | jq ".[] | .user_id"
@@ -84,15 +94,6 @@ bindkey '^G' per-directory-history-toggle-history
 bindkey '^T' fzf-file-widget
 bindkey '^R' fzf-history-widget
 # bindkey '^I' fzf-completion
-
-PONYSAY="$(shuf -n 1 -e ponysay ponythink) -f $(shuf -n 1 -e $(ponysay --all | grep -v 'ponies located in'))"
-COWSAY="$(shuf -n 1 -e cowsay cowthink) -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n | lolcat"
-fortune | eval $(shuf -n 1 -e "$PONYSAY" "$COWSAY" $(jot -b cat 20))
-
-# This should remain as the last command in file to properly profile everything
-if $RUN_ZPROF; then
-    zprof
-fi
 
 # bun completions
 [[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
@@ -127,3 +128,12 @@ export PATH="/Users/mohammadk/.rd/bin:$PATH"
 export PATH=$HOME/dotemacs/doom/bin:$PATH
 
 test -d "$HOME/.tea" && source <("$HOME/.tea/tea.xyz/v*/bin/tea" --magic=zsh --silent)
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+# This should remain as the last command in file to properly profile everything
+if $RUN_ZPROF; then
+    zprof
+fi
