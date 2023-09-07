@@ -22,3 +22,5 @@ alias sp="emacs --init-directory $HOME/dotemacs/spacemacs"
 alias de="emacs --init-directory $HOME/dotemacs/doom"
 
 alias w='type -a'
+
+alias pn=pnpm
