@@ -115,7 +115,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; harfbuzz
   ;; highway
   ;; hmtools
-  hub ; convenient github cli. TODO add configs
+  ;hub ; convenient github cli
   ;; hunspell
   hyperfine ; terminal benchmark util
   ;; icu4c
@@ -348,7 +348,7 @@ HEREDOC
 cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   alacritty ; terminal emulator
   ;blurred ; dim background apps windows
-  browserosaurus ; select which browser. TODO replace with hammerspoon
+  ;browserosaurus ; select which browser
   chromium
   coconutbattery ; battery info util
   ;; corretto
@@ -377,7 +377,7 @@ cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;; github-beta
   ;; google-chrome
   google-cloud-sdk ; cli for google cloud
-  hammerspoon ; desktop automation tool. TODO configs
+  hammerspoon ; desktop automation tool
   hiddenbar ; make taskbar icons hidden
   iina ; greate video player
   intellij-idea-ce
@@ -391,7 +391,7 @@ cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;onething ; TODO doesn't exist - focus on one thing at a time
   ;; qutebrowser
   ;rancher ; Docker Desktop replacement
-  rectangle ; TODO migrate to hammerspoon
+  ;rectangle ; Window management with keyboard
   ;; retinizer
   ;; spotify
   ;; swiftdefaultappsprefpane
