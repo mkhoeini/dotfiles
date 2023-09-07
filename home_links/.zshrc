@@ -137,3 +137,9 @@ test -d "$HOME/.tea" && source <("$HOME/.tea/tea.xyz/v*/bin/tea" --magic=zsh --s
 if $RUN_ZPROF; then
     zprof
 fi
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C "$HOME/.tea/xcfile.dev/v*/bin/xc" xc
