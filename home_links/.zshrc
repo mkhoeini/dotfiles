@@ -119,12 +119,6 @@ export PATH="$PNPM_HOME:$PATH"
 
 eval "$(zoxide init zsh)"
 
-export PATH="$HOME/Library/Python/3.9/bin:$PATH"
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/mohammadk/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-
 export PATH=$HOME/dotemacs/doom/bin:$PATH
 
 test -d "$HOME/.tea" && source <("$HOME/.tea/tea.xyz/v*/bin/tea" --magic=zsh --silent)
@@ -132,14 +126,13 @@ test -d "$HOME/.tea" && source <("$HOME/.tea/tea.xyz/v*/bin/tea" --magic=zsh --s
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-
-# This should remain as the last command in file to properly profile everything
-if $RUN_ZPROF; then
-    zprof
-fi
-
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C "$HOME/.tea/xcfile.dev/v*/bin/xc" xc
+
+# This should remain as the last command in file to properly profile everything
+if $RUN_ZPROF; then
+    zprof
+fi
