@@ -106,7 +106,7 @@ function userid_to_username {
     jhurl -p --site services.gew1 --method GET "hm://userdata/account?user_id=$1" 2>/dev/null | jq ".[] | .username"
 }
 
-bindkey '^G' per-directory-history-toggle-history
+bindkey '^X^L' per-directory-history-toggle-history
 bindkey '^T' fzf-file-widget
 bindkey '^R' fzf-history-widget
 # bindkey '^I' fzf-completion
