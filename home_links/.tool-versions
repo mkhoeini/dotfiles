@@ -1,5 +1,5 @@
 nodejs lts
-java graalvm-22.1.0+java17
+java corretto-17.0.6.10.1
 python 3.10.5
 rust beta
 ruby 3.2.1
