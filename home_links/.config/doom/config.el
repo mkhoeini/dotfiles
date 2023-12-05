@@ -81,3 +81,4 @@
 (setq calendar-date-style 'iso)
 ;; (pixel-scroll-precision-mode)
 (auto-save-visited-mode)
+(setq parinfer-rust-library "/Users/mohammadk/Dev/parinfer-rust/parinfer.so")
