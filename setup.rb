@@ -11,6 +11,7 @@ tap_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   remotemobprogramming/brew
   ;; spotify/public
   ;tnk-studio/tools ; lazykube
+  koekeishiya/formulae ; yabai
 HEREDOC
 
 formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
@@ -334,6 +335,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; xorgproto
   ;; xvid
   ;; xz
+  yabai
   ;; z
   ;; z3
   zellij ; better tmux alternative
