@@ -6,15 +6,22 @@ if $RUN_ZPROF; then
     zmodload zsh/zprof
 fi
 
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export HOMEBREW_EVAL_ALL=1
+
+# Only launch zellij if it's in Alacritty
+if [[ -n "$ALACRITTY_WINDOW_ID" ]]; then
+    ZELLIJ_AUTO_ATTACH=true
+    ZELLIJ_AUTO_EXIT=true
+    eval "$(zellij setup --generate-auto-start zsh)"
+fi
+
 export PATH="$HOME/.local/bin/:$HOME/.poetry/bin:$HOME/.cargo/bin:/usr/local/bin:$PATH"
 
 
 # Added by Toolbox App
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
-
-# Set PATH, MANPATH, etc., for Homebrew.
-eval "$(/opt/homebrew/bin/brew shellenv)"
-export HOMEBREW_EVAL_ALL=1
 
 source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
@@ -122,11 +129,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
 [[ -s ~/.asdf/plugins/java/set-java-home.zsh ]] && source ~/.asdf/plugins/java/set-java-home.zsh
-
-# Only launch zellij if it's in Alacritty
-if [[ -n "$ALACRITTY_WINDOW_ID" ]]; then
-    eval "$(zellij setup --generate-auto-start zsh)"
-fi
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
