@@ -14,8 +14,18 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 
 ** Setup script
 :PROPERTIES:
-:header-args: :tangle setup.sh :shebang "#!/usr/bin/env zsh\nset -euo pipefail"
+:header-args: :tangle setup.sh :shebang "#!/usr/bin/env zsh"
 :END:
+
+Safety first
+#+begin_src shell
+set -euxo pipefail
+#+end_src
+
+get the secrets
+#+begin_src shell
+eval "$(gpg --decrypt secrets.sh.gpg)"
+#+end_src
 
 *** Fundamentals
 **** Install tea
@@ -87,6 +97,13 @@ if [[ ! -e ~/.intellimacs ]]; then
     echo "Installing Intellimacs";
     git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs;
 fi
+#+end_src
+
+**** Install mojo
+#+begin_src shell
+curl https://get.modular.com | sh -
+modular auth $MOJO_AUTH
+modular install mojo
 #+end_src
 
 **** Enable repeat keys

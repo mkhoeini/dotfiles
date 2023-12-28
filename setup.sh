@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
-set -euo pipefail
+set -euxo pipefail
+
+eval "$(gpg --decrypt secrets.sh.gpg)"
+
 if ! command -v tea >/dev/null; then
     echo "Installing tea"
     sh <(curl https://tea.xyz)
@@ -42,6 +45,10 @@ if [[ ! -e ~/.intellimacs ]]; then
     echo "Installing Intellimacs";
     git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs;
 fi
+
+curl https://get.modular.com | sh -
+modular auth $MOJO_AUTH
+modular install mojo
 
 defaults write -g ApplePressAndHoldEnabled -bool false
 
