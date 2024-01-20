@@ -1,0 +1,211 @@
+* Edit with Emacs
+
+  [[./edit-with-emacs-demo.gif/]]
+
+  Any text, in just about any app can be edited using Emacs. The idea is simple - you press a dedicated key-combo (default: =Cmd+Ctrl+O=), Spacehammer copies the existing text & calls ~emacsclient~, which invokes a function that opens a buffer and pastes the text into it. Once you finish editing, you press =C-c C-c=, Emacs grabs the text, switches back to where you were before and pastes the new text in there. It works surprisingly well.
+
+  You can for example:
+  - open Browser's Dev Tools;
+  - press =Cmd+Ctrl+O=,
+  - then in Emacs, switch to js-mode, have all the bells and whistles: syntax-highlighting, autocomplete, etc.;
+  - write some javascript;
+  - finish editing, press =C-c C-c=
+    and it would paste that code back into the Dev Tools console.
+** Prerequisites
+The Hammerspoon IPC utility *must be installed and available in the $PATH.*
+Spacehammer should automatically install it. However, for various reasons (usually related to permissions), sometimes, it may fail to do so. If that's the case, after starting Hammerspoon, pull up its console (click on the 🔨 icon in the menu), then run the cliInstall command, giving it a folder to which the user has access, and *important!* is in $PATH. If Hammerspoon is installed via Homebrew, it is typically the "/opt/homebrew" directory.
+
+~hs.ipc.cliInstall("/opt/homebrew")~
+
+** Setup and customization
+
+   Note that Emacs *has to be running in daemon mode*, [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html][see documentation]].
+
+   After Spacehammer invokes ~emacsclient~, it calls multiple elisp functions. Those functions are in the =~/.hammerspoon/spacehammer.el= Emacs package. That package needs to be pre-loaded into Emacs.
+
+*** Package installation
+The package currently is not published on MELPA or other repositories, so you'd have to use your preferred package manager or whichever way you usually utilize to load things into Emacs.
+
+*** Vanilla Emacs
+Simply load the package either directly from GitHub (see the recipe below), or load =~/.hammerspoon/spacehammer.el= locally. Exact syntax may differ and depends on the package manager used.
+
+*** Doom
+Doom Emacs users can either:
+- modify their main packages.el and custom.el
+- or create a custom module
+
+**** packages.el
+There are two options:
+
+***** Load the package from GitHub:
+
+#+begin_src elisp
+(when (eq system-type 'darwin)
+  (package! spacehammer :recipe (:host github
+                                 :repo "agzam/spacehammer"
+                                 :files ("*.el"))))
+#+end_src
+
+***** Or symlink to the folder:
+Since you already have the package file in =~/.hammerspoon/=, instead of loading it from GitHub, you may choose to load it directly. This is also a preferred method since it ensures that the elisp code always remains compatible with any changes made to the fennel/lua code.
+
+If you're adding it as part of your custom module that you load in =~/.doom/init.el= (for example) like this:
+
+#+begin_src elisp
+(doom!
+   :custom
+   my-module)
+#+end_src
+then you just need to symlink to it:
+
+#+begin_src sh
+mkdir -p ~/.doom.d/modules/custom/my-module/spacehammer
+
+ln -s ~/.hammerspoon/spacehammer.el \
+    ~/.doom.d/modules/custom/my-module/spacehammer/spacehammer.el
+#+end_src
+
+Here's how the dir structure would look like:
+
+ #+begin_src
+ ~/.doom.d
+   └── modules
+       └── custom
+           └── my-module
+               └── spacehammer
+               │   └── spacehammer.el -> (symlinked to ~/.hammerspoon/spacehammer.el)
+               └── packages.el
+               └── config.el
+ #+end_src
+
+And the packages.el would be like this:
+
+#+begin_src elisp
+(when (eq system-type 'darwin)
+  (package! spacehammer
+    :recipe (:local-repo "spacehammer" :files ("*.el"))))
+#+end_src
+
+If you don't want to add it to a custom module, everything above can be applied at the level of =~/doom.d=, instead of =my-module=
+
+**** config.el
+That's where you would tweak your editing experience, use hooks provided by ~spacehammer.el~, etc. Here's an example config:
+
+#+begin_src elisp
+
+(use-package! spacehammer
+  :defer t
+  :commands spacehammer-edit-with-emacs
+  :config
+  (add-hook! 'spacehammer-edit-with-emacs-hook
+             #'spacehammer-edit-with-emacs-h)
+  (add-hook! 'spacehammer-before-finish-edit-with-emacs-hook
+             #'spacehammer-before-finish-edit-with-emacs-h)
+
+  ;; control where the window for edit buffer appears
+  (add-to-list
+   'display-buffer-alist
+   '("\\* spacehammer-edit.*"
+     (display-buffer-reuse-window
+      display-buffer-in-direction)
+     (direction . right)
+     (window . root)
+     (window-width . 0.30))))
+
+;; functions typically would go into autoload.el
+
+;;;###autoload
+(defun spacehammer-edit-with-emacs-h (buffer-name pid title)
+  ;; in this example, we're tying the Edit buffer to a file, so LSP works properly
+  (with-current-buffer (get-buffer buffer-name)
+    ;; need to set a filename, LSP can't work otherwise
+    (set-visited-file-name (format "/tmp/%s_%s_%s" buffer-name pid title))
+
+    ;; set it as unmodified, so it doesn't complain about unsaved file
+    (set-buffer-modified-p nil)
+
+    ;; you can use any mode, even set a different mode for each app, based on its `title'
+    (markdown-mode)
+
+    ;; changing major mode usually blows all buffer local vars, and we need them, so it
+    ;; keeps working properly with multiple apps
+    (setq-local spacehammer--caller-pid pid)
+
+    ;; if you're using Evil, you probably want to start typing right away
+    (evil-insert +1)))
+
+
+;;;###autoload
+(defun spacehammer-before-finish-edit-with-emacs-h (bufname pid)
+  ;; since we tied the buffer to a file (for lsp), let's make sure it doesn't complain
+  ;; about unsaved content when we're done editing
+  (with-current-buffer bufname
+    (set-buffer-modified-p nil)))
+
+#+end_src
+
+
+*** Spacemacs
+
+    Spacemacs users can either:
+    - add the package recipe to ~dotspacemacs-additional-packages~;
+    - or create a custom Spacemacs layer;
+
+      Creating a custom layer is easy, you need a ~packages.el~ file in a directory for your layer (to learn more, check [[https://github.com/syl20bnr/spacemacs/blob/develop/doc/LAYERS.org][Spacemacs documentation]])
+
+**** Spacemacs layer minimal example
+    Let's say you call the layer ~my-layer~, then the directory structure would look like the following:
+
+    #+begin_src
+    ├── my-layer
+    │   └── packages.el
+    #+end_src
+
+    You place ~my-layer~ in ~dotspacemacs-configuration-layer-path~ directory of your Spacemacs config.
+
+    Here's a minimal example of ~packages.el~ that includes spacehammer.el:
+
+    - First, you need to add spacehammer to the list of packages included in the layer
+      #+begin_src emacs-lisp
+        (defconst my-layer-packages
+          '((spacehammer
+             :location (recipe                        ; Basically this telling Emacs
+                        :fetcher file                 ; where to look for the package file (spacehammer.el)
+                        :path "~/.hammerspoon/"))))
+
+
+        ;; Sometimes (depending on the Emacs version and other things) that approach may not
+        ;; work. Emacs will complain about not being able to load the package. In that
+        ;; case, you can symlink the file and the directory structure for the layer has
+        ;; to be like this:
+
+        ;; .
+        ;; ├── local
+        ;; │   └── spacehammer
+        ;; │       └── spacehammer.el -> ~/.hammerspoon/spacehammer.el
+        ;; └── packages.el
+
+        ;; and the recipe would have to be something like this:
+
+        (defconst my-layer-packages
+          '((spacehammer :location local)))
+
+        ;; if you'd like to use the same Spacemacs config on different machines that
+        ;; aren't Macs, and you don't want it to complain about not finding the package
+        ;; (since Hammerspoon is not there):
+
+        (defconst my-layer-packages `(,(when (eq system-type 'darwin)
+                                         '(spacehammer :location local))))
+      #+end_src
+
+    - Next thing you need is to add an init function like so:
+
+    #+begin_src emacs-lisp
+      (defun my-layer/init-spacehammer ()
+        (use-package spacehammer
+          :demand t))
+    #+end_src
+
+    - Add your layer to ~dotspacemacs-configuration-layers~ in your Spacemacs config
+    - Either restart Emacs or run ~M-x dotspacemacs/sync-configuration-layers~ =<SPC f e R>=
+
