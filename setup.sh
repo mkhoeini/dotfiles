@@ -3,11 +3,6 @@ set -euxo pipefail
 
 eval "$(gpg --decrypt secrets.sh.gpg)"
 
-if ! command -v tea >/dev/null; then
-    echo "Installing tea"
-    sh <(curl https://tea.xyz)
-fi
-
 if ! command -v brew >/dev/null; then
     echo "Installing HomeBrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

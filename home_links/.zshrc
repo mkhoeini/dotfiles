@@ -139,8 +139,6 @@ eval "$(zoxide init zsh)"
 
 export PATH=$HOME/dotemacs/doom/bin:$PATH
 
-test -d "$HOME/.tea" && source <("$HOME/.tea/tea.xyz/v*/bin/tea" --magic=zsh --silent)
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -148,7 +146,6 @@ test -d "$HOME/.tea" && source <("$HOME/.tea/tea.xyz/v*/bin/tea" --magic=zsh --s
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C "$HOME/.tea/xcfile.dev/v*/bin/xc" xc
 
 # Mojo setup
 export MODULAR_HOME="$HOME/.modular"
