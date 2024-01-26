@@ -33,6 +33,8 @@ fpath+=( /Users/mohammadk/Library/Caches/antidote/https-COLON--SLASH--SLASH-gith
 source /Users/mohammadk/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh/plugins/git/git.plugin.zsh
 fpath+=( /Users/mohammadk/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh/plugins/gitfast )
 source /Users/mohammadk/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh/plugins/gitfast/gitfast.plugin.zsh
+fpath+=( /Users/mohammadk/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh/plugins/swiftpm )
+source /Users/mohammadk/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh/plugins/swiftpm/swiftpm.plugin.zsh
 fpath+=( /Users/mohammadk/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh/plugins/history-substring-search )
 source /Users/mohammadk/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh/plugins/history-substring-search/history-substring-search.plugin.zsh
 source /Users/mohammadk/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-lincheney-SLASH-fzf-tab-completion//zsh/fzf-zsh-completion.sh
