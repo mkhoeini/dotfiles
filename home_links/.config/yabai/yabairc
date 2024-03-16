@@ -1,0 +1,27 @@
+yabai -m config debug_output on
+
+# Spacing
+yabai -m config top_padding    20
+yabai -m config bottom_padding 20
+yabai -m config left_padding   20
+yabai -m config right_padding  20
+yabai -m config window_gap     20
+
+# Global Configs
+yabai -m config focus_follows_mouse autoraise
+yabai -m config mouse_follows_focus on
+yabai -m config window_origin_display cursor
+
+# Layout
+yabai -m config split_ratio 0.63
+yabai -m config layout bsp
+
+# rules
+yabai -m rule --add app="(^IntelliJ IDEA$)" title="Commit Changes" manage=off
+yabai -m rule --add app="(^IntelliJ IDEA$)" title="Push Commits" manage=off
+yabai -m rule --add app="(^IntelliJ IDEA$)" title="Merge Revisions" manage=off
+yabai -m rule --add app="(^IntelliJ IDEA$)" title="Conflicts" manage=off
+yabai -m rule --add app="(^IntelliJ IDEA$)" title="Create New Branch" manage=off
+yabai -m rule --add app="(^JetBrains Toolbox$)" manage=off
+
+#yabai -m signal --add event=window_focused action="yabai -m window --ratio abs:0.63"
