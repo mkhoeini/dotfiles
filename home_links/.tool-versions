@@ -1,7 +1,8 @@
 nodejs lts
-java corretto-17.0.6.10.1
+java corretto-21.0.2.13.1
 python 3.10.5
 rust beta
 ruby 3.2.1
 kotlin 1.8.10
 kscript 4.2.1
+deno system
