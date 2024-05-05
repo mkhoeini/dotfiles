@@ -1,4 +1,3 @@
-(local hyper (require :lib.hyper))
 (local {: contains?
         : map
         : split}
@@ -99,12 +98,10 @@
      (let [{:key key} item
            mods (or item.mods [])
            action-fn (action->fn item.action)]
-       (if (contains? :hyper mods)
-           (hyper.bind key action-fn)
-           (let [binding (hs.hotkey.bind mods key action-fn)]
-             (fn unbind
-               []
-               (: binding :delete))))))
+       (let [binding (hs.hotkey.bind mods key action-fn)]
+         (fn unbind
+           []
+           (: binding :delete)))))
    items))
 
 (fn unbind-global-keys

@@ -1,21 +1,17 @@
-(local {: global-filter} (require :lib.utils))
+(require-macros (doto :cljlib require))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; App switcher
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(ns apps
+    (:require [lib.utils :refer [global-filter]]))
 
-(fn calc-thumbnail-size
-  []
-  "
-  Calculates the height of thumbnail in pixels based on the screen size
-  @TODO Make this advisable when #102 lands
-  "
+
+(defn- calc-thumbnail-size []
+  "Calculates the height of thumbnail in pixels based on the screen size
+  @TODO Make this advisable when #102 lands"
   (let [screen (hs.screen.mainScreen)
         {: h} (: screen :currentMode)]
     (/ h 2)))
 
-(fn init
-  [config]
+(defn init [config]
   (global switcher
           (hs.window.switcher.new
            (or (?. config :modules :switcher :filter) (global-filter))
@@ -26,30 +22,18 @@
             :selectedThumbnailSize (calc-thumbnail-size)
             :backgroundColor [0 0 0 0]})))
 
-(fn prev-app
-  []
-  "
-  Open the fancy hammerspoon window switcher and move the cursor to the previous
+(defn prev-app []
+  "Open the fancy hammerspoon window switcher and move the cursor to the previous
   app.
   Runs side-effects
-  Returns nil
-  "
-  (: switcher :previous))
+  Returns nil"
+  (switcher:previous))
 
-(fn next-app
-  []
-  "
-  Open the fancy hammerspoon window switcher and move the cursor to next app.
+(defn next-app []
+  "Open the fancy hammerspoon window switcher and move the cursor to next app.
   Runs side-effects
-  Returns nil
-  "
-  (: switcher :next))
+  Returns nil"
+  (switcher:next))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Exports
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-{: init
- : prev-app
- : next-app}
+apps

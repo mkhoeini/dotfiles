@@ -4,12 +4,12 @@
     (:require [:windows]
               [:emacs]
               [:slack]
-              [:vim]
               [:lib.functional :refer [concat]]
               [:spoons]
-              [:window-ops])
-    (:require-macros [:lib.macros]
-                     [:lib.advice.macros]))
+              [:window-ops]))
+
+(require-macros :lib.macros)
+(require-macros :lib.advice.macros)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -336,14 +336,6 @@
         :keys browser-keys
         :items browser-items})
 
-(local emacs-config
-       {:key "Emacs"
-        :activate (fn [] (vim.disable))
-        :deactivate (fn [] (vim.enable))
-        :launch "emacs:maximize"
-        :items []
-        :keys []})
-
 (local grammarly-config
        {:key "Grammarly"
         :items (concat
@@ -418,7 +410,6 @@
        [brave-config
         chrome-config
         firefox-config
-        emacs-config
         grammarly-config
         hammerspoon-config
         slack-config])
@@ -430,7 +421,6 @@
         :enter (fn [] (windows.hide-display-numbers))
         :exit  (fn [] (windows.hide-display-numbers))
         :apps  apps
-        :hyper {:key :F18}
         :modules {:windows {:center-ratio "80:50"}}})
 
 

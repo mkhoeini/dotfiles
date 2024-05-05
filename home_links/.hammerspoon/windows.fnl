@@ -1,16 +1,11 @@
-(local {: filter
-        : get-in
-        : count
-        : concat
-        : contains?
-        : map
-        : for-each
-        : split} (require :lib.functional))
-(local {:global-filter global-filter} (require :lib.utils))
-(local {:atom   atom
-        :deref  deref
-        :swap!  swap!
-        :reset! reset!} (require :lib.atom))
+(require-macros (doto :cljlib require))
+
+(ns window
+    (:require [lib.functional :refer [filter get-in count concat contains? map for-each split]]
+              [lib.utils :refer [global-filter]]
+              [lib.atom :refer [atom deref swap! reset!]]
+              [hs.canvas :as canvas]))
+
 (require-macros :lib.advice.macros)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -19,12 +14,9 @@
 
 (global history {})
 
-(fn history.push
-  [self]
-  "
-  Append current window frame geometry to history.
-  self refers to history table instance
-  "
+(fn history.push [self]
+  "Append current window frame geometry to history.
+  self refers to history table instance"
   (let [win (hs.window.focusedWindow)
         id (when win (win:id))
         tbl (. self id)]
@@ -35,12 +27,9 @@
             (when (~= last-el (win:frame))
               (table.insert tbl (win:frame))))))))
 
-(fn history.pop
-  [self]
-  "
-  Go back to previous window frame geometry in history.
-  self refers to history table instance
-  "
+(fn history.pop [self]
+  "Go back to previous window frame geometry in history.
+  self refers to history table instance"
   (let [win (hs.window.focusedWindow)
         id (when win (win:id))
         tbl (. self id)]
@@ -54,19 +43,14 @@
                 (alert (.. num-of-undos " undo steps available"))))
             (alert "nothing to undo"))))))
 
-(fn undo
-  []
-  (: history :pop))
+(fn undo [] (history:pop))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shared Functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn highlight-active-window
-  []
-  "
-  Draw a border around the active window for a short period to highlight
-  "
+(defn highlight-active-window []
+  "Draw a border around the active window for a short period to highlight"
   (let [rect (hs.drawing.rectangle (: (hs.window.focusedWindow) :frame))]
     (: rect :setStrokeColor {:red 1 :blue 0 :green 1 :alpha 1})
     (: rect :setStrokeWidth 5)
@@ -74,58 +58,51 @@
     (: rect :show)
     (hs.timer.doAfter .3 (fn [] (: rect :delete)))))
 
-(fn maximize-window-frame
-  []
-  (: history :push)
+(fn maximize-window-frame []
+  (history:push)
   (: (hs.window.focusedWindow) :maximize 0)
   (highlight-active-window))
 
-(defn position-window-center
-      [ratio-str window screen]
-      "
-      Takes the center-ratio key from config, or default value if not
-      provided, and the window center-window-frame was called with,
-      and the current screen.
-      Should calculate the centered dimensions of the target window
-      using the ratio values
-      This function is advisable.
-      "
-      (let [frame (: screen :fullFrame)
-            [w-percent h-percent] (split ":" ratio-str)
-            w-percent (/ (tonumber w-percent) 100)
-            h-percent (/ (tonumber h-percent) 100)
-            update {:w (* w-percent frame.w)
-                    :h (* h-percent frame.h)
-                    :x 0
-                    :y 0}]
-        (doto window
-          (: :setFrameInScreenBounds update)
-          (: :centerOnScreen))
-        (highlight-active-window)))
+(defn position-window-center [ratio-str window screen]
+  "Takes the center-ratio key from config, or default value if not
+   provided, and the window center-window-frame was called with,
+   and the current screen.
+   Should calculate the centered dimensions of the target window
+   using the ratio values
+   This function is advisable."
+  (let [frame (screen:fullFrame)
+        [w-percent h-percent] (split ":" ratio-str)
+        w-percent (/ (tonumber w-percent) 100)
+        h-percent (/ (tonumber h-percent) 100)
+        update {:w (* w-percent frame.w)
+                :h (* h-percent frame.h)
+                :x 0
+                :y 0}]
+    (doto window
+      (: :setFrameInScreenBounds update)
+      (: :centerOnScreen))
+    (highlight-active-window)))
 
-(fn center-window-frame
-  []
-  (: history :push)
+(fn center-window-frame []
+  (history:push)
   (let [win (hs.window.focusedWindow)
         prev-duration hs.window.animationDuration
-        config (get-config)
+        config (require :config)
         ratio  (or (?. config :modules :windows :center-ratio) "80:50")
         screen (hs.screen.primaryScreen)]
     (tset hs.window :animationDuration 0)
     (position-window-center ratio win screen)
     (tset hs.window :animationDuration prev-duration)))
 
-(fn activate-app
-  [app-name]
+(fn activate-app [app-name]
   (hs.application.launchOrFocus app-name)
   (let [app (hs.application.find app-name)]
     (when app
-      (: app :activate)
+      (app:activate)
       (hs.timer.doAfter .05 highlight-active-window)
-      (: app :unhide))))
+      (app:unhide))))
 
-(fn set-mouse-cursor-at
-  [app-title]
+(fn set-mouse-cursor-at [app-title]
   (let [sf (: (: (hs.application.find app-title) :focusedWindow) :frame)
         desired-point (hs.geometry.point (- (+ sf._x sf._w)
                                             (/ sf._w  2))
@@ -133,13 +110,11 @@
                                             (/ sf._h 2)))]
     (hs.mouse.setAbsolutePosition desired-point)))
 
-(fn show-grid
-  []
-  (: history :push)
+(fn show-grid []
+  (history:push)
   (hs.grid.show))
 
-(fn jump-to-last-window
-  []
+(fn jump-to-last-window []
   (-> (global-filter)
       (: :getWindows hs.window.filter.sortByFocusedLast)
       (. 2)
@@ -149,49 +124,29 @@
 ;; Jumping Windows
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(fn jump-window
-  [arrow]
-  "
-  Navigate to the window nearest the current active window
+(fn jump-window [arrow]
+  "Navigate to the window nearest the current active window
   For instance if you open up emacs to the left of a web browser, activate
   emacs, then run (jump-window :l) hammerspoon will move active focus
   to the browser.
   Takes an arrow like :h :j :k :l to support vim key bindings.
   Performs side effects
-  Returns nil
-  "
+  Returns nil"
   (let [dir {:h "West" :j "South" :k "North" :l "East"}
         frontmost-win (hs.window.frontmostWindow)
         focus-dir (.. :focusWindow (. dir arrow))]
     (: hs.window.filter.defaultCurrentSpace focus-dir frontmost-win true true)
     (highlight-active-window)))
 
-(fn jump-window-left
-  []
-  (jump-window :h))
+(fn jump-window-left [] (jump-window :h))
+(fn jump-window-above [] (jump-window :j))
+(fn jump-window-below [] (jump-window :k))
+(fn jump-window-right [] (jump-window :l))
 
-(fn jump-window-above
-  []
-  (jump-window :j))
-
-(fn jump-window-below
-  []
-  (jump-window :k))
-
-(fn jump-window-right
-  []
-  (jump-window :l))
-
-(fn allowed-app?
-  [window]
-  (if (: window :isStandard)
-      true
-      false))
+(fn allowed-app? [window] (window:isStandard))
 
 (fn jump []
-  "
-  Displays hammerspoon's window jump UI
-  "
+  "Displays hammerspoon's window jump UI"
   (let [wns (->> (hs.window.allWindows)
                  (filter allowed-app?))]
     (hs.hints.windowHints wns nil true)))
@@ -208,12 +163,9 @@
   :h {:half [0  0 .5  1] :movement [-20   0] :complement :j :resize "Thinner"}
   :l {:half [.5 0 .5  1] :movement [ 20   0] :complement :k :resize "Wider"}})
 
-(fn grid
-  [method direction]
-  "
-  Moves, expands, or shrinks the active window by the next grid dimension. Grid
-  settings are specified in config.fnl.
-  "
+(fn grid [method direction]
+  "Moves, expands, or shrinks the active window by the next grid dimension. Grid
+  settings are specified in config.fnl."
   (let [fn-name (.. method direction)
         f (. hs.grid fn-name)]
     (f (hs.window.focusedWindow))))
@@ -223,181 +175,115 @@
 ;; Resize window by half
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(fn rect
-  [rct]
-  "
-  Change a window's rect geometry which includes x, y, width, and height
+(fn rect [rct]
+  "Change a window's rect geometry which includes x, y, width, and height
   Takes a rectangle table
   Performs side-effects to move or resize the active window and update history.
-  Returns nil
-  "
-  (: history :push)
+  Returns nil"
+  (history:push)
   (let [win (hs.window.focusedWindow)]
-    (when win (: win :move rct))))
+    (when win (win:move rct))))
 
-(fn resize-window-halve
-  [arrow]
-  "
-  Resize a window by half the grid dimensions specified in config.fnl.
+(fn resize-window-halve [arrow]
+  "Resize a window by half the grid dimensions specified in config.fnl.
   Takes an :h :j :k or :l arrow
   Performs a side effect to resize the active window's frame rect
-  Returns nil
-  "
-  (: history :push)
+  Returns nil"
+  (history:push)
   (rect (. arrow-map arrow :half)))
 
-(fn resize-half-left
-  []
-  (resize-window-halve :h))
-
-(fn resize-half-right
-  []
-  (resize-window-halve :l))
-
-(fn resize-half-top
-  []
-  (resize-window-halve :k))
-
-(fn resize-half-bottom
-  []
-  (resize-window-halve :j))
+(fn resize-half-left [] (resize-window-halve :h))
+(fn resize-half-right [] (resize-window-halve :l))
+(fn resize-half-top [] (resize-window-halve :k))
+(fn resize-half-bottom [] (resize-window-halve :j))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Resize window by increments
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(fn resize-by-increment
-  [arrow]
-  "
-  Resize the active window by the next window increment
+(fn resize-by-increment [arrow]
+  "Resize the active window by the next window increment
   Let's say we make the grid dimensions 4x4 and we place a window in the 1x1
   meaning first column in the first row.
   We then resize an increment right. The dimensions would now be 2x1
 
   Takes an arrow like :h :j :k :l
   Performs a side-effect to resize the current window to the next grid increment
-  Returns nil
-  "
-  (let [directions {:h "Left"
-                    :j "Down"
-                    :k "Up"
-                    :l "Right"}]
-    (: history :push)
+  Returns nil"
+  (let [directions {:h "Left" :j "Down" :k "Up" :l "Right"}]
+    (history:push)
     (when (or (= arrow :h) (= arrow :l))
       (hs.grid.resizeWindowThinner (hs.window.focusedWindow)))
     (when (or (= arrow :j) (= arrow :k))
       (hs.grid.resizeWindowShorter (hs.window.focusedWindow)))
     (grid :pushWindow (. directions arrow))))
 
-(fn resize-inc-left
-  []
-  (resize-by-increment :h))
-
-(fn resize-inc-bottom
-  []
-  (resize-by-increment :j))
-
-(fn resize-inc-top
-  []
-  (resize-by-increment :k))
-
-(fn resize-inc-right
-  []
-  (resize-by-increment :l))
+(fn resize-inc-left [] (resize-by-increment :h))
+(fn resize-inc-bottom [] (resize-by-increment :j))
+(fn resize-inc-top [] (resize-by-increment :k))
+(fn resize-inc-right [] (resize-by-increment :l))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Resize windows
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(fn resize-window
-  [arrow]
-  "
-  Resizes a window against the grid specifed in config.fnl
+(fn resize-window [arrow]
+  "Resizes a window against the grid specifed in config.fnl
   Takes an arrow string like :h :k :j :l
   Performs a side effect to resize the current window.
-  Returns nil
-  "
-  (: history :push)
+  Returns nil"
+  (history:push)
   ;; hs.grid.resizeWindowShorter/Taller/Thinner/Wider
   (grid :resizeWindow (. arrow-map arrow :resize)))
 
-(fn resize-left
-  []
-  (resize-window :h))
-
-(fn resize-up
-  []
-  (resize-window :j))
-
-(fn resize-down
-  []
-  (resize-window :k))
-
-(fn resize-right
-  []
-  (resize-window :l))
+(fn resize-left [] (resize-window :h))
+(fn resize-up [] (resize-window :j))
+(fn resize-down [] (resize-window :k))
+(fn resize-right [] (resize-window :l))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Resize to grid preset
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(fn resize-to-grid
-  [grid]
-  (: history :push)
+(fn resize-to-grid [grid]
+  (history:push)
   (hs.grid.set (hs.window.focusedWindow) grid))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Move to screen directions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(fn move-to-screen
-  [screen]
+(fn move-to-screen [screen]
   "Moves current window onto given hs.screen instance"
   (let [w (hs.window.focusedWindow)
         no-resize true]
-    (: w :moveToScreen screen no-resize)))
+    (w:moveToScreen screen no-resize)))
 
-(fn move-screen
-  [method]
-  "
-  Moves a window to the display in the specified direction
+(fn move-screen [method]
+  "Moves a window to the display in the specified direction
   :north ^  :south v :east -> :west <-
   Takes a method name of the hammer spoon window instance.
   You probably will not be using this function directly.
   Performs a side effect that will move a window the next screen in specified
   direction.
-  Returns nil
-  "
+  Returns nil"
   (let [window (hs.window.focusedWindow)]
     (: window method nil true)))
 
-(fn move-north
-  []
-  (move-screen :moveOneScreenNorth))
+(fn move-north [] (move-screen :moveOneScreenNorth))
+(fn move-south [] (move-screen :moveOneScreenSouth))
+(fn move-east [] (move-screen :moveOneScreenEast))
+(fn move-west [] (move-screen :moveOneScreenWest))
 
-(fn move-south
-  []
-  (move-screen :moveOneScreenSouth))
-
-(fn move-east
-  []
-  (move-screen :moveOneScreenEast))
-
-(fn move-west
-  []
-  (move-screen :moveOneScreenWest))
-
-(local canvas (require :hs.canvas))
 (local screen-number-canvases (atom []))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Move to screen by number
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(fn show-display-number
-  [idx screen]
+(fn show-display-number [idx screen]
   "Shows a big number at the corner of hs.screen.
    To be used as for multi-monitor setups, to easily identify index of each
    screen."
@@ -417,8 +303,7 @@
            :withShadow true}])
       (: :show))))
 
-(fn show-display-numbers
-  [screens]
+(fn show-display-numbers [screens]
   "Shows big number at the corner of each screen.
    To be used as for multi-monitor setups, to easily identify index of each screen."
   (let [ss (hs.screen.allScreens)]
@@ -426,67 +311,52 @@
       (each [idx display (ipairs (hs.screen.allScreens))]
         (show-display-number idx display)))))
 
-(fn hide-display-numbers
-  []
+(fn hide-display-numbers []
   "Hides big numbers at the corner of each screen that are used for guidance in
    multi-monitor setups."
   (for-each
-   (fn [c] (: c :delete .4))
+   (fn [c] (c:delete .4))
    (deref screen-number-canvases))
   (reset! screen-number-canvases []))
 
-(fn monitor-item
-  [screen i]
-  "
-  Creates a menu item to move the frontMost window to the specified screen index
+(fn monitor-item [screen i]
+  "Creates a menu item to move the frontMost window to the specified screen index
   Takes a hs.screen instance and an index integer
-  Returns a table-map to add to a config.fnl modal menu
-  "
+  Returns a table-map to add to a config.fnl modal menu"
   {:title (.. "Monitor " i)
    :key (tostring i)
    :group :monitor
-   :action (fn []
-             (when screen
-               (move-to-screen screen)))})
+   :action (fn [] (when screen (move-to-screen screen)))})
 
-(fn remove-monitor-items
-  [menu]
-  "
-  Removes the monitor items from a menu
+(fn remove-monitor-items [menu]
+  "Removes the monitor items from a menu
   Takes a menu table-map
   Mutates the menu object to remove items with :group :monitor flags
-  Returns mutated table-map
-  "
+  Returns mutated table-map"
   (->> menu.items
        (filter #(not (= (. $ :group) :monitor)))
        (tset menu :items))
   menu)
 
-(fn add-monitor-items
-  [menu screens]
-  "
-  Update a menu by adding an item for each connected monitor
+(fn add-monitor-items [menu screens]
+  "Update a menu by adding an item for each connected monitor
   Takes a menu table-map and a table-list of hs.screens
   Mutates the menu.items by adding items for each monitor
-  Returns mutated modal menu table-map
-  "
+  Returns mutated modal menu table-map"
   (->> screens
        (map monitor-item)
        (concat menu.items)
        (tset menu :items))
   menu)
 
-(fn enter-window-menu
-  [menu]
-  "
-  Handler that can be used when entering the windows menu
+(fn enter-window-menu [menu]
+  "Handler that can be used when entering the windows menu
   Takes modal menu table-map
   - Hides any previous display numbers
   - Shows display numbers at top right of each screen
   - Removes previous monitor items if any were added
   - Adds monitor items based on currently connected monitors
-  Returns mutated modal menu table-map for threading or chaining
-  "
+  Returns mutated modal menu table-map for threading or chaining"
   (let [screens (hs.screen.allScreens)]
     (hide-display-numbers)
     (show-display-numbers screens)
@@ -494,13 +364,10 @@
     (add-monitor-items menu screens))
   menu)
 
-(fn exit-window-menu
-  [menu]
-  "
-  Handler that can be used when exiting the windows menu
+(fn exit-window-menu [menu]
+  "Handler that can be used when exiting the windows menu
   - Removes previous monitor items if any were added
-  Returns mutated modal menu table-map for threading or chaining
-  "
+  Returns mutated modal menu table-map for threading or chaining"
   (hide-display-numbers)
   menu)
 
@@ -509,14 +376,11 @@
 ;; Initialization
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(fn init
-  [config]
-  "
-  Initializes the windows module
+(fn init [config]
+  "Initializes the windows module
   Performs side effects:
   - Set grid margins from config.fnl like {:grid {:margins [10 10]}}
-  - Set the grid dimensions from config.fnl like {:grid {:size \"3x2\"}}
-  "
+  - Set the grid dimensions from config.fnl like {:grid {:size \"3x2\"}}"
   (hs.grid.setMargins (or (get-in [:grid :margins] config) [0 0]))
   (hs.grid.setGrid (or (get-in [:grid :size] config) "3x2")))
 
