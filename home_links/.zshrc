@@ -11,10 +11,8 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export HOMEBREW_EVAL_ALL=1
 
 # Only launch zellij if it's in Alacritty
-if [[ -n "$ALACRITTY_WINDOW_ID" ]]; then
-    ZELLIJ_AUTO_ATTACH=true
-    ZELLIJ_AUTO_EXIT=true
-    eval "$(zellij setup --generate-auto-start zsh)"
+if [[ -n "$ALACRITTY_WINDOW_ID" && ! -n "$ZELLIJ" ]]; then
+  zellij attach -c --index 0
 fi
 
 export PATH="$HOME/.local/bin/:$HOME/.poetry/bin:$HOME/.cargo/bin:/usr/local/bin:$PATH"
