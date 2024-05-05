@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+set -euxo pipefail
+
+emacsclient -cqua '' "$@" &!
