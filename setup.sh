@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 set -euxo pipefail
 
-eval "$(gpg --decrypt secrets.sh.gpg)"
+# I forgot the password! ':)
+# eval "$(gpg --decrypt secrets.sh.gpg)"
 
 if ! command -v brew >/dev/null; then
     echo "Installing HomeBrew"
@@ -21,11 +22,6 @@ fi
 
 stow -t $HOME home_links
 
-if [[ ! -e ~/dotemacs/spacemacs ]]; then
-    echo "Installing Spacemacs";
-    git clone https://github.com/syl20bnr/spacemacs ~/dotemacs/spacemacs;
-fi
-
 if [[ ! -e ~/dotemacs/doom ]]; then
     echo "Installing Doom Emacs";
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/dotemacs/doom;
@@ -40,10 +36,6 @@ if [[ ! -e ~/.intellimacs ]]; then
     echo "Installing Intellimacs";
     git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs;
 fi
-
-curl https://get.modular.com | sh -
-modular auth $MOJO_AUTH
-modular install mojo
 
 defaults write -g ApplePressAndHoldEnabled -bool false
 

@@ -24,7 +24,8 @@ set -euxo pipefail
 
 get the secrets
 #+begin_src shell
-eval "$(gpg --decrypt secrets.sh.gpg)"
+# I forgot the password! ':)
+# eval "$(gpg --decrypt secrets.sh.gpg)"
 #+end_src
 
 *** Fundamentals
@@ -59,14 +60,6 @@ stow -t $HOME home_links
 #+end_src
 
 *** Other Setup
-**** Install Spacemacs
-#+begin_src shell
-if [[ ! -e ~/dotemacs/spacemacs ]]; then
-    echo "Installing Spacemacs";
-    git clone https://github.com/syl20bnr/spacemacs ~/dotemacs/spacemacs;
-fi
-#+end_src
-
 **** Install Doom
 #+begin_src shell
 if [[ ! -e ~/dotemacs/doom ]]; then
@@ -89,13 +82,6 @@ if [[ ! -e ~/.intellimacs ]]; then
     echo "Installing Intellimacs";
     git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs;
 fi
-#+end_src
-
-**** Install mojo
-#+begin_src shell
-curl https://get.modular.com | sh -
-modular auth $MOJO_AUTH
-modular install mojo
 #+end_src
 
 **** Enable repeat keys
@@ -123,10 +109,8 @@ I didn't need tap for now. But I will keep it as a reference:
 tap_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   borkdude/brew ; babashka
   ;; bufbuild/buf
-  homebrew/cask-drivers ; device drivers
   homebrew/cask-fonts
   homebrew/cask-versions
-  ;homebrew/command-not-found ; It's very slow. Don't use it
   mkhoeini/tap ; fortune-mod
   oven-sh/bun ; bun.sh
   remotemobprogramming/brew
@@ -183,7 +167,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; ebook-tools
   ;; edencommon
   ;; entr
-  exa ; better ls alternative
+  eza ; better ls alternative
   ;; exiv2
   ;; extra-cmake-modules
   ;; fasd
@@ -478,7 +462,7 @@ cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   alacritty ; terminal emulator
   ;blurred ; dim background apps windows
   ;browserosaurus ; select which browser
-  chromium
+  ;chromium
   coconutbattery ; battery info util
   ;; corretto
   ;; corretto8

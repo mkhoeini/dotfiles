@@ -2,10 +2,8 @@
 tap_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   borkdude/brew ; babashka
   ;; bufbuild/buf
-  homebrew/cask-drivers ; device drivers
   homebrew/cask-fonts
   homebrew/cask-versions
-  ;homebrew/command-not-found ; It's very slow. Don't use it
   mkhoeini/tap ; fortune-mod
   oven-sh/bun ; bun.sh
   remotemobprogramming/brew
@@ -59,7 +57,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; ebook-tools
   ;; edencommon
   ;; entr
-  exa ; better ls alternative
+  eza ; better ls alternative
   ;; exiv2
   ;; extra-cmake-modules
   ;; fasd
@@ -351,7 +349,7 @@ cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   alacritty ; terminal emulator
   ;blurred ; dim background apps windows
   ;browserosaurus ; select which browser
-  chromium
+  ;chromium
   coconutbattery ; battery info util
   ;; corretto
   ;; corretto8
