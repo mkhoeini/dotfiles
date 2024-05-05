@@ -28,7 +28,7 @@
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
-(setq doom-font (font-spec :family "JuliaMono" :size 16 :height 1.4 :weight 'regular))
+(setq doom-font (font-spec :family "JuliaMono" :size 13 :height 1.4 :weight 'regular))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -82,3 +82,12 @@
 ;; (pixel-scroll-precision-mode)
 (auto-save-visited-mode)
 (setq parinfer-rust-library "/Users/mohammadk/Dev/parinfer-rust/parinfer.so")
+
+(after! typescript-mode
+  ;; Ensure that lsp-mode automatically detects deno in projects with a "deno.json" or "deno.jsonc" configuration file
+  (add-hook 'typescript-mode-hook
+            (lambda ()
+              (message "Make sure this is actually running")
+              (when (or (locate-dominating-file default-directory "deno.json")
+                        (locate-dominating-file default-directory "deno.jsonc"))
+                (setq-local lsp-enabled-clients '(deno-ls))))))
