@@ -61,3 +61,17 @@
 
 (use-spoon "KSheet" {})
 
+(set spoon.SpoonInstall.repos.PaperWM
+     {:url "https://github.com/mogenson/PaperWM.spoon"
+      :desc "PaperWM.spoon repository"
+      :branch "release"})
+
+(local paper-wm
+       (use-spoon
+        "PaperWM"
+        {:repo "PaperWM"
+         :config {:screen_margin 160
+                  :window_gap 20
+                  :window_ratios [0.3125 0.421875 0.625]}
+         :fn #(: $1 :bindHotkeys (. $1 :default_hotkeys))
+         :start true}))

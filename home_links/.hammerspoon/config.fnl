@@ -6,6 +6,7 @@
               [:slack]
               [:lib.functional :refer [concat]]
               [:spoons]
+              [:active-space-indicator]
               [:window-ops]))
 
 (require-macros :lib.macros)
