@@ -15,7 +15,7 @@ if [[ -n "$ALACRITTY_WINDOW_ID" && ! -n "$ZELLIJ" ]]; then
   zellij attach -c --index 0
 fi
 
-export PATH="$HOME/.local/bin/:$HOME/.poetry/bin:$HOME/.cargo/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin/:$HOME/.poetry/bin:$HOME/.cargo/bin:$HOME/.deno/bin:/usr/local/bin:$PATH"
 
 
 # Added by Toolbox App
