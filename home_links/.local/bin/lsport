@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+sudo lsof -i -P | grep LISTEN | grep :$1
