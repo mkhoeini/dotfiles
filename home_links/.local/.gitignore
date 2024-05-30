@@ -1,3 +1,4 @@
 state/
 share/
 pipx/
+lib/node_modules/
