@@ -2,7 +2,7 @@
 
 (ns active-space-indicator)
 
-(defn build-title []
+(defn get-spaces-str []
   (let [title {}
         spaces-layout (hs.spaces.allSpaces)
         active-spaces (hs.spaces.activeSpaces)]
@@ -21,16 +21,15 @@
     (table.remove title)
     (table.concat title)))
 
-(local menu (hs.menubar.new true))
+(defn handle-space-switch [& rest]
+  (alert (get-spaces-str)))
 
-(defn set-title [& rest]
-  (alert (build-title))
-  (: menu :setTitle (build-title)))
-
-(set-title)
-
-(local space-watcher (hs.spaces.watcher.new set-title))
+(local space-watcher (hs.spaces.watcher.new handle-space-switch))
 (: space-watcher :start)
 
-(local screen-watcher (hs.screen.watcher.new set-title))
+(local screen-watcher (hs.screen.watcher.new handle-space-switch))
 (: screen-watcher :start)
+
+;; TODO proper shortcut and configs
+(local expose (hs.expose.new))
+(hs.hotkey.bind :ctrl-cmd :e :Expose (fn [] (expose:toggleShow)))
