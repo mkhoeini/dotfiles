@@ -11,94 +11,144 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 #+end_src
 
 * Code
-
-** Setup script
-:PROPERTIES:
-:header-args: :tangle setup.sh :shebang "#!/usr/bin/env zsh"
-:END:
-
-Safety first
-#+begin_src shell
-set -euxo pipefail
-#+end_src
-
-get the secrets
-#+begin_src shell
-# I forgot the password! ':)
-# eval "$(gpg --decrypt secrets.sh.gpg)"
-#+end_src
-
-*** Fundamentals
-**** Install HomeBrew
-#+begin_src shell
-if ! command -v brew >/dev/null; then
-    echo "Installing HomeBrew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-#+end_src
-
-**** Install Emacs
-#+begin_src shell
-if ! command -v emacs >/dev/null; then
-    echo "Installing Emacs"
-    brew tap d12frosted/emacs-plus
-    brew install emacs-plus@30 --with-native-comp --with-modern-vscode-icon --with-xwidgets --with-imagemagick --with-poll --with-no-frame-refocus
-fi
-#+end_src
-
-**** Install GNU Stow
-#+begin_src shell
-if ! command -v stow >/dev/null; then
-    echo "Installing GNU Stow"
-    brew install stow
-fi
-#+end_src
-
-**** Link files
-#+begin_src shell
-stow -t $HOME home_links
-#+end_src
-
-*** Other Setup
-**** Install Doom
-#+begin_src shell
-if [[ ! -e ~/dotemacs/doom ]]; then
-    echo "Installing Doom Emacs";
-    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/dotemacs/doom;
-fi
-#+end_src
-
-**** Install LazyVim
-#+begin_src shell
-if [[ ! -e ~/.config/nvim ]]; then
-    echo "Installing LazyVim";
-    git clone https://github.com/LazyVim/starter ~/.config/nvim;
-fi
-#+end_src
-
-**** Instal Intellimacs
-#+begin_src shell
-if [[ ! -e ~/.intellimacs ]]; then
-    echo "Installing Intellimacs";
-    git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs;
-fi
-#+end_src
-
-**** Enable repeat keys
-#+begin_src shell
-defaults write -g ApplePressAndHoldEnabled -bool false
-#+end_src
-
-**** Install dependencies
-#+begin_src shell
-./setup.rb
-#+end_src
-
-** Dependencies
 :PROPERTIES:
 :header-args: :tangle setup.rb :shebang "#!/usr/bin/env ruby"
 :END:
+** Setup script
+#+begin_src shell :tangle setup.sh :shebang "#!/usr/bin/env zsh"
+set -euxo pipefail
 
+# get the secrets
+eval "$(gpg --decrypt secrets.sh.gpg)"
+
+# run the ruby setup
+./setup.rb
+#+end_src
+
+** Fundamentals
+*** Define a method to check if something is already installed
+#+begin_src ruby
+def exec?(cmd)
+  system("command -v #{cmd} >/dev/null")
+end
+#+end_src
+
+*** Install HomeBrew
+#+begin_src ruby
+if not exec?("brew")
+  puts "Installing HomeBrew"
+  system %q{bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"}
+end
+#+end_src
+
+*** Install Emacs
+#+begin_src ruby
+if not exec?('emacs')
+    puts "Installing Emacs"
+    system "brew tap d12frosted/emacs-plus"
+    system "brew install emacs-plus@30 --with-native-comp --with-modern-vscode-icon --with-xwidgets --with-imagemagick --with-poll --with-no-frame-refocus"
+end
+#+end_src
+
+*** Install GNU Stow
+#+begin_src ruby
+if not exec?('stow')
+    puts "Installing GNU Stow"
+    system "brew install stow"
+end
+#+end_src
+
+*** Link files
+#+begin_src ruby
+system "stow -t $HOME home_links"
+#+end_src
+
+** Other Setup
+*** Install Doom
+#+begin_src ruby
+if not File.exist?(File.expand_path "~/dotemacs/doom")
+    puts "Installing Doom Emacs"
+    system "git clone --depth 1 https://github.com/doomemacs/doomemacs ~/dotemacs/doom"
+end
+#+end_src
+
+*** Install LazyVim
+#+begin_src ruby
+if not File.exist?(File.expand_path "~/.config/nvim")
+    puts "Installing LazyVim"
+    system "git clone https://github.com/LazyVim/starter ~/.config/nvim"
+end
+#+end_src
+
+*** Instal Intellimacs
+#+begin_src ruby
+if not File.exist?(File.expand_path "~/.intellimacs")
+    puts "Installing Intellimacs"
+    system "git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs"
+end
+#+end_src
+
+*** MacOS defaults
+#+begin_src ruby
+MACOS_DEFAULTS = {
+  # Enable repeat keys
+  ApplePressAndHoldEnabled: "-bool false",
+
+  # opening and closing windows and popovers
+  NSAutomaticWindowAnimationsEnabled: "-bool false",
+
+  # smooth scrolling
+  NSScrollAnimationEnabled: "-bool false",
+
+  # showing and hiding sheets, resizing preference windows, zooming windows
+  # float 0 doesn't work
+  NSWindowResizeTime: "-float 0.001",
+
+  # opening and closing Quick Look windows
+  QLPanelAnimationDuration: "-float 0",
+
+  # rubberband scrolling (doesn't affect web views)
+  NSScrollViewRubberbanding: "-bool false",
+
+  # resizing windows before and after showing the version browser
+  # also disabled by NSWindowResizeTime -float 0.001
+  NSDocumentRevisionsWindowTransformAnimation: "-bool false",
+
+  # showing a toolbar or menu bar in full screen
+  NSToolbarFullScreenAnimationDuration: "-float 0",
+
+  # scrolling column views
+  NSBrowserColumnAnimationSpeedMultiplier: "-float 0",
+}
+
+# TODO app defaults
+# showing the Dock
+# defaults write com.apple.dock autohide-time-modifier -float 0
+# defaults write com.apple.dock autohide-delay -float 0
+
+# showing and hiding Mission Control, command+numbers
+# defaults write com.apple.dock expose-animation-duration -float 0
+
+# showing and hiding Launchpad
+# defaults write com.apple.dock springboard-show-duration -float 0
+# defaults write com.apple.dock springboard-hide-duration -float 0
+
+# changing pages in Launchpad
+# defaults write com.apple.dock springboard-page-duration -float 0
+
+# at least AnimateInfoPanes
+# defaults write com.apple.finder DisableAllAnimations -bool true
+
+# sending messages and opening windows for replies
+# defaults write com.apple.Mail DisableSendAnimations -bool true
+# defaults write com.apple.Mail DisableReplyAnimations -bool true
+
+MACOS_DEFAULTS.each_pair do |opt, val|
+  system "defaults write -g #{opt} #{val}"
+end
+#+end_src
+
+** Dependencies
 *** Homebrew Managed Dependencies
 **** Taps
 I didn't need tap for now. But I will keep it as a reference:
@@ -580,6 +630,8 @@ requested_luarocks_plugins
 
 * TODO setup
 - [ ] Setup https://gitlab.com/mtekman/org-tanglesync.el for diffing on tangling
+- [ ] change from gnu stow to nix home_manager
+- [ ] templatize git config using nix
 
 * TODO backups
 ** zplug packages
