@@ -18,6 +18,13 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 #+begin_src shell :tangle setup.sh :shebang "#!/usr/bin/env zsh"
 set -euxo pipefail
 
+# install nix
+if ! command -v nix-env >/dev/null; then
+    sh <(curl -L https://nixos.org/nix/install)
+    sudo rm -f /etc/nix/nix.conf
+    nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake ./nix
+fi
+
 # get the secrets
 eval "$(gpg --decrypt secrets.sh.gpg)"
 
