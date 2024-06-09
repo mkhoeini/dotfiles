@@ -23,3 +23,5 @@ alias de="emacs --init-directory $HOME/dotemacs/doom"
 alias w='type -a'
 
 alias pn=pnpm
+
+alias nre='darwin-rebuild switch --flake ~/Dev/dotfiles/nix'
