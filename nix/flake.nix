@@ -5,27 +5,34 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
-  let
-    configuration = ./configuration.nix;
-  in
-  {
-    # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#work-macbook
+  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager }:
+    let
+      system = "aarch64-darwin";
+      username = "mohammadk";
+      configuration = ./configuration.nix;
 
-    darwinConfigurations = rec {
-      work-macbook = nix-darwin.lib.darwinSystem {
-        modules = [ configuration ];
-        specialArgs = { inherit inputs; };
+      home-manager-configs = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+
+        # user specific config
+        home-manager.users.${username} = import ./home.nix;
+
+        home-manager.extraSpecialArgs = { inherit username; };
       };
 
-      # Hostname configuration
-      CG4NV2NWGL = work-macbook;
-    };
-
-    # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."work-macbook".pkgs;
-  };
+      work-macbook-config = nix-darwin.lib.darwinSystem {
+        modules = [ configuration home-manager.darwinModules.home-manager home-manager-configs ];
+        specialArgs = { inherit inputs system username; };
+      };
+    in
+      {
+        darwinConfigurations = {
+          default = work-macbook-config;
+        };
+      };
 }

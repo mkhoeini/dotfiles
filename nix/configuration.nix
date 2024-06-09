@@ -1,6 +1,11 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, system, username, ... }:
 
 {
+  users.users.${username} = {
+    name = username;
+    home = "/Users/${username}";
+  };
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
@@ -26,5 +31,5 @@
   system.stateVersion = 4;
 
   # The platform the configuration will be used on.
-  nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs.hostPlatform = system;
 }
