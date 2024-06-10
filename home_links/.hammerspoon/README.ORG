@@ -1,5 +1,10 @@
 [[http://www.hammerspoon.org/][Hammerspoon]] config inspired by [[http://spacemacs.org/][Spacemacs]]
 
+** Compile fennel
+#+begin_src shell
+fennel --require-as-include -c core.fnl > init.lua
+#+end_src
+
 ** Rationale
    Keyboard-oriented workflows are often far more efficient and less frustrating than similar mouse-driven techniques. However, the most popular strategy in that space is to use a multitude of keyboard shortcuts. And obviously, that approach is not very scalable. You start adding keyboard shortcuts for various actions, and soon you will be blocked by conflicting shortcuts.
 
