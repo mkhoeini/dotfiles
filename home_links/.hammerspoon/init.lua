@@ -13133,16 +13133,16 @@ package.preload["config"] = package.preload["config"] or function(...)
   local windows = _local_985_[2]
   local emacs = _local_985_[3]
   local slack = _local_985_[4]
-  local _local_1239_ = _local_985_[5]
-  local concat = _local_1239_["concat"]
+  local _local_1241_ = _local_985_[5]
+  local concat = _local_1241_["concat"]
   local spoons = _local_985_[6]
   local active_space_indicator = _local_985_[7]
   local window_ops = _local_985_[8]
   local function activator(app_name)
-    local function _1240_()
+    local function _1242_()
       return windows["activate-app"](app_name)
     end
-    return _1240_
+    return _1242_
   end
   local music_app = "Spotify"
   local _return = {key = "space", title = "Back", action = "previous"}
@@ -13155,24 +13155,24 @@ package.preload["config"] = package.preload["config"] or function(...)
   local app_bindings = {_return, {key = "e", title = "Emacs", action = activator("Emacs")}, {key = "g", title = "Chrome", action = activator("Google Chrome")}, {key = "f", title = "Firefox", action = activator("Firefox")}, {key = "i", title = "iTerm", action = activator("iterm")}, {key = "s", title = "Slack", action = activator("Slack")}, {key = "b", title = "Brave", action = activator("brave browser")}, {key = "m", title = music_app, action = activator(music_app)}}
   local media_bindings = {_return, {key = "s", title = "Play or Pause", action = "multimedia:play-or-pause"}, {key = "h", title = "Prev Track", action = "multimedia:prev-track"}, {key = "l", title = "Next Track", action = "multimedia:next-track"}, {key = "j", title = "Volume Down", action = "multimedia:volume-down", repeatable = true}, {key = "k", title = "Volume Up", action = "multimedia:volume-up", repeatable = true}, {key = "a", title = ("Launch " .. music_app), action = activator(music_app)}}
   local emacs_bindings
-  local function _1241_()
+  local function _1243_()
     return emacs.capture()
   end
-  local function _1242_()
+  local function _1244_()
     return emacs.note()
   end
-  emacs_bindings = {_return, {key = "c", title = "Capture", action = _1241_}, {key = "z", title = "Note", action = _1242_}, {key = "v", title = "Split", action = "emacs:vertical-split-with-emacs"}, {key = "f", title = "Full Screen", action = "emacs:full-screen"}}
+  emacs_bindings = {_return, {key = "c", title = "Capture", action = _1243_}, {key = "z", title = "Note", action = _1244_}, {key = "v", title = "Split", action = "emacs:vertical-split-with-emacs"}, {key = "f", title = "Full Screen", action = "emacs:full-screen"}}
   local yabai_bindings
-  local function _1243_()
+  local function _1245_()
     return hs.execute("yabai --start-service", true)
   end
-  local function _1244_()
+  local function _1246_()
     return hs.execute("yabai --stop-service", true)
   end
-  local function _1245_()
+  local function _1247_()
     return hs.execute("yabai --restart-service", true)
   end
-  yabai_bindings = {_return, {key = "e", title = "Enable", action = _1243_}, {key = "d", title = "Disable", action = _1244_}, {key = "r", title = "Restart", action = _1245_}}
+  yabai_bindings = {_return, {key = "e", title = "Enable", action = _1245_}, {key = "d", title = "Disable", action = _1246_}, {key = "r", title = "Restart", action = _1247_}}
   local menu_items = {{key = "space", title = "Alfred", action = activator("Alfred 4")}, {key = "w", title = "Window", enter = "windows:enter-window-menu", exit = "windows:exit-window-menu", items = window_bindings}, {key = "a", title = "Apps", items = app_bindings}, {key = "j", title = "Jump", action = "windows:jump"}, {key = "m", title = "Media", items = media_bindings}, {key = "x", title = "Emacs", items = emacs_bindings}, {key = "y", title = "Yabai", items = yabai_bindings}}
   local common_keys = {{mods = {"alt"}, key = "space", action = "lib.modal:activate-modal"}, {mods = {"cmd", "alt"}, key = "n", action = "apps:next-app"}, {mods = {"cmd", "alt"}, key = "p", action = "apps:prev-app"}, {mods = {"cmd", "ctrl"}, key = "`", action = hs.toggleConsole}, {mods = {"cmd", "ctrl"}, key = "o", action = "emacs:edit-with-emacs"}}
   local browser_keys = {{mods = {"cmd", "shift"}, key = "l", action = "chrome:open-location"}, {mods = {"alt"}, key = "k", action = "chrome:next-tab", ["repeat"] = true}, {mods = {"alt"}, key = "j", action = "chrome:prev-tab", ["repeat"] = true}}
@@ -13185,13 +13185,13 @@ package.preload["config"] = package.preload["config"] or function(...)
   local slack_config = {key = "Slack", keys = {{mods = {"cmd"}, key = "g", action = "slack:scroll-to-bottom"}, {mods = {"ctrl"}, key = "r", action = "slack:add-reaction"}, {mods = {"ctrl"}, key = "h", action = "slack:prev-element"}, {mods = {"ctrl"}, key = "l", action = "slack:next-element"}, {mods = {"ctrl"}, key = "t", action = "slack:thread"}, {mods = {"ctrl"}, key = "p", action = "slack:prev-day"}, {mods = {"ctrl"}, key = "n", action = "slack:next-day"}, {mods = {"ctrl"}, key = "e", action = "slack:scroll-up", ["repeat"] = true}, {mods = {"ctrl"}, key = "y", action = "slack:scroll-down", ["repeat"] = true}, {mods = {"ctrl"}, key = "i", action = "slack:next-history", ["repeat"] = true}, {mods = {"ctrl"}, key = "o", action = "slack:prev-history", ["repeat"] = true}, {mods = {"ctrl"}, key = "j", action = "slack:down", ["repeat"] = true}, {mods = {"ctrl"}, key = "k", action = "slack:up", ["repeat"] = true}}}
   local apps = {brave_config, chrome_config, firefox_config, grammarly_config, hammerspoon_config, slack_config}
   local config0
-  local function _1246_()
+  local function _1248_()
     return windows["hide-display-numbers"]()
   end
-  local function _1247_()
+  local function _1249_()
     return windows["hide-display-numbers"]()
   end
-  config0 = {title = "Main Menu", items = menu_items, keys = common_keys, enter = _1246_, exit = _1247_, apps = apps, modules = {windows = {["center-ratio"] = "80:50"}}}
+  config0 = {title = "Main Menu", items = menu_items, keys = common_keys, enter = _1248_, exit = _1249_, apps = apps, modules = {windows = {["center-ratio"] = "80:50"}}}
   repl = require("repl")
   repl.run(repl.start())
   return config0
@@ -14175,32 +14175,32 @@ package.preload["emacs"] = package.preload["emacs"] or function(...)
     end
     return hs.timer.doAfter(1.5, _1092_)
   end
-  local function _1207_()
+  local function _1209_()
     return capture(true)
   end
-  return {capture = capture, ["edit-with-emacs"] = edit_with_emacs, ["full-screen"] = full_screen, maximize = maximize, note = _1207_, switchToApp = switch_to_app, switchToAppAndPasteFromClipboard = switch_to_app_and_paste_from_clipboard, ["vertical-split-with-emacs"] = vertical_split_with_emacs, ["run-emacs-fn"] = run_emacs_fn}
+  return {capture = capture, ["edit-with-emacs"] = edit_with_emacs, ["full-screen"] = full_screen, maximize = maximize, note = _1209_, switchToApp = switch_to_app, switchToAppAndPasteFromClipboard = switch_to_app_and_paste_from_clipboard, ["vertical-split-with-emacs"] = vertical_split_with_emacs, ["run-emacs-fn"] = run_emacs_fn}
 end
 package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
   local atom = require("lib.atom")
   local statemachine = require("lib.statemachine")
   local apps = require("lib.apps")
-  local _local_1156_ = require("lib.functional")
-  local butlast = _local_1156_["butlast"]
-  local call_when = _local_1156_["call-when"]
-  local concat = _local_1156_["concat"]
-  local conj = _local_1156_["conj"]
-  local find = _local_1156_["find"]
-  local filter = _local_1156_["filter"]
-  local has_some_3f = _local_1156_["has-some?"]
-  local identity = _local_1156_["identity"]
-  local join = _local_1156_["join"]
-  local map = _local_1156_["map"]
-  local merge = _local_1156_["merge"]
-  local _local_1157_ = require("lib.text")
-  local align_columns = _local_1157_["align-columns"]
-  local _local_1165_ = require("lib.bind")
-  local action__3efn = _local_1165_["action->fn"]
-  local bind_keys = _local_1165_["bind-keys"]
+  local _local_1158_ = require("lib.functional")
+  local butlast = _local_1158_["butlast"]
+  local call_when = _local_1158_["call-when"]
+  local concat = _local_1158_["concat"]
+  local conj = _local_1158_["conj"]
+  local find = _local_1158_["find"]
+  local filter = _local_1158_["filter"]
+  local has_some_3f = _local_1158_["has-some?"]
+  local identity = _local_1158_["identity"]
+  local join = _local_1158_["join"]
+  local map = _local_1158_["map"]
+  local merge = _local_1158_["merge"]
+  local _local_1159_ = require("lib.text")
+  local align_columns = _local_1159_["align-columns"]
+  local _local_1167_ = require("lib.bind")
+  local action__3efn = _local_1167_["action->fn"]
+  local bind_keys = _local_1167_["bind-keys"]
   local lifecycle = require("lib.lifecycle")
   local log = hs.logger.new("modal.fnl", "debug")
   local fsm = nil
@@ -14233,13 +14233,13 @@ package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
   local function start_modal_timeout()
     return fsm.send("start-timeout")
   end
-  local function create_action_trigger(_1167_)
-    local _arg_1168_ = _1167_
-    local action = _arg_1168_["action"]
-    local repeatable = _arg_1168_["repeatable"]
-    local timeout0 = _arg_1168_["timeout"]
+  local function create_action_trigger(_1169_)
+    local _arg_1170_ = _1169_
+    local action = _arg_1170_["action"]
+    local repeatable = _arg_1170_["repeatable"]
+    local timeout0 = _arg_1170_["timeout"]
     local action_fn = action__3efn(action)
-    local function _1169_()
+    local function _1171_()
       if (repeatable and (timeout0 ~= false)) then
         start_modal_timeout()
       elseif not repeatable then
@@ -14248,15 +14248,15 @@ package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
       end
       return hs.timer.doAfter(0.01, action_fn)
     end
-    return _1169_
+    return _1171_
   end
-  local function create_menu_trigger(_1171_)
-    local _arg_1172_ = _1171_
-    local key = _arg_1172_["key"]
-    local function _1173_()
+  local function create_menu_trigger(_1173_)
+    local _arg_1174_ = _1173_
+    local key = _arg_1174_["key"]
+    local function _1175_()
       return enter_modal(key)
     end
-    return _1173_
+    return _1175_
   end
   local function select_trigger(item)
     if (item.action and (item.action == "previous")) then
@@ -14266,64 +14266,64 @@ package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
     elseif item.items then
       return create_menu_trigger(item)
     else
-      local function _1174_()
+      local function _1176_()
         return log.w("No trigger could be found for item: ", hs.inspect(item))
       end
-      return _1174_
+      return _1176_
     end
   end
   local function bind_item(item)
     return {mods = (item.mods or {}), key = item.key, action = select_trigger(item)}
   end
   local function bind_menu_keys(items)
-    local function _1176_(item)
+    local function _1178_(item)
       return (item.action or item.items)
     end
-    return bind_keys(concat(map(bind_item, filter(_1176_, items)), {{key = "ESCAPE", action = deactivate_modal}, {mods = {"ctrl"}, key = "[", action = deactivate_modal}}))
+    return bind_keys(concat(map(bind_item, filter(_1178_, items)), {{key = "ESCAPE", action = deactivate_modal}, {mods = {"ctrl"}, key = "[", action = deactivate_modal}}))
   end
   local mod_chars = {cmd = "CMD", alt = "OPT", shift = "SHFT", tab = "TAB"}
   local function format_key(item)
     local mods
     do
-      local _1177_ = item.mods
-      if (_1177_ ~= nil) then
-        local _1178_
-        local function _1179_(m)
+      local _1179_ = item.mods
+      if (_1179_ ~= nil) then
+        local _1180_
+        local function _1181_(m)
           return (mod_chars[m] or m)
         end
-        _1178_ = map(_1179_, _1177_)
-        if (_1178_ ~= nil) then
-          local _1180_ = join(" ", _1178_)
-          if (_1180_ ~= nil) then
-            mods = identity(_1180_)
+        _1180_ = map(_1181_, _1179_)
+        if (_1180_ ~= nil) then
+          local _1182_ = join(" ", _1180_)
+          if (_1182_ ~= nil) then
+            mods = identity(_1182_)
           else
-            mods = _1180_
+            mods = _1182_
           end
         else
-          mods = _1178_
+          mods = _1180_
         end
       else
-        mods = _1177_
+        mods = _1179_
       end
     end
-    local function _1184_()
+    local function _1186_()
       if mods then
         return " + "
       else
         return ""
       end
     end
-    return ((mods or "") .. _1184_() .. item.key)
+    return ((mods or "") .. _1186_() .. item.key)
   end
   local function modal_alert(menu)
     local items
-    local function _1185_(item)
+    local function _1187_(item)
       return {format_key(item), item.title}
     end
-    local function _1186_(item)
+    local function _1188_(item)
       return item.title
     end
-    items = align_columns(map(_1185_, filter(_1186_, menu.items)))
+    items = align_columns(map(_1187_, filter(_1188_, menu.items)))
     local text = join("\n", items)
     hs.alert.closeAll()
     return alert(text, style, 99999)
@@ -14333,24 +14333,24 @@ package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
     modal_alert(state.context.menu)
     local unbind_keys = bind_menu_keys(state.context.menu.items)
     local stop_timeout = state.context["stop-timeout"]
-    local function _1187_()
+    local function _1189_()
       hs.alert.closeAll(0)
       unbind_keys()
       call_when(stop_timeout)
       return lifecycle["exit-menu"](state.context.menu)
     end
-    return _1187_
+    return _1189_
   end
   local function by_key(target)
-    local function _1188_(item)
+    local function _1190_(item)
       return ((item.key == target) and has_some_3f(item.items))
     end
-    return _1188_
+    return _1190_
   end
   local function __3emenu(state, action, menu_key)
-    local _let_1189_ = state.context
-    local config = _let_1189_["config"]
-    local prev_menu = _let_1189_["menu"]
+    local _let_1191_ = state.context
+    local config = _let_1191_["config"]
+    local prev_menu = _let_1191_["menu"]
     local app_menu = apps["get-app"]()
     local menu
     if menu_key then
@@ -14368,9 +14368,9 @@ package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
     return {state = {["current-state"] = "idle", context = merge(state.context, {menu = "nil", history = {}})}, effect = "close-modal-menu"}
   end
   local function __3eenter_app(state, action, extra)
-    local _let_1192_ = state.context
-    local config = _let_1192_["config"]
-    local prev_menu = _let_1192_["menu"]
+    local _let_1194_ = state.context
+    local config = _let_1194_["config"]
+    local prev_menu = _let_1194_["menu"]
     local app_menu = apps["get-app"]()
     local menu
     if (app_menu and has_some_3f(app_menu.items)) then
@@ -14385,9 +14385,9 @@ package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
     end
   end
   local function active__3eleave_app(state, action, extra)
-    local _let_1195_ = state.context
-    local config = _let_1195_["config"]
-    local prev_menu = _let_1195_["menu"]
+    local _let_1197_ = state.context
+    local config = _let_1197_["config"]
+    local prev_menu = _let_1197_["menu"]
     if (prev_menu.key == config.key) then
       return nil
     else
@@ -14398,10 +14398,10 @@ package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
     return {state = {["current-state"] = state["current-state"], context = merge(state.context, {["stop-timeout"] = timeout(deactivate_modal)})}, effect = "open-menu"}
   end
   local function __3eprevious(state, action, extra)
-    local _let_1197_ = state.context
-    local config = _let_1197_["config"]
-    local hist = _let_1197_["history"]
-    local menu = _let_1197_["menu"]
+    local _let_1199_ = state.context
+    local config = _let_1199_["config"]
+    local hist = _let_1199_["history"]
+    local menu = _let_1199_["menu"]
     local prev_menu = hist[(#hist - 1)]
     if prev_menu then
       return {state = {["current-state"] = "active", context = merge(state.context, {menu = prev_menu, history = butlast(hist)})}, effect = "open-menu"}
@@ -14413,10 +14413,10 @@ package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
   local function start_logger(fsm0)
     local function log_state(state)
       if state.context.history then
-        local function _1199_(_241)
+        local function _1201_(_241)
           return _241.title
         end
-        return log.df(hs.inspect(map(_1199_, state.context.history)))
+        return log.df(hs.inspect(map(_1201_, state.context.history)))
       else
         return nil
       end
@@ -14424,25 +14424,25 @@ package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
     return atom["add-watch"](fsm0.state, "log-state", log_state)
   end
   local modal_effect = statemachine["effect-handler"]({["open-menu"] = show_modal_menu})
-  local function proxy_app_action(_1201_)
-    local _arg_1202_ = _1201_
-    local action = _arg_1202_[1]
-    local data = _arg_1202_[2]
+  local function proxy_app_action(_1203_)
+    local _arg_1204_ = _1203_
+    local action = _arg_1204_[1]
+    local data = _arg_1204_[2]
     return fsm.send(action, data)
   end
   local function init(config)
     local initial_context = {config = config, history = {}, menu = "nil"}
     local template = {state = {["current-state"] = "idle", context = initial_context}, states = states, log = "modal"}
     local unsubscribe = apps.subscribe(proxy_app_action)
-    local function _1204_()
-      local t_1203_ = config
-      if (nil ~= t_1203_) then
-        t_1203_ = t_1203_["modal-style"]
+    local function _1206_()
+      local t_1205_ = config
+      if (nil ~= t_1205_) then
+        t_1205_ = t_1205_["modal-style"]
       else
       end
-      return t_1203_
+      return t_1205_
     end
-    style = merge(default_style, _1204_())
+    style = merge(default_style, _1206_())
     fsm = statemachine.new(template)
     fsm.subscribe(modal_effect)
     start_logger(fsm)
@@ -14464,10 +14464,7 @@ package.preload["lib.statemachine"] = package.preload["lib.statemachine"] or fun
   local merge = _local_1093_["merge"]
   local slice = _local_1093_["slice"]
   local function update_state(fsm, state)
-    local function _1094_(_, state0)
-      return state0
-    end
-    return atom["swap!"](fsm.state, _1094_, state)
+    return atom["reset!"](fsm.state, state)
   end
   local function get_transition_function(fsm, current_state, action)
     return fsm.states[current_state][action]
@@ -14477,9 +14474,9 @@ package.preload["lib.statemachine"] = package.preload["lib.statemachine"] or fun
   end
   local function send(fsm, action, extra)
     local state = get_state(fsm)
-    local _let_1095_ = state
-    local current_state = _let_1095_["current-state"]
-    local context = _let_1095_["context"]
+    local _let_1094_ = state
+    local current_state = _let_1094_["current-state"]
+    local context = _let_1094_["context"]
     local tx_fn = get_transition_function(fsm, current_state, action)
     if tx_fn then
       local transition = tx_fn(state, action, extra)
@@ -14501,63 +14498,60 @@ package.preload["lib.statemachine"] = package.preload["lib.statemachine"] or fun
       end
       return true
     else
-      if fsm.log then
-        fsm.log.df("Action :%s does not have a transition function in state :%s", action, current_state)
-      else
-      end
       return false
     end
   end
   local function subscribe(fsm, sub)
     local sub_key = tostring(sub)
-    local function _1100_(subs, sub0)
+    local function _1098_(subs, sub0)
       return merge({[sub_key] = sub0}, subs)
     end
-    atom["swap!"](fsm.subscribers, _1100_, sub)
-    local function _1101_()
-      local function _1102_(subs, key)
+    atom["swap!"](fsm.subscribers, _1098_, sub)
+    local function _1099_()
+      local function _1100_(subs, key)
         subs[key] = nil
         return subs
       end
-      return atom["swap!"](fsm.subscribers, _1102_, sub_key)
+      return atom["swap!"](fsm.subscribers, _1100_, sub_key)
     end
-    return _1101_
+    return _1099_
   end
   local function effect_handler(effect_map)
     local cleanup_ref = atom.new(nil)
-    local function _1105_(_1103_)
-      local _arg_1104_ = _1103_
-      local prev_state = _arg_1104_["prev-state"]
-      local next_state = _arg_1104_["next-state"]
-      local action = _arg_1104_["action"]
-      local effect = _arg_1104_["effect"]
-      local extra = _arg_1104_["extra"]
+    local function _1103_(_1101_)
+      local _arg_1102_ = _1101_
+      local prev_state = _arg_1102_["prev-state"]
+      local next_state = _arg_1102_["next-state"]
+      local action = _arg_1102_["action"]
+      local effect = _arg_1102_["effect"]
+      local extra = _arg_1102_["extra"]
       call_when(atom.deref(cleanup_ref))
       return atom["reset!"](cleanup_ref, call_when(effect_map[effect], next_state, extra))
     end
-    return _1105_
+    return _1103_
   end
   local function create_machine(template)
+    local state = atom.new({["current-state"] = template.state["current-state"], context = template.state.context})
     local fsm
-    local _1106_
+    local _1104_
     if template.log then
-      _1106_ = hs.logger.new(template.log, "info")
+      _1104_ = hs.logger.new(template.log, "info")
     else
-      _1106_ = nil
+      _1104_ = nil
     end
-    fsm = {state = atom.new({["current-state"] = template.state["current-state"], context = template.state.context}), states = template.states, subscribers = atom.new({}), log = _1106_}
-    local function _1108_(...)
+    fsm = {state = state, states = template.states, subscribers = atom.new({}), log = _1104_}
+    local function _1106_(...)
       return get_state(fsm, ...)
     end
-    fsm["get-state"] = _1108_
-    local function _1109_(...)
+    fsm["get-state"] = _1106_
+    local function _1107_(...)
       return send(fsm, ...)
     end
-    fsm["send"] = _1109_
-    local function _1110_(...)
+    fsm["send"] = _1107_
+    local function _1108_(...)
       return subscribe(fsm, ...)
     end
-    fsm["subscribe"] = _1110_
+    fsm["subscribe"] = _1108_
     return fsm
   end
   return {["effect-handler"] = effect_handler, send = send, subscribe = subscribe, new = create_machine}
@@ -14566,15 +14560,15 @@ package.preload["lib.apps"] = package.preload["lib.apps"] or function(...)
   local atom = require("lib.atom")
   local statemachine = require("lib.statemachine")
   local os = require("os")
-  local _local_1111_ = require("lib.functional")
-  local call_when = _local_1111_["call-when"]
-  local find = _local_1111_["find"]
-  local merge = _local_1111_["merge"]
-  local noop = _local_1111_["noop"]
-  local tap = _local_1111_["tap"]
-  local _local_1112_ = require("lib.bind")
-  local action__3efn = _local_1112_["action->fn"]
-  local bind_keys = _local_1112_["bind-keys"]
+  local _local_1109_ = require("lib.functional")
+  local call_when = _local_1109_["call-when"]
+  local find = _local_1109_["find"]
+  local merge = _local_1109_["merge"]
+  local noop = _local_1109_["noop"]
+  local tap = _local_1109_["tap"]
+  local _local_1110_ = require("lib.bind")
+  local action__3efn = _local_1110_["action->fn"]
+  local bind_keys = _local_1110_["bind-keys"]
   local lifecycle = require("lib.lifecycle")
   local log = hs.logger.new("apps.fnl", "debug")
   local actions = atom.new(nil)
@@ -14587,10 +14581,10 @@ package.preload["lib.apps"] = package.preload["lib.apps"] or function(...)
     return string.sub(hs.base64.encode(nums), 1, 7)
   end
   local function emit(action, data)
-    local function _1134_()
+    local function _1132_()
       return {action, data}
     end
-    return atom["swap!"](actions, _1134_)
+    return atom["swap!"](actions, _1132_)
   end
   local function enter(app_name)
     return fsm.send("enter-app", app_name)
@@ -14608,15 +14602,15 @@ package.preload["lib.apps"] = package.preload["lib.apps"] or function(...)
     return bind_keys(items)
   end
   local function by_key(target)
-    local function _1135_(app)
+    local function _1133_(app)
       return (app.key == target)
     end
-    return _1135_
+    return _1133_
   end
   local function __3eenter(state, action, app_name)
-    local _let_1136_ = state.context
-    local apps = _let_1136_["apps"]
-    local app = _let_1136_["app"]
+    local _let_1134_ = state.context
+    local apps = _let_1134_["apps"]
+    local app = _let_1134_["app"]
     local next_app = find(by_key(app_name), apps)
     return {state = {["current-state"] = "in-app", context = {apps = apps, app = next_app, ["prev-app"] = app}}, effect = "enter-app-effect"}
   end
@@ -14624,9 +14618,9 @@ package.preload["lib.apps"] = package.preload["lib.apps"] or function(...)
     return {state = state, effect = "leave-app-effect"}
   end
   local function launch_app(state, action, app_name)
-    local _let_1137_ = state.context
-    local apps = _let_1137_["apps"]
-    local app = _let_1137_["app"]
+    local _let_1135_ = state.context
+    local apps = _let_1135_["apps"]
+    local app = _let_1135_["app"]
     local next_app = find(by_key(app_name), apps)
     return {state = {["current-state"] = "in-app", context = {apps = apps, app = next_app, ["prev-app"] = app}}, effect = "launch-app-effect"}
   end
@@ -14658,18 +14652,26 @@ package.preload["lib.apps"] = package.preload["lib.apps"] or function(...)
     end
   end
   local function start_logger(fsm0)
-    local function log_state(state)
-      return log.df("app is now: %s", (state.context.app and state.context.app.key))
+    local function _1138_(_241)
+      local function _1140_()
+        local t_1139_ = _241.context.app
+        if (nil ~= t_1139_) then
+          t_1139_ = t_1139_.key
+        else
+        end
+        return t_1139_
+      end
+      return log.df("app is now: %s", _1140_())
     end
-    return atom["add-watch"](fsm0.state, "log-state", log_state)
+    return atom["add-watch"](fsm0.state, "log-state", _1138_)
   end
-  local function watch_actions(_1140_)
-    local _arg_1141_ = _1140_
-    local prev_state = _arg_1141_["prev-state"]
-    local next_state = _arg_1141_["next-state"]
-    local action = _arg_1141_["action"]
-    local effect = _arg_1141_["effect"]
-    local extra = _arg_1141_["extra"]
+  local function watch_actions(_1142_)
+    local _arg_1143_ = _1142_
+    local prev_state = _arg_1143_["prev-state"]
+    local next_state = _arg_1143_["next-state"]
+    local action = _arg_1143_["action"]
+    local effect = _arg_1143_["effect"]
+    local extra = _arg_1143_["extra"]
     return emit(action, next_state.context.app)
   end
   local function get_app()
@@ -14692,18 +14694,6 @@ package.preload["lib.apps"] = package.preload["lib.apps"] or function(...)
     if context.app then
       lifecycle["activate-app"](context.app)
       local unbind_keys = bind_app_keys(context.app.keys)
-      local function _1143_()
-        return unbind_keys()
-      end
-      return _1143_
-    else
-      return nil
-    end
-  end
-  local function launch_app_effect(context)
-    if context.app then
-      lifecycle["launch-app"](context.app)
-      local unbind_keys = bind_app_keys(context.app.keys)
       local function _1145_()
         return unbind_keys()
       end
@@ -14712,44 +14702,56 @@ package.preload["lib.apps"] = package.preload["lib.apps"] or function(...)
       return nil
     end
   end
+  local function launch_app_effect(context)
+    if context.app then
+      lifecycle["launch-app"](context.app)
+      local unbind_keys = bind_app_keys(context.app.keys)
+      local function _1147_()
+        return unbind_keys()
+      end
+      return _1147_
+    else
+      return nil
+    end
+  end
   local function app_effect_handler(effect_map)
     local cleanup_ref = atom.new({})
-    local function _1149_(_1147_)
-      local _arg_1148_ = _1147_
-      local prev_state = _arg_1148_["prev-state"]
-      local next_state = _arg_1148_["next-state"]
-      local action = _arg_1148_["action"]
-      local effect = _arg_1148_["effect"]
-      local extra = _arg_1148_["extra"]
+    local function _1151_(_1149_)
+      local _arg_1150_ = _1149_
+      local prev_state = _arg_1150_["prev-state"]
+      local next_state = _arg_1150_["next-state"]
+      local action = _arg_1150_["action"]
+      local effect = _arg_1150_["effect"]
+      local extra = _arg_1150_["extra"]
       call_when(atom.deref(cleanup_ref)[extra])
       local cleanup_map = atom.deref(cleanup_ref)
       local effect_func = effect_map[effect]
       return atom["reset!"](cleanup_ref, merge(cleanup_map, {[extra] = call_when(effect_func, next_state, extra)}))
     end
-    return _1149_
+    return _1151_
   end
   local apps_effect
-  local function _1150_(state, extra)
+  local function _1152_(state, extra)
     return enter_app_effect(state.context)
   end
-  local function _1151_(state, extra)
+  local function _1153_(state, extra)
     if state.context["prev-app"] then
       lifecycle["deactivate-app"](state.context["prev-app"])
     else
     end
     return nil
   end
-  local function _1153_(state, extra)
+  local function _1155_(state, extra)
     return launch_app_effect(state.context)
   end
-  local function _1154_(state, extra)
+  local function _1156_(state, extra)
     if state.context["prev-app"] then
       lifecycle["close-app"](state.context["prev-app"])
     else
     end
     return nil
   end
-  apps_effect = app_effect_handler({["enter-app-effect"] = _1150_, ["leave-app-effect"] = _1151_, ["launch-app-effect"] = _1153_, ["close-app-effect"] = _1154_})
+  apps_effect = app_effect_handler({["enter-app-effect"] = _1152_, ["leave-app-effect"] = _1153_, ["launch-app-effect"] = _1155_, ["close-app-effect"] = _1156_})
   local function init(config)
     local active_app = active_app_name()
     local initial_context = {apps = config.apps, app = nil}
@@ -14769,15 +14771,15 @@ package.preload["lib.apps"] = package.preload["lib.apps"] or function(...)
   return {init = init, ["get-app"] = get_app, subscribe = subscribe}
 end
 package.preload["lib.bind"] = package.preload["lib.bind"] or function(...)
-  local _local_1113_ = require("lib.functional")
-  local contains_3f = _local_1113_["contains?"]
-  local map = _local_1113_["map"]
-  local split = _local_1113_["split"]
+  local _local_1111_ = require("lib.functional")
+  local contains_3f = _local_1111_["contains?"]
+  local map = _local_1111_["map"]
+  local split = _local_1111_["split"]
   local log = hs.logger.new("bind.fnl", "debug")
   local function do_action(action, args)
-    local _let_1114_ = split(":", action)
-    local file = _let_1114_[1]
-    local fn_name = _let_1114_[2]
+    local _let_1112_ = split(":", action)
+    local file = _let_1112_[1]
+    local fn_name = _let_1112_[2]
     local module = require(file)
     local f = module[fn_name]
     if f then
@@ -14787,34 +14789,34 @@ package.preload["lib.bind"] = package.preload["lib.bind"] or function(...)
     end
   end
   local function create_action_fn(action)
-    local function _1116_(...)
+    local function _1114_(...)
       return do_action(action, {...})
     end
-    return _1116_
+    return _1114_
   end
   local function action__3efn(action)
-    local _1117_ = type(action)
-    if (_1117_ == "function") then
+    local _1115_ = type(action)
+    if (_1115_ == "function") then
       return action
-    elseif (_1117_ == "string") then
+    elseif (_1115_ == "string") then
       return create_action_fn(action)
     else
-      local _ = _1117_
+      local _ = _1115_
       log.wf("Could not create action handler for %s", hs.inspect(action))
-      local function _1118_()
+      local function _1116_()
         return true
       end
-      return _1118_
+      return _1116_
     end
   end
   local function bind_keys(items)
     local modal = hs.hotkey.modal.new({}, nil)
     for _, item in ipairs(items) do
-      local _let_1120_ = item
-      local key = _let_1120_["key"]
-      local mods = _let_1120_["mods"]
-      local action = _let_1120_["action"]
-      local _repeat = _let_1120_["repeat"]
+      local _let_1118_ = item
+      local key = _let_1118_["key"]
+      local mods = _let_1118_["mods"]
+      local action = _let_1118_["action"]
+      local _repeat = _let_1118_["repeat"]
       local mods0 = (mods or {})
       local action_fn = action__3efn(action)
       if _repeat then
@@ -14835,9 +14837,9 @@ package.preload["lib.bind"] = package.preload["lib.bind"] or function(...)
     return destroy_bindings
   end
   local function bind_global_keys(items)
-    local function _1123_(item)
-      local _let_1124_ = item
-      local key = _let_1124_["key"]
+    local function _1121_(item)
+      local _let_1122_ = item
+      local key = _let_1122_["key"]
       local mods = (item.mods or {})
       local action_fn = action__3efn(item.action)
       local binding = hs.hotkey.bind(mods, key, action_fn)
@@ -14846,7 +14848,7 @@ package.preload["lib.bind"] = package.preload["lib.bind"] or function(...)
       end
       return unbind
     end
-    return map(_1123_, items)
+    return map(_1121_, items)
   end
   local function unbind_global_keys(bindings)
     for _, unbind in ipairs(bindings) do
@@ -14865,18 +14867,18 @@ package.preload["lib.bind"] = package.preload["lib.bind"] or function(...)
   return {init = init, ["action->fn"] = action__3efn, ["bind-keys"] = bind_keys, ["do-action"] = do_action}
 end
 package.preload["lib.lifecycle"] = package.preload["lib.lifecycle"] or function(...)
-  local _local_1125_ = require("lib.bind")
-  local do_action = _local_1125_["do-action"]
+  local _local_1123_ = require("lib.bind")
+  local do_action = _local_1123_["do-action"]
   local log = hs.logger.new("lifecycle.fnl", "debug")
   local function do_method(obj, method_name)
     local method = obj[method_name]
-    local _1126_ = type(method)
-    if (_1126_ == "function") then
+    local _1124_ = type(method)
+    if (_1124_ == "function") then
       return method(obj)
-    elseif (_1126_ == "string") then
+    elseif (_1124_ == "string") then
       return do_action(method, {obj})
     else
-      local _ = _1126_
+      local _ = _1124_
       return log.wf("Could not call lifecycle method %s on %s", method_name, obj)
     end
   end
@@ -14925,17 +14927,17 @@ package.preload["lib.lifecycle"] = package.preload["lib.lifecycle"] or function(
   return {["activate-app"] = activate_app, ["close-app"] = close_app, ["deactivate-app"] = deactivate_app, ["enter-menu"] = enter_menu, ["exit-menu"] = exit_menu, ["launch-app"] = launch_app}
 end
 package.preload["lib.text"] = package.preload["lib.text"] or function(...)
-  local _local_1158_ = require("lib.functional")
-  local map = _local_1158_["map"]
-  local reduce = _local_1158_["reduce"]
+  local _local_1160_ = require("lib.functional")
+  local map = _local_1160_["map"]
+  local reduce = _local_1160_["reduce"]
   local function max_length(items)
-    local function _1161_(max, _1159_)
-      local _arg_1160_ = _1159_
-      local key = _arg_1160_[1]
-      local _ = _arg_1160_[2]
+    local function _1163_(max, _1161_)
+      local _arg_1162_ = _1161_
+      local key = _arg_1162_[1]
+      local _ = _arg_1162_[2]
       return math.max(max, #key)
     end
-    return reduce(_1161_, 0, items)
+    return reduce(_1163_, 0, items)
   end
   local function pad_str(char, max, str)
     local diff = (max - #str)
@@ -14943,13 +14945,13 @@ package.preload["lib.text"] = package.preload["lib.text"] or function(...)
   end
   local function align_columns(items)
     local max = max_length(items)
-    local function _1164_(_1162_)
-      local _arg_1163_ = _1162_
-      local key = _arg_1163_[1]
-      local action = _arg_1163_[2]
+    local function _1166_(_1164_)
+      local _arg_1165_ = _1164_
+      local key = _arg_1165_[1]
+      local action = _arg_1165_[2]
       return (pad_str(" ", max, key) .. "     " .. action)
     end
-    return map(_1164_, items)
+    return map(_1166_, items)
   end
   return {["align-columns"] = align_columns}
 end
@@ -15014,17 +15016,17 @@ package.preload["slack"] = package.preload["slack"] or function(...)
   return {["add-reaction"] = add_reaction, down = down, ["next-day"] = next_day, ["next-element"] = next_element, ["next-history"] = next_history, ["prev-day"] = prev_day, ["prev-element"] = prev_element, ["prev-history"] = prev_history, ["quick-switcher"] = quick_switcher, ["scroll-down"] = scroll_down, ["scroll-to-bottom"] = scroll_to_bottom, ["scroll-up"] = scroll_up, thread = thread, up = up}
 end
 package.preload["spoons"] = package.preload["spoons"] or function(...)
-  local function _1210_()
+  local function _1212_()
     return "#<namespace: spoons>"
   end
-  local _local_1209_ = {setmetatable({}, {__fennelview = _1210_, __name = "namespace"}), require("cljlib"), require("lib.atom")}
-  local spoons = _local_1209_[1]
-  local _local_1211_ = _local_1209_[2]
-  local contains_3f = _local_1211_["contains?"]
-  local _local_1212_ = _local_1209_[3]
-  local atom = _local_1212_["atom"]
-  local deref = _local_1212_["deref"]
-  local update_21 = _local_1212_["update!"]
+  local _local_1211_ = {setmetatable({}, {__fennelview = _1212_, __name = "namespace"}), require("cljlib"), require("lib.atom")}
+  local spoons = _local_1211_[1]
+  local _local_1213_ = _local_1211_[2]
+  local contains_3f = _local_1213_["contains?"]
+  local _local_1214_ = _local_1211_[3]
+  local atom = _local_1214_["atom"]
+  local deref = _local_1214_["deref"]
+  local update_21 = _local_1214_["update!"]
   local loaded_spoons
   do
     local v_29_auto
@@ -15067,8 +15069,8 @@ package.preload["spoons"] = package.preload["spoons"] or function(...)
     local v_29_auto
     local function exec0(...)
       local core_43_auto = require("cljlib")
-      local _let_1215_ = core_43_auto.list(...)
-      local rst = (function (t, k, e) local mt = getmetatable(t) if 'table' == type(mt) and mt.__fennelrest then return mt.__fennelrest(t, k) elseif e then local rest = {} for k, v in pairs(t) do if not e[k] then rest[k] = v end end return rest else return {(table.unpack or unpack)(t, k)} end end)(_let_1215_, 1)
+      local _let_1217_ = core_43_auto.list(...)
+      local rst = (function (t, k, e) local mt = getmetatable(t) if 'table' == type(mt) and mt.__fennelrest then return mt.__fennelrest(t, k) elseif e then local rest = {} for k, v in pairs(t) do if not e[k] then rest[k] = v end end return rest else return {(table.unpack or unpack)(t, k)} end end)(_let_1217_, 1)
       return hs.execute(table.concat(rst, " "), true)
     end
     v_29_auto = exec0
@@ -15149,10 +15151,10 @@ package.preload["spoons"] = package.preload["spoons"] or function(...)
         else
         end
       end
-      local function _1221_(_241)
+      local function _1223_(_241)
         return not _241
       end
-      update_21(hammerspoonKeybindingsIsShown, _1221_)
+      update_21(hammerspoonKeybindingsIsShown, _1223_)
       if deref(hammerspoonKeybindingsIsShown) then
         return (spoon.HSKeybindings):show()
       else
@@ -15166,18 +15168,18 @@ package.preload["spoons"] = package.preload["spoons"] or function(...)
   use_spoon("KSheet", {})
   spoon.SpoonInstall.repos.PaperWM = {url = "https://github.com/mogenson/PaperWM.spoon", desc = "PaperWM.spoon repository", branch = "release"}
   local paper_wm
-  local function _1223_(_241)
+  local function _1225_(_241)
     return _241:bindHotkeys(_241.default_hotkeys)
   end
-  paper_wm = use_spoon("PaperWM", {repo = "PaperWM", config = {screen_margin = 160, window_gap = 20, window_ratios = {0.3125, 0.421875, 0.625}}, fn = _1223_, start = true})
+  paper_wm = use_spoon("PaperWM", {repo = "PaperWM", config = {screen_margin = 160, window_gap = 20, window_ratios = {0.3125, 0.421875, 0.625}}, fn = _1225_, start = true})
   return nil
 end
 package.preload["active-space-indicator"] = package.preload["active-space-indicator"] or function(...)
-  local function _1225_()
+  local function _1227_()
     return "#<namespace: active-space-indicator>"
   end
-  local _local_1224_ = {setmetatable({}, {__fennelview = _1225_, __name = "namespace"})}
-  local active_space_indicator = _local_1224_[1]
+  local _local_1226_ = {setmetatable({}, {__fennelview = _1227_, __name = "namespace"})}
+  local active_space_indicator = _local_1226_[1]
   local get_spaces_str
   do
     local v_29_auto
@@ -15220,8 +15222,8 @@ package.preload["active-space-indicator"] = package.preload["active-space-indica
     local v_29_auto
     local function handle_space_switch0(...)
       local core_43_auto = require("cljlib")
-      local _let_1228_ = core_43_auto.list(...)
-      local rest = (function (t, k, e) local mt = getmetatable(t) if 'table' == type(mt) and mt.__fennelrest then return mt.__fennelrest(t, k) elseif e then local rest = {} for k, v in pairs(t) do if not e[k] then rest[k] = v end end return rest else return {(table.unpack or unpack)(t, k)} end end)(_let_1228_, 1)
+      local _let_1230_ = core_43_auto.list(...)
+      local rest = (function (t, k, e) local mt = getmetatable(t) if 'table' == type(mt) and mt.__fennelrest then return mt.__fennelrest(t, k) elseif e then local rest = {} for k, v in pairs(t) do if not e[k] then rest[k] = v end end return rest else return {(table.unpack or unpack)(t, k)} end end)(_let_1230_, 1)
       return alert(get_spaces_str())
     end
     v_29_auto = handle_space_switch0
@@ -15233,17 +15235,17 @@ package.preload["active-space-indicator"] = package.preload["active-space-indica
   local screen_watcher = hs.screen.watcher.new(handle_space_switch)
   screen_watcher:start()
   local expose = hs.expose.new()
-  local function _1229_()
+  local function _1231_()
     return expose:toggleShow()
   end
-  return hs.hotkey.bind("ctrl-cmd", "e", "Expose", _1229_)
+  return hs.hotkey.bind("ctrl-cmd", "e", "Expose", _1231_)
 end
 package.preload["window-ops"] = package.preload["window-ops"] or function(...)
-  local function _1231_()
+  local function _1233_()
     return "#<namespace: window-ops>"
   end
-  local _local_1230_ = {setmetatable({}, {__fennelview = _1231_, __name = "namespace"})}
-  local window_ops = _local_1230_[1]
+  local _local_1232_ = {setmetatable({}, {__fennelview = _1233_, __name = "namespace"})}
+  local window_ops = _local_1232_[1]
   local phi
   do
     local v_29_auto = (4 / 3)
@@ -15414,16 +15416,16 @@ package.preload["repl"] = package.preload["repl"] or function(...)
   local coroutine = require("coroutine")
   local fennel = require("fennel")
   local jeejah = require("jeejah")
-  local _local_1248_ = require("lib.functional")
-  local merge = _local_1248_["merge"]
+  local _local_1250_ = require("lib.functional")
+  local merge = _local_1250_["merge"]
   local function fennel_middleware(f, msg)
-    local _1249_ = msg.op
-    if (_1249_ == "load-file") then
+    local _1251_ = msg.op
+    if (_1251_ == "load-file") then
       local f0 = assert(io.open(msg.filename, "rb"))
       do end (msg)["op"]["eval"]["code"] = f0:read("*all"):gsub("^#![^\n]*\n", "")
       return f0:close()
     else
-      local _ = _1249_
+      local _ = _1251_
       return f(msg)
     end
   end
@@ -15432,15 +15434,15 @@ package.preload["repl"] = package.preload["repl"] or function(...)
   local function run(server)
     local repl_coro = server
     local repl_spin
-    local function _1251_()
+    local function _1253_()
       return coroutine.resume(repl_coro)
     end
-    repl_spin = _1251_
+    repl_spin = _1253_
     local repl_chk
-    local function _1252_()
+    local function _1254_()
       return (coroutine.status(repl_coro) ~= "dead")
     end
-    repl_chk = _1252_
+    repl_chk = _1254_
     return hs.timer.doWhile(repl_chk, repl_spin, repl_coro_freq)
   end
   local function start(custom_opts)
@@ -15824,13 +15826,13 @@ package.preload["jeejah"] = package.preload["jeejah"] or function(...)
   }
 end
 package.preload["apps"] = package.preload["apps"] or function(...)
-  local function _1254_()
+  local function _1256_()
     return "#<namespace: apps>"
   end
-  local _local_1253_ = {setmetatable({}, {__fennelview = _1254_, __name = "namespace"}), require("lib.utils")}
-  local apps = _local_1253_[1]
-  local _local_1255_ = _local_1253_[2]
-  local global_filter = _local_1255_["global-filter"]
+  local _local_1255_ = {setmetatable({}, {__fennelview = _1256_, __name = "namespace"}), require("lib.utils")}
+  local apps = _local_1255_[1]
+  local _local_1257_ = _local_1255_[2]
+  local global_filter = _local_1257_["global-filter"]
   local calc_thumbnail_size
   local function calc_thumbnail_size0(...)
     do
@@ -15841,8 +15843,8 @@ package.preload["apps"] = package.preload["apps"] or function(...)
       end
     end
     local screen = hs.screen.mainScreen()
-    local _let_1257_ = screen:currentMode()
-    local h = _let_1257_["h"]
+    local _let_1259_ = screen:currentMode()
+    local h = _let_1259_["h"]
     return (h / 2)
   end
   calc_thumbnail_size = calc_thumbnail_size0
@@ -15858,23 +15860,23 @@ package.preload["apps"] = package.preload["apps"] or function(...)
         else
         end
       end
-      local function _1259_(...)
-        local t_1260_ = config
-        if (nil ~= t_1260_) then
-          t_1260_ = t_1260_.modules
+      local function _1261_(...)
+        local t_1262_ = config
+        if (nil ~= t_1262_) then
+          t_1262_ = t_1262_.modules
         else
         end
-        if (nil ~= t_1260_) then
-          t_1260_ = t_1260_.switcher
+        if (nil ~= t_1262_) then
+          t_1262_ = t_1262_.switcher
         else
         end
-        if (nil ~= t_1260_) then
-          t_1260_ = t_1260_.filter
+        if (nil ~= t_1262_) then
+          t_1262_ = t_1262_.filter
         else
         end
-        return t_1260_
+        return t_1262_
       end
-      switcher = hs.window.switcher.new((_1259_() or global_filter()), {textSize = 12, selectedThumbnailSize = calc_thumbnail_size(), backgroundColor = {0, 0, 0, 0}, showSelectedTitle = false, showThumbnails = false, showTitles = false})
+      switcher = hs.window.switcher.new((_1261_() or global_filter()), {textSize = 12, selectedThumbnailSize = calc_thumbnail_size(), backgroundColor = {0, 0, 0, 0}, showSelectedTitle = false, showThumbnails = false, showTitles = false})
       return nil
     end
     v_29_auto = init0
@@ -15919,12 +15921,12 @@ package.preload["apps"] = package.preload["apps"] or function(...)
 end
 local _local_1_ = {setmetatable({}, {__fennelview = _2_, __name = "namespace"}), require("cljlib"), require("lib.globals"), require("defaults"), require("config"), require("windows"), require("apps"), require("lib.bind"), require("lib.modal"), require("lib.apps")}
 local core = _local_1_[1]
-local _local_1266_ = _local_1_[2]
-local contains_3f = _local_1266_["contains?"]
-local into = _local_1266_["into"]
-local mapv = _local_1266_["mapv"]
-local merge = _local_1266_["merge"]
-local some = _local_1266_["some"]
+local _local_1268_ = _local_1_[2]
+local contains_3f = _local_1268_["contains?"]
+local into = _local_1268_["into"]
+local mapv = _local_1268_["mapv"]
+local merge = _local_1268_["merge"]
+local some = _local_1268_["some"]
 local globals = _local_1_[3]
 local defaults = _local_1_[4]
 local config = _local_1_[5]
@@ -15934,8 +15936,8 @@ local lib_bind = _local_1_[8]
 local lib_modal = _local_1_[9]
 local lib_apps = _local_1_[10]
 hs.ipc.cliInstall()
-local function _1267_(_241)
+local function _1269_(_241)
   return _241.init(config)
 end
-resources = mapv(_1267_, {windows, apps, lib_bind, lib_modal, lib_apps})
+resources = mapv(_1269_, {windows, apps, lib_bind, lib_modal, lib_apps})
 return _G.alert("Config is loaded successfully!")

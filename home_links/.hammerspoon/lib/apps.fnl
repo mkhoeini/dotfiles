@@ -61,16 +61,13 @@ This module works mechanically similar to lib/modal.fnl.
 ;; Action dispatch functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(fn enter
-  [app-name]
-  "
-  Action to focus or activate an app. App must have either menu options
+(fn enter [app-name]
+  "Action to focus or activate an app. App must have either menu options
   or key bindings defined in config.fnl.
 
   Takes the name of the app we entered.
   Transitions to the entered finite-state-machine state.
-  Returns nil.
-  "
+  Returns nil."
   (fsm.send :enter-app app-name))
 
 (fn leave
@@ -236,9 +233,7 @@ returning the next state the statemachine is in.
 ;; Watchers, Dispatchers, & Logging
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-"
-Assign some simple keywords for each hs.application.watcher event type.
-"
+;; Assign some simple keywords for each hs.application.watcher event type.
 (local app-events
        {hs.application.watcher.activated   :activated
         hs.application.watcher.deactivated :deactivated
@@ -249,50 +244,33 @@ Assign some simple keywords for each hs.application.watcher event type.
         hs.application.watcher.unhidden    :unhidden})
 
 
-(fn watch-apps
-  [app-name event app]
-  "
-  Hammerspoon application watcher callback
+(fn watch-apps [app-name event app]
+  "Hammerspoon application watcher callback
   Looks up the event type based on our keyword mappings and dispatches the
   corresponding action against the state machine to manage side-effects and
   update their state.
 
   Takes the name of the app, the hs.application.watcher event-type, an the
   hs.application.instance that triggered the event.
-  Returns nil. Relies on side-effects.
-  "
+  Returns nil. Relies on side-effects."
   (let [event-type (. app-events event)]
-    (if (= event-type :activated)
-        (enter app-name)
-        (= event-type :deactivated)
-        (leave app-name)
-        (= event-type :launched)
-        (launch app-name)
-        (= event-type :terminated)
-        (close app-name))))
+    (case event-type
+      :activated (enter app-name)
+      :deactivated (leave app-name)
+      :launched (launch app-name)
+      :terminated (close app-name))))
 
-(fn active-app-name
-  []
-  "
-  Internal API function to return the name of the frontmost app
-  Returns the name of the app if there is a frontmost app or nil.
-  "
+(fn active-app-name []
+  "Internal API function to return the name of the frontmost app
+  Returns the name of the app if there is a frontmost app or nil."
   (let [app (hs.application.frontmostApplication)]
-    (if app
-        (: app :name)
-        nil)))
+    (when app (: app :name))))
 
-(fn start-logger
-  [fsm]
-  "
-  Debugging handler to add a watcher to the apps finite-state-machine
-  state atom to log changes over time.
-  "
-  (atom.add-watch
-   fsm.state :log-state
-   (fn log-state
-     [state]
-     (log.df "app is now: %s" (and state.context.app state.context.app.key)))))
+(fn start-logger [fsm]
+  "Debugging handler to add a watcher to the apps finite-state-machine
+  state atom to log changes over time."
+  (atom.add-watch fsm.state :log-state
+                  #(log.df "app is now: %s" (?. $.context.app :key))))
 
 (fn watch-actions
   [{: prev-state : next-state : action : effect : extra}]
@@ -408,14 +386,11 @@ Assign some simple keywords for each hs.application.watcher event type.
 ;; Initialization
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(fn init
-  [config]
-  "
-  Initialize apps finite-state-machine and create hs.application.watcher
+(fn init [config]
+  "Initialize apps finite-state-machine and create hs.application.watcher
   instance to listen for app specific events.
   Takes the current config.fnl table
-  Returns a function to cleanup the hs.application.watcher.
-  "
+  Returns a function to cleanup the hs.application.watcher."
   (let [active-app (active-app-name)
         initial-context {:apps config.apps
                          :app nil}

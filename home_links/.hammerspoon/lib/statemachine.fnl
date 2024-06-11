@@ -49,66 +49,52 @@ the next transition.
         : slice} (require :lib.functional))
 
 
-(fn update-state
-  [fsm state]
-  (atom.swap! fsm.state (fn [_ state] state) state))
+(fn update-state [fsm state]
+  (atom.reset! fsm.state state))
 
-(fn get-transition-function
-  [fsm current-state action]
+(fn get-transition-function [fsm current-state action]
   (. fsm.states current-state action))
 
-(fn get-state
-  [fsm]
+(fn get-state [fsm]
   (atom.deref fsm.state))
 
-(fn send
-  [fsm action extra]
-  "
-  Based on the action and the fsm's current-state, set the new state and call
-  all subscribers with the previous state, new state, action, and extra.
-  "
+(fn send [fsm action extra]
+  "Based on the action and the fsm's current-state, set the new state and call
+  all subscribers with the previous state, new state, action, and extra."
   (let [state (get-state fsm)
         {: current-state : context} state]
     (if-let [tx-fn (get-transition-function fsm current-state action)]
-            (let [
-                  transition (tx-fn state action extra)
+            (let [transition (tx-fn state action extra)
                   new-state (if transition transition.state state)
                   effect (if transition transition.effect nil)]
 
               (update-state fsm new-state)
               ; Call all subscribers
               (each [_ sub (pairs (atom.deref fsm.subscribers))]
-                (sub {:prev-state state :next-state new-state : action : effect : extra}))
+                (sub {:prev-state state
+                      :next-state new-state
+                      : action
+                      : effect
+                      : extra}))
               true)
-            (do
-              (if fsm.log
-                  (fsm.log.df "Action :%s does not have a transition function in state :%s"
-                              action current-state))
-              false))))
+            false)))
 
-(fn subscribe
-  [fsm sub]
-  "
-  Adds a subscriber to the provided fsm. Returns a function to unsubscribe
+(fn subscribe [fsm sub]
+  "Adds a subscriber to the provided fsm. Returns a function to unsubscribe
   Naive: Because each entry is keyed by the function address it doesn't allow
-  the same function to subscribe more than once.
-  "
+  the same function to subscribe more than once."
   (let [sub-key (tostring sub)]
     (atom.swap! fsm.subscribers (fn [subs sub]
                                   (merge {sub-key sub} subs)) sub)
     ; Return the unsub func
-    (fn []
-      (atom.swap! fsm.subscribers (fn [subs key] (tset subs key nil) subs) sub-key))))
+    #(atom.swap! fsm.subscribers (fn [subs key] (tset subs key nil) subs) sub-key)))
 
-(fn effect-handler
-  [effect-map]
-  "
-  Takes a map of effect->function and returns a function that handles these
+(fn effect-handler [effect-map]
+  "Takes a map of effect->function and returns a function that handles these
   effects by calling the mapped-to function, and then calls that function's
   return value (a cleanup function) and calls it on the next transition.
 
-  These functions must return their own cleanup function or nil.
-  "
+  These functions must return their own cleanup function or nil."
   ;; Create a one-time atom used to store the cleanup function
   (let [cleanup-ref (atom.new nil)]
     ;; Return a subscriber function
@@ -119,12 +105,13 @@ the next transition.
       (atom.reset! cleanup-ref
                    (call-when (. effect-map effect) next-state extra)))))
 
-(fn create-machine
-  [template]
-  (let [fsm  {:state (atom.new {:current-state template.state.current-state :context template.state.context})
-              :states template.states
-              :subscribers (atom.new {})
-              :log (if template.log (hs.logger.new template.log "info"))}]
+(fn create-machine [template]
+  (let [state (atom.new {:current-state template.state.current-state
+                         :context template.state.context})
+        fsm {: state
+             :states template.states
+             :subscribers (atom.new {})
+             :log (if template.log (hs.logger.new template.log "info"))}]
     ; Add methods
     (tset fsm :get-state (partial get-state fsm))
     (tset fsm :send (partial send fsm))
