@@ -5,7 +5,6 @@
 
 (ns core
     (:require [:cljlib :refer [merge contains? some into mapv]]
-              [:lib.globals]
               [:defaults]
               [:config]
               [:windows]
@@ -25,4 +24,4 @@
              (mapv #((. $ :init) config))))
 
 ;; Last thing to do: alert that the config is loaded
-(_G.alert "Config is loaded successfully!")
+(hs.alert "Config is loaded successfully!")
