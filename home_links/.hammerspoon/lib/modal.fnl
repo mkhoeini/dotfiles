@@ -253,9 +253,7 @@ switching menus in one place which is then powered by config.fnl.
                    (align-columns))
         text (join "\n" items)]
     (hs.alert.closeAll)
-    (alert text
-           style
-           99999)))
+    (hs.alert text style (hs.screen.mainScreen) true)))
 
 (fn show-modal-menu
   [state]
@@ -273,8 +271,8 @@ switching menus in one place which is then powered by config.fnl.
       (hs.alert.closeAll 0)
       (unbind-keys)
       (call-when stop-timeout)
-      (lifecycle.exit-menu state.context.menu)
-      )))
+      (lifecycle.exit-menu state.context.menu))))
+      
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Menus, & Config Navigation
@@ -364,7 +362,7 @@ switching menus in one place which is then powered by config.fnl.
   Returns new updated modal state if we are leaving the current app.
   "
   (let [{:config config
-        :menu prev-menu} state.context]
+         :menu prev-menu} state.context]
     (if (= prev-menu.key config.key)
         nil
         (->menu state))))

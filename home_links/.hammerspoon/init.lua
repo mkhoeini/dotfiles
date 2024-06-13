@@ -7033,12 +7033,12 @@ package.preload["windows"] = package.preload["windows"] or function(...)
       if el then
         win:setFrame(el)
         if (0 < num_of_undos) then
-          return alert((num_of_undos .. " undo steps available"))
+          return hs.alert((num_of_undos .. " undo steps available"))
         else
           return nil
         end
       else
-        return alert("nothing to undo")
+        return hs.alert("nothing to undo")
       end
     else
       return nil
@@ -14296,7 +14296,7 @@ package.preload["lib.modal"] = package.preload["lib.modal"] or function(...)
     items = align_columns(map(_1177_, filter(_1178_, menu.items)))
     local text = join("\n", items)
     hs.alert.closeAll()
-    return alert(text, style, 99999)
+    return hs.alert(text, style, hs.screen.mainScreen(), true)
   end
   local function show_modal_menu(state)
     lifecycle["enter-menu"](state.context.menu)
@@ -15171,7 +15171,7 @@ package.preload["active-space-indicator"] = package.preload["active-space-indica
       local core_43_auto = require("cljlib")
       local _let_1220_ = core_43_auto.list(...)
       local rest = (function (t, k, e) local mt = getmetatable(t) if 'table' == type(mt) and mt.__fennelrest then return mt.__fennelrest(t, k) elseif e then local rest = {} for k, v in pairs(t) do if not e[k] then rest[k] = v end end return rest else return {(table.unpack or unpack)(t, k)} end end)(_let_1220_, 1)
-      return alert(get_spaces_str())
+      return hs.alert(get_spaces_str())
     end
     v_29_auto = handle_space_switch0
     active_space_indicator["handle-space-switch"] = v_29_auto

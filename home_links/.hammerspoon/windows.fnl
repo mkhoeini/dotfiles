@@ -40,8 +40,8 @@
             (do
               (win:setFrame el)
               (when (< 0 num-of-undos)
-                (alert (.. num-of-undos " undo steps available"))))
-            (alert "nothing to undo"))))))
+                (hs.alert (.. num-of-undos " undo steps available"))))
+            (hs.alert "nothing to undo"))))))
 
 (fn undo [] (history:pop))
 

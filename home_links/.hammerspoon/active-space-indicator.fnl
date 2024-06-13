@@ -22,7 +22,7 @@
     (table.concat title)))
 
 (defn handle-space-switch [& rest]
-  (alert (get-spaces-str)))
+  (hs.alert (get-spaces-str)))
 
 (local space-watcher (hs.spaces.watcher.new handle-space-switch))
 (: space-watcher :start)
