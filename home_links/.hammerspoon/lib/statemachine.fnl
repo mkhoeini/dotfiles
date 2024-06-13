@@ -113,9 +113,9 @@ the next transition.
              :subscribers (atom.new {})
              :log (if template.log (hs.logger.new template.log "info"))}]
     ; Add methods
-    (tset fsm :get-state (partial get-state fsm))
-    (tset fsm :send (partial send fsm))
-    (tset fsm :subscribe (partial subscribe fsm))
+    (fn fsm.get-state [] (get-state fsm))
+    (fn fsm.send [...] (send fsm ...))
+    (fn fsm.subscribe [sub] (subscribe fsm sub))
     fsm))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
