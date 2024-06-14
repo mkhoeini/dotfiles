@@ -287,10 +287,10 @@
          :action "lib.modal:activate-modal"}
         {:mods [:cmd :alt]
          :key :n
-         :action "apps:next-app"}
+         :action "app-switcher:next-app"}
         {:mods [:cmd :alt]
          :key :p
-         :action "apps:prev-app"}
+         :action "app-switcher:prev-app"}
         {:mods [:cmd :ctrl]
          :key "`"
          :action hs.toggleConsole}

@@ -6947,7 +6947,7 @@ package.preload["config"] = package.preload["config"] or function(...)
   end
   yabai_bindings = {_return, {key = "e", title = "Enable", action = _1235_}, {key = "d", title = "Disable", action = _1236_}, {key = "r", title = "Restart", action = _1237_}}
   local menu_items = {{key = "space", title = "Alfred", action = activator("Alfred 4")}, {key = "w", title = "Window", enter = "windows:enter-window-menu", exit = "windows:exit-window-menu", items = window_bindings}, {key = "a", title = "Apps", items = app_bindings}, {key = "j", title = "Jump", action = "windows:jump"}, {key = "m", title = "Media", items = media_bindings}, {key = "x", title = "Emacs", items = emacs_bindings}, {key = "y", title = "Yabai", items = yabai_bindings}}
-  local common_keys = {{mods = {"alt"}, key = "space", action = "lib.modal:activate-modal"}, {mods = {"cmd", "alt"}, key = "n", action = "apps:next-app"}, {mods = {"cmd", "alt"}, key = "p", action = "apps:prev-app"}, {mods = {"cmd", "ctrl"}, key = "`", action = hs.toggleConsole}, {mods = {"cmd", "ctrl"}, key = "o", action = "emacs:edit-with-emacs"}}
+  local common_keys = {{mods = {"alt"}, key = "space", action = "lib.modal:activate-modal"}, {mods = {"cmd", "alt"}, key = "n", action = "app-switcher:next-app"}, {mods = {"cmd", "alt"}, key = "p", action = "app-switcher:prev-app"}, {mods = {"cmd", "ctrl"}, key = "`", action = hs.toggleConsole}, {mods = {"cmd", "ctrl"}, key = "o", action = "emacs:edit-with-emacs"}}
   local browser_keys = {{mods = {"cmd", "shift"}, key = "l", action = "chrome:open-location"}, {mods = {"alt"}, key = "k", action = "chrome:next-tab", ["repeat"] = true}, {mods = {"alt"}, key = "j", action = "chrome:prev-tab", ["repeat"] = true}}
   local browser_items = concat(menu_items, {{key = "'", title = "Edit with Emacs", action = "emacs:edit-with-emacs"}})
   local brave_config = {key = "Brave Browser", keys = browser_keys, items = browser_items}
@@ -15772,12 +15772,12 @@ package.preload["jeejah"] = package.preload["jeejah"] or function(...)
      end,
   }
 end
-package.preload["apps"] = package.preload["apps"] or function(...)
+package.preload["app-switcher"] = package.preload["app-switcher"] or function(...)
   local function _1246_()
-    return "#<namespace: apps>"
+    return "#<namespace: app-switcher>"
   end
   local _local_1245_ = {setmetatable({}, {__fennelview = _1246_, __name = "namespace"}), require("lib.utils")}
-  local apps = _local_1245_[1]
+  local app_switcher = _local_1245_[1]
   local _local_1247_ = _local_1245_[2]
   local global_filter = _local_1247_["global-filter"]
   local calc_thumbnail_size
@@ -15795,11 +15795,12 @@ package.preload["apps"] = package.preload["apps"] or function(...)
     return (h / 2)
   end
   calc_thumbnail_size = calc_thumbnail_size0
+  local switcher = hs.window.switcher.new(global_filter(), {textSize = 12, showSelectedTitle = true, selectedThumbnailSize = calc_thumbnail_size(), backgroundColor = {0, 0, 0, 0}, showThumbnails = false, showTitles = false})
   local init
   do
     local v_29_auto
     local function init0(...)
-      local config = ...
+      local _config = ...
       do
         local cnt_61_auto = select("#", ...)
         if (1 ~= cnt_61_auto) then
@@ -15807,27 +15808,9 @@ package.preload["apps"] = package.preload["apps"] or function(...)
         else
         end
       end
-      local function _1251_(...)
-        local t_1252_ = config
-        if (nil ~= t_1252_) then
-          t_1252_ = t_1252_.modules
-        else
-        end
-        if (nil ~= t_1252_) then
-          t_1252_ = t_1252_.switcher
-        else
-        end
-        if (nil ~= t_1252_) then
-          t_1252_ = t_1252_.filter
-        else
-        end
-        return t_1252_
-      end
-      switcher = hs.window.switcher.new((_1251_() or global_filter()), {textSize = 12, selectedThumbnailSize = calc_thumbnail_size(), backgroundColor = {0, 0, 0, 0}, showSelectedTitle = false, showThumbnails = false, showTitles = false})
-      return nil
     end
     v_29_auto = init0
-    apps["init"] = v_29_auto
+    app_switcher["init"] = v_29_auto
     init = v_29_auto
   end
   local prev_app
@@ -15844,7 +15827,7 @@ package.preload["apps"] = package.preload["apps"] or function(...)
       return switcher:previous()
     end
     v_29_auto = prev_app0
-    apps["prev-app"] = v_29_auto
+    app_switcher["prev-app"] = v_29_auto
     prev_app = v_29_auto
   end
   local next_app
@@ -15861,29 +15844,29 @@ package.preload["apps"] = package.preload["apps"] or function(...)
       return switcher:next()
     end
     v_29_auto = next_app0
-    apps["next-app"] = v_29_auto
+    app_switcher["next-app"] = v_29_auto
     next_app = v_29_auto
   end
-  return apps
+  return app_switcher
 end
-local _local_1_ = {setmetatable({}, {__fennelview = _2_, __name = "namespace"}), require("cljlib"), require("defaults"), require("config"), require("windows"), require("apps"), require("lib.bind"), require("lib.modal"), require("lib.apps")}
+local _local_1_ = {setmetatable({}, {__fennelview = _2_, __name = "namespace"}), require("cljlib"), require("defaults"), require("config"), require("windows"), require("app-switcher"), require("lib.bind"), require("lib.modal"), require("lib.apps")}
 local core = _local_1_[1]
-local _local_1258_ = _local_1_[2]
-local contains_3f = _local_1258_["contains?"]
-local into = _local_1258_["into"]
-local mapv = _local_1258_["mapv"]
-local merge = _local_1258_["merge"]
-local some = _local_1258_["some"]
+local _local_1253_ = _local_1_[2]
+local contains_3f = _local_1253_["contains?"]
+local into = _local_1253_["into"]
+local mapv = _local_1253_["mapv"]
+local merge = _local_1253_["merge"]
+local some = _local_1253_["some"]
 local defaults = _local_1_[3]
 local config = _local_1_[4]
 local windows = _local_1_[5]
-local apps = _local_1_[6]
+local app_switcher = _local_1_[6]
 local lib_bind = _local_1_[7]
 local lib_modal = _local_1_[8]
 local lib_apps = _local_1_[9]
 hs.ipc.cliInstall()
-local function _1259_(_241)
+local function _1254_(_241)
   return _241.init(config)
 end
-resources = mapv(_1259_, {windows, apps, lib_bind, lib_modal, lib_apps})
+resources = mapv(_1254_, {windows, app_switcher, lib_bind, lib_modal, lib_apps})
 return hs.alert("Config is loaded successfully!")

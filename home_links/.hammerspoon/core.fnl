@@ -8,7 +8,7 @@
               [:defaults]
               [:config]
               [:windows]
-              [:apps]
+              [:app-switcher]
               [:lib.bind :as lib-bind]
               [:lib.modal :as lib-modal]
               [:lib.apps :as lib-apps]))
@@ -20,7 +20,7 @@
 ;; Create a global reference so services like hs.application.watcher
 ;; do not get garbage collected.
 (global resources
-        (->> [windows apps lib-bind lib-modal lib-apps]
+        (->> [windows app-switcher lib-bind lib-modal lib-apps]
              (mapv #((. $ :init) config))))
 
 ;; Last thing to do: alert that the config is loaded

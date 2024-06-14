@@ -1,6 +1,6 @@
 (require-macros (doto :cljlib require))
 
-(ns apps
+(ns app-switcher
     (:require [lib.utils :refer [global-filter]]))
 
 
@@ -11,16 +11,18 @@
         {: h} (: screen :currentMode)]
     (/ h 2)))
 
-(defn init [config]
-  (global switcher
-          (hs.window.switcher.new
-           (or (?. config :modules :switcher :filter) (global-filter))
-           {:textSize 12
-            :showTitles false
-            :showThumbnails false
-            :showSelectedTitle false
-            :selectedThumbnailSize (calc-thumbnail-size)
-            :backgroundColor [0 0 0 0]})))
+(var switcher
+     (hs.window.switcher.new
+      (global-filter)
+      {:textSize 12
+       :showTitles false
+       :showThumbnails false
+       :showSelectedTitle true
+       :selectedThumbnailSize (calc-thumbnail-size)
+       :backgroundColor [0 0 0 0]}))
+
+(defn init [_config])
+
 
 (defn prev-app []
   "Open the fancy hammerspoon window switcher and move the cursor to the previous
@@ -35,5 +37,4 @@
   Returns nil"
   (switcher:next))
 
-
-apps
+app-switcher
