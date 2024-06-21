@@ -14966,7 +14966,7 @@ package.preload["spoons"] = package.preload["spoons"] or function(...)
   local function _1202_()
     return "#<namespace: spoons>"
   end
-  local _local_1201_ = {setmetatable({}, {__fennelview = _1202_, __name = "namespace"}), require("cljlib"), require("lib.atom")}
+  local _local_1201_ = {setmetatable({}, {__fennelview = _1202_, __name = "namespace"}), require("cljlib"), require("lib.atom"), require("fennel")}
   local spoons = _local_1201_[1]
   local _local_1203_ = _local_1201_[2]
   local contains_3f = _local_1203_["contains?"]
@@ -14974,6 +14974,7 @@ package.preload["spoons"] = package.preload["spoons"] or function(...)
   local atom = _local_1204_["atom"]
   local deref = _local_1204_["deref"]
   local update_21 = _local_1204_["update!"]
+  local fnl = _local_1201_[4]
   local loaded_spoons
   do
     local v_29_auto
@@ -15054,7 +15055,6 @@ package.preload["spoons"] = package.preload["spoons"] or function(...)
     spoons["use-spoon"] = v_29_auto
     use_spoon = v_29_auto
   end
-  use_spoon("ReloadConfiguration", {start = true})
   use_spoon("Calendar", {})
   use_spoon("CircleClock", {})
   use_spoon("ClipboardTool", {start = true})
@@ -15849,14 +15849,377 @@ package.preload["app-switcher"] = package.preload["app-switcher"] or function(..
   end
   return app_switcher
 end
-local _local_1_ = {setmetatable({}, {__fennelview = _2_, __name = "namespace"}), require("cljlib"), require("defaults"), require("config"), require("windows"), require("app-switcher"), require("lib.bind"), require("lib.modal"), require("lib.apps")}
+package.preload["file-watchers"] = package.preload["file-watchers"] or function(...)
+  local function _1254_()
+    return "#<namespace: file-watchers>"
+  end
+  local _local_1253_ = {setmetatable({}, {__fennelview = _1254_, __name = "namespace"}), require("cljlib"), require("fennel"), require("events"), require("behaviors")}
+  local file_watchers = _local_1253_[1]
+  local _local_1293_ = _local_1253_[2]
+  local assoc = _local_1293_["assoc"]
+  local mapv = _local_1293_["mapv"]
+  local nil_3f = _local_1293_["nil?"]
+  local fnl = _local_1253_[3]
+  local _local_1294_ = _local_1253_[4]
+  local dispatch_event = _local_1294_["dispatch-event"]
+  local tag_events = _local_1294_["tag-events"]
+  local _local_1295_ = _local_1253_[5]
+  local register_behavior = _local_1295_["register-behavior"]
+  tag_events("file-watchers.events/file-change", "file-watchers", {"file-watchers.tags/file-change"})
+  local handle_reload
+  local function handle_reload0(...)
+    local files, attrs = ...
+    do
+      local cnt_61_auto = select("#", ...)
+      if (2 ~= cnt_61_auto) then
+        error(("Wrong number of args (%s) passed to %s"):format(cnt_61_auto, "handle-reload"))
+      else
+      end
+    end
+    local evs
+    local function _1297_(_241, _242)
+      return assoc(_241, "file-path", _242)
+    end
+    evs = mapv(_1297_, attrs, files)
+    for _, ev in ipairs(evs) do
+      dispatch_event("file-watchers.events/file-change", "file-watchers", ev)
+    end
+    return nil
+  end
+  handle_reload = handle_reload0
+  local my_watcher = hs.pathwatcher.new(hs.configdir, handle_reload)
+  __fnl_global__file_2dwatchers_2fpath_2dwatcher = my_watcher:start()
+  local reloading_3f = false
+  local reload = hs.timer.delayed.new(0.5, hs.reload)
+  local function _1298_(file_change_event)
+    local path
+    do
+      local t_1299_ = file_change_event
+      if (nil ~= t_1299_) then
+        t_1299_ = t_1299_["event-data"]
+      else
+      end
+      if (nil ~= t_1299_) then
+        t_1299_ = t_1299_["file-path"]
+      else
+      end
+      path = t_1299_
+    end
+    if (not reloading_3f and not nil_3f(path) and (".hammerspoon/init.lua" == path:sub(-21))) then
+      hs.alert("reloading")
+      return reload:start()
+    else
+      return nil
+    end
+  end
+  register_behavior("file-watchers.behaviors/reload-hammerspoon", "When init.lua changes, reload hammerspoon.", {"file-watchers.tags/file-change"}, _1298_)
+  local function _1303_(file_change_event)
+    local path
+    do
+      local t_1304_ = file_change_event
+      if (nil ~= t_1304_) then
+        t_1304_ = t_1304_["event-data"]
+      else
+      end
+      if (nil ~= t_1304_) then
+        t_1304_ = t_1304_["file-path"]
+      else
+      end
+      path = t_1304_
+    end
+    if (not nil_3f(path) and (".fnl" == path:sub(-4))) then
+      return print(hs.execute("./compile.sh", true))
+    else
+      return nil
+    end
+  end
+  register_behavior("file-watchers.behaviors/hammerspoon-compile-fennel", "Watch fennel files in hammerspoon folder and recompile them.", {"file-watchers.tags/file-change"}, _1303_)
+  return file_watchers
+end
+package.preload["events"] = package.preload["events"] or function(...)
+  local function _1256_()
+    return "#<namespace: events>"
+  end
+  local _local_1255_ = {setmetatable({}, {__fennelview = _1256_, __name = "namespace"}), require("fennel"), require("cljlib")}
+  local events = _local_1255_[1]
+  local fnl = _local_1255_[2]
+  local _local_1257_ = _local_1255_[3]
+  local count = _local_1257_["count"]
+  --[[ example-event {:event-data {:window-id 123 :x 10 :y 20} :event-name "window-move" :event-tags ["some" "tags"] :origin "windows-watcher" :timestamp 0} ]]
+  local processing_3f = false
+  local events_queue = {}
+  local event_handlers = {}
+  local get_event_tags
+  do
+    local v_29_auto
+    do
+      local pairs_104_auto
+      local function _1258_(t_105_auto)
+        local _1259_ = getmetatable(t_105_auto)
+        if ((_G.type(_1259_) == "table") and (nil ~= _1259_.__pairs)) then
+          local p_106_auto = _1259_.__pairs
+          return p_106_auto(t_105_auto)
+        else
+          local _ = _1259_
+          return pairs(t_105_auto)
+        end
+      end
+      pairs_104_auto = _1258_
+      local _let_1261_ = require("cljlib")
+      local eq_107_auto = _let_1261_["eq"]
+      local function _1262_(t_105_auto, ...)
+        local dispatch_value_112_auto
+        local function _1263_(ev)
+          return {ev["event-name"], ev.origin}
+        end
+        dispatch_value_112_auto = _1263_(...)
+        local view_113_auto
+        do
+          local _1264_, _1265_ = pcall(require, "fennel")
+          if ((_1264_ == true) and (nil ~= _1265_)) then
+            local fennel_114_auto = _1265_
+            local function _1266_(_241)
+              return fennel_114_auto.view(_241, {["one-line"] = true})
+            end
+            view_113_auto = _1266_
+          else
+            local _ = _1264_
+            view_113_auto = tostring
+          end
+        end
+        return (t_105_auto[dispatch_value_112_auto] or t_105_auto[(({}).default or "default")] or error(("No method in multimethod '" .. "get-event-tags" .. "' for dispatch value: " .. view_113_auto(dispatch_value_112_auto)), 2))(...)
+      end
+      local function _1268_(t_105_auto, key_108_auto)
+        local res_109_auto = nil
+        for k_110_auto, v_111_auto in pairs_104_auto(t_105_auto) do
+          if res_109_auto then break end
+          if eq_107_auto(k_110_auto, key_108_auto) then
+            res_109_auto = v_111_auto
+          else
+            res_109_auto = nil
+          end
+        end
+        return res_109_auto
+      end
+      v_29_auto = setmetatable({}, {__call = _1262_, __fennelview = tostring, __index = _1268_, __name = ("multifn " .. "get-event-tags"), ["cljlib/type"] = "multifn"})
+    end
+    events["get-event-tags"] = v_29_auto
+    get_event_tags = v_29_auto
+  end
+  do
+    local dispatch_116_auto = "default"
+    local multifn_117_auto = get_event_tags
+    local function _1271_(...)
+      local function fn_1270_(...)
+        local _ = ...
+        do
+          local cnt_61_auto = select("#", ...)
+          if (1 ~= cnt_61_auto) then
+            error(("Wrong number of args (%s) passed to %s"):format(cnt_61_auto, "fn_1270_"))
+          else
+          end
+        end
+        return {"event/unknown"}
+      end
+      multifn_117_auto[dispatch_116_auto] = fn_1270_
+      return multifn_117_auto
+    end
+    do local _ = (not multifn_117_auto[dispatch_116_auto] and _1271_()) end
+  end
+  local tag_events
+  do
+    local v_29_auto
+    local function tag_events0(...)
+      local ev_name, orig, tags = ...
+      do
+        local cnt_61_auto = select("#", ...)
+        if (3 ~= cnt_61_auto) then
+          error(("Wrong number of args (%s) passed to %s"):format(cnt_61_auto, "tag-events"))
+        else
+        end
+      end
+      local dispatch_116_auto = {ev_name, orig}
+      local multifn_117_auto = get_event_tags
+      local function _1275_(...)
+        local function fn_1274_(...)
+          local _ = ...
+          do
+            local cnt_61_auto = select("#", ...)
+            if (1 ~= cnt_61_auto) then
+              error(("Wrong number of args (%s) passed to %s"):format(cnt_61_auto, "fn_1274_"))
+            else
+            end
+          end
+          return tags
+        end
+        multifn_117_auto[dispatch_116_auto] = fn_1274_
+        return multifn_117_auto
+      end
+      return (not multifn_117_auto[dispatch_116_auto] and _1275_())
+    end
+    v_29_auto = tag_events0
+    events["tag-events"] = v_29_auto
+    tag_events = v_29_auto
+  end
+  local add_event_handler
+  do
+    local v_29_auto
+    local function add_event_handler0(...)
+      local handler = ...
+      do
+        local cnt_61_auto = select("#", ...)
+        if (1 ~= cnt_61_auto) then
+          error(("Wrong number of args (%s) passed to %s"):format(cnt_61_auto, "add-event-handler"))
+        else
+        end
+      end
+      local idx = (1 + #event_handlers)
+      table.insert(event_handlers, handler)
+      local function _1278_()
+        event_handlers[idx] = nil
+        return nil
+      end
+      return _1278_
+    end
+    v_29_auto = add_event_handler0
+    events["add-event-handler"] = v_29_auto
+    add_event_handler = v_29_auto
+  end
+  local process_events
+  local function process_events0(...)
+    do
+      local cnt_61_auto = select("#", ...)
+      if (0 ~= cnt_61_auto) then
+        error(("Wrong number of args (%s) passed to %s"):format(cnt_61_auto, "process-events"))
+      else
+      end
+    end
+    processing_3f = true
+    while (0 < count(events_queue)) do
+      local events0 = events_queue
+      events_queue = {}
+      for _, event in ipairs(events0) do
+        for _0, handler in pairs(event_handlers) do
+          handler(event)
+        end
+      end
+    end
+    processing_3f = false
+    return nil
+  end
+  process_events = process_events0
+  local dispatch_event
+  do
+    local v_29_auto
+    local function dispatch_event0(...)
+      local event_name, origin, event_data = ...
+      do
+        local cnt_61_auto = select("#", ...)
+        if (3 ~= cnt_61_auto) then
+          error(("Wrong number of args (%s) passed to %s"):format(cnt_61_auto, "dispatch-event"))
+        else
+        end
+      end
+      local event = {timestamp = hs.timer.secondsSinceEpoch(), ["event-name"] = event_name, origin = origin, ["event-data"] = event_data}
+      event["event-tags"] = get_event_tags(event)
+      table.insert(events_queue, event)
+      if not processing_3f then
+        return process_events()
+      else
+        return nil
+      end
+    end
+    v_29_auto = dispatch_event0
+    events["dispatch-event"] = v_29_auto
+    dispatch_event = v_29_auto
+  end
+  local function _1282_(event)
+    return print("got event", fnl.view(event))
+  end
+  add_event_handler(_1282_)
+  return events
+end
+package.preload["behaviors"] = package.preload["behaviors"] or function(...)
+  local function _1284_()
+    return "#<namespace: behaviors>"
+  end
+  local _local_1283_ = {setmetatable({}, {__fennelview = _1284_, __name = "namespace"}), require("cljlib"), require("events")}
+  local behaviors = _local_1283_[1]
+  local _local_1285_ = _local_1283_[2]
+  local hash_set = _local_1285_["hash-set"]
+  local into = _local_1285_["into"]
+  local mapcat = _local_1285_["mapcat"]
+  local mapv = _local_1285_["mapv"]
+  local _local_1286_ = _local_1283_[3]
+  local add_event_handler = _local_1286_["add-event-handler"]
+  --[[ example-behavior {:description "Some example behavior" :enabled? true :fn (fn [event] (print (fnl.view event))) :name "example-behavior" :respond-to ["example-tag"]} ]]
+  local behaviors_register = {}
+  local tag_to_behavior_map = {}
+  local register_behavior
+  do
+    local v_29_auto
+    local function register_behavior0(...)
+      local name, desc, tags, f = ...
+      do
+        local cnt_61_auto = select("#", ...)
+        if (4 ~= cnt_61_auto) then
+          error(("Wrong number of args (%s) passed to %s"):format(cnt_61_auto, "register-behavior"))
+        else
+        end
+      end
+      local behavior = {name = name, description = desc, ["enabled?"] = true, ["respond-to"] = tags, fn = f}
+      behaviors_register[name] = behavior
+      for _, tag in pairs(tags) do
+        if (nil == tag_to_behavior_map[tag]) then
+          tag_to_behavior_map[tag] = {}
+        else
+        end
+        table.insert(tag_to_behavior_map[tag], name)
+      end
+      return nil
+    end
+    v_29_auto = register_behavior0
+    behaviors["register-behavior"] = v_29_auto
+    register_behavior = v_29_auto
+  end
+  local get_behaviors_for_tags
+  local function get_behaviors_for_tags0(...)
+    local tags = ...
+    do
+      local cnt_61_auto = select("#", ...)
+      if (1 ~= cnt_61_auto) then
+        error(("Wrong number of args (%s) passed to %s"):format(cnt_61_auto, "get-behaviors-for-tags"))
+      else
+      end
+    end
+    local function _1290_(_241)
+      return behaviors_register[_241]
+    end
+    local function _1291_(_241)
+      return tag_to_behavior_map[_241]
+    end
+    return mapv(_1290_, into(hash_set(), mapcat(_1291_, tags)))
+  end
+  get_behaviors_for_tags = get_behaviors_for_tags0
+  local function _1292_(event)
+    local bs = get_behaviors_for_tags(event["event-tags"])
+    for _, behavior in pairs(bs) do
+      local f = behavior.fn
+      f(event)
+    end
+    return nil
+  end
+  add_event_handler(_1292_)
+  return behaviors
+end
+local _local_1_ = {setmetatable({}, {__fennelview = _2_, __name = "namespace"}), require("cljlib"), require("defaults"), require("config"), require("windows"), require("app-switcher"), require("lib.bind"), require("lib.modal"), require("lib.apps"), require("file-watchers")}
 local core = _local_1_[1]
-local _local_1253_ = _local_1_[2]
-local contains_3f = _local_1253_["contains?"]
-local into = _local_1253_["into"]
-local mapv = _local_1253_["mapv"]
-local merge = _local_1253_["merge"]
-local some = _local_1253_["some"]
+local _local_1308_ = _local_1_[2]
+local contains_3f = _local_1308_["contains?"]
+local into = _local_1308_["into"]
+local mapv = _local_1308_["mapv"]
+local merge = _local_1308_["merge"]
+local some = _local_1308_["some"]
 local defaults = _local_1_[3]
 local config = _local_1_[4]
 local windows = _local_1_[5]
@@ -15864,9 +16227,10 @@ local app_switcher = _local_1_[6]
 local lib_bind = _local_1_[7]
 local lib_modal = _local_1_[8]
 local lib_apps = _local_1_[9]
+local file_watchers = _local_1_[10]
 hs.ipc.cliInstall()
-local function _1254_(_241)
+local function _1309_(_241)
   return _241.init(config)
 end
-resources = mapv(_1254_, {windows, app_switcher, lib_bind, lib_modal, lib_apps})
+resources = mapv(_1309_, {windows, app_switcher, lib_bind, lib_modal, lib_apps})
 return hs.alert("Config is loaded successfully!")

@@ -11,7 +11,9 @@
               [:app-switcher]
               [:lib.bind :as lib-bind]
               [:lib.modal :as lib-modal]
-              [:lib.apps :as lib-apps]))
+              [:lib.apps :as lib-apps]
+              [:file-watchers]))
+
 
 ;; TODO cliInstall doesn't work due to priviledges. For now I've linked manually
 (hs.ipc.cliInstall) ; ensure CLI installed
@@ -22,6 +24,7 @@
 (global resources
         (->> [windows app-switcher lib-bind lib-modal lib-apps]
              (mapv #((. $ :init) config))))
+
 
 ;; Last thing to do: alert that the config is loaded
 (hs.alert "Config is loaded successfully!")

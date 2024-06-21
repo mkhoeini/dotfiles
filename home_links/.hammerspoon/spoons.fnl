@@ -2,7 +2,8 @@
 
 (ns spoons
     (:require [cljlib :refer [contains?]]
-              [lib.atom :refer [atom deref update!]]))
+              [lib.atom :refer [atom deref update!]]
+              [fennel :as fnl]))
 
 (def loaded-spoons
   (icollect [i spoon (ipairs (hs.spoons.list))] (. spoon :name)))
@@ -31,7 +32,6 @@
 (defn use-spoon [spoon-name opts]
   (: spoon.SpoonInstall :andUse spoon-name opts))
 
-(use-spoon "ReloadConfiguration" {:start true})
 (use-spoon "Calendar" {})
 
 ;; spoon.SpoonInstall:andUse("HCalendar", { start = true}))
