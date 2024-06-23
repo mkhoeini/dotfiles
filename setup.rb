@@ -1,73 +1,79 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# check if program installed
 def exec?(cmd)
   system("command -v #{cmd} >/dev/null")
 end
 
-if not exec?("brew")
-  puts "Installing HomeBrew"
-  system %q{bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"}
+unless exec?('brew')
+  puts 'Installing HomeBrew'
+  system 'bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 end
 
-if not exec?('emacs')
-    puts "Installing Emacs"
-    system "brew tap d12frosted/emacs-plus"
-    system "brew install emacs-plus@30 --with-native-comp --with-modern-vscode-icon --with-xwidgets --with-imagemagick --with-poll --with-no-frame-refocus"
+unless exec?('emacs')
+  puts 'Installing Emacs'
+  system 'brew tap d12frosted/emacs-plus'
+  system 'brew install emacs-plus@30' \
+         '--with-native-comp --with-modern-vscode-icon --with-xwidgets' \
+         '--with-imagemagick --with-poll --with-no-frame-refocus'
 end
 
-if not exec?('stow')
-    puts "Installing GNU Stow"
-    system "brew install stow"
+unless exec?('stow')
+  puts 'Installing GNU Stow'
+  system 'brew install stow'
 end
 
-system "stow -t $HOME home_links"
+puts 'Linking dotfiles'
+system 'stow -t $HOME home_links'
 
-if not File.exist?(File.expand_path "~/dotemacs/doom")
-    puts "Installing Doom Emacs"
-    system "git clone --depth 1 https://github.com/doomemacs/doomemacs ~/dotemacs/doom"
+unless File.exist?(File.expand_path('~/dotemacs/doom'))
+  puts 'Installing Doom Emacs'
+  system 'git clone --depth 1 https://github.com/doomemacs/doomemacs ~/dotemacs/doom'
 end
 
-if not File.exist?(File.expand_path "~/.config/nvim")
-    puts "Installing LazyVim"
-    system "git clone https://github.com/LazyVim/starter ~/.config/nvim"
+unless File.exist?(File.expand_path('~/.config/nvim'))
+  puts 'Installing LazyVim'
+  system 'git clone https://github.com/LazyVim/starter ~/.config/nvim'
 end
 
-if not File.exist?(File.expand_path "~/.intellimacs")
-    puts "Installing Intellimacs"
-    system "git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs"
+unless File.exist?(File.expand_path('~/.intellimacs'))
+  puts 'Installing Intellimacs'
+  system 'git clone https://github.com/MarcoIeni/intellimacs ~/.intellimacs'
 end
 
 MACOS_DEFAULTS = {
   # Enable repeat keys
-  ApplePressAndHoldEnabled: "-bool false",
+  ApplePressAndHoldEnabled: '-bool false',
 
   # opening and closing windows and popovers
-  NSAutomaticWindowAnimationsEnabled: "-bool false",
+  NSAutomaticWindowAnimationsEnabled: '-bool false',
 
   # smooth scrolling
-  NSScrollAnimationEnabled: "-bool false",
+  NSScrollAnimationEnabled: '-bool false',
 
   # showing and hiding sheets, resizing preference windows, zooming windows
   # float 0 doesn't work
-  NSWindowResizeTime: "-float 0.001",
+  NSWindowResizeTime: '-float 0.001',
 
   # opening and closing Quick Look windows
-  QLPanelAnimationDuration: "-float 0",
+  QLPanelAnimationDuration: '-float 0',
 
   # rubberband scrolling (doesn't affect web views)
-  NSScrollViewRubberbanding: "-bool false",
+  NSScrollViewRubberbanding: '-bool false',
 
   # resizing windows before and after showing the version browser
   # also disabled by NSWindowResizeTime -float 0.001
-  NSDocumentRevisionsWindowTransformAnimation: "-bool false",
+  NSDocumentRevisionsWindowTransformAnimation: '-bool false',
 
   # showing a toolbar or menu bar in full screen
-  NSToolbarFullScreenAnimationDuration: "-float 0",
+  NSToolbarFullScreenAnimationDuration: '-float 0',
 
   # scrolling column views
-  NSBrowserColumnAnimationSpeedMultiplier: "-float 0",
-}
+  NSBrowserColumnAnimationSpeedMultiplier: '-float 0'
+}.freeze
 
-# TODO app defaults
+# TODO: app defaults
 # showing the Dock
 # defaults write com.apple.dock autohide-time-modifier -float 0
 # defaults write com.apple.dock autohide-delay -float 0
@@ -528,9 +534,9 @@ installed_asdf_plugins = `asdf plugin list`
 requested_asdf_plugins
   .reject { |plugin| installed_asdf_plugins.include? plugin }
   .each do |plugin|
-    `asdf plugin add "#{plugin}"`
-    `asdf install "#{plugin}" latest`
-  end
+  `asdf plugin add "#{plugin}"`
+  `asdf install "#{plugin}" latest`
+end
 
 requested_luarocks_plugins = <<-HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
   fennel
