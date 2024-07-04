@@ -15118,7 +15118,7 @@ package.preload["spoons"] = package.preload["spoons"] or function(...)
   local function _1215_(_241)
     return _241:bindHotkeys(_241.default_hotkeys)
   end
-  paper_wm = use_spoon("PaperWM", {repo = "PaperWM", config = {screen_margin = 160, window_gap = 20, window_ratios = {0.3125, 0.421875, 0.625}}, fn = _1215_, start = true})
+  paper_wm = use_spoon("PaperWM", {repo = "PaperWM", config = {window_gap = 20, window_ratios = {0.3125, 0.421875, 0.625, 0.84375}}, fn = _1215_, start = true})
   return nil
 end
 package.preload["active-space-indicator"] = package.preload["active-space-indicator"] or function(...)

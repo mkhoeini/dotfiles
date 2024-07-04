@@ -70,8 +70,7 @@
        (use-spoon
         "PaperWM"
         {:repo "PaperWM"
-         :config {:screen_margin 160
-                  :window_gap 20
-                  :window_ratios [0.3125 0.421875 0.625]}
+         :config {:window_gap 20
+                  :window_ratios [0.3125 0.421875 0.625 0.843750]}
          :fn #(: $1 :bindHotkeys (. $1 :default_hotkeys))
          :start true}))
