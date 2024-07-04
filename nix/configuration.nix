@@ -1,5 +1,15 @@
-{ config, lib, pkgs, inputs, system, username, ... }:
+input@{
+  pkgs,
+  inputs,
+  system,
+  username,
+  ...
+}:
 
+let
+  programs = import ./programs input;
+  services = import ./services input;
+in
 {
   users.users.${username} = {
     name = username;
@@ -8,20 +18,30 @@
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    [ pkgs.vim
-    ];
+  environment.systemPackages = with pkgs; [
+    vim
+    nil
+    nixd
+    nixfmt-rfc-style
+  ];
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
 
-  # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;  # default shell on catalina
-  # programs.fish.enable = true;
+  inherit programs services;
+
+  security.pam.enableSudoTouchIdAuth = true;
+  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+  system.defaults.dock.autohide = true;
+  system.defaults.dock.expose-animation-duration = 1.0e-3;
+  system.defaults.dock.launchanim = false;
+  system.defaults.dock.mru-spaces = false;
+  system.defaults.finder.ShowPathbar = true;
+  system.defaults.trackpad.TrackpadThreeFingerDrag = true;
+  system.defaults.universalaccess.reduceMotion = true;
+  system.keyboard.remapCapsLockToEscape = true;
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
@@ -32,4 +52,9 @@
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = system;
+
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
+
 }
