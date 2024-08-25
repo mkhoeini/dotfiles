@@ -23,6 +23,7 @@ in
     nil
     nixd
     nixfmt-rfc-style
+    google-cloud-sql-proxy
   ];
 
   # nix.package = pkgs.nix;
