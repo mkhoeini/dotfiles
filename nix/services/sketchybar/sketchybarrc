@@ -1,4 +1,9 @@
+#!/usr/bin/env bb
+
 (require '[babashka.process :refer [shell]])
+
+
+(def PLUGIN_DIR "$PLUGINS")
 
 
 (defn to-arg-str [k]
@@ -58,26 +63,120 @@
        (conf-to-props)))
 
 
+(def colors
+ {:black "0xff181819"
+  :white "0xffe2e2e3"
+  :red "0xfffc5d7c"
+  :green "0xff9ed072"
+  :blue "0xff76cce0"
+  :yellow "0xffe7c664"
+  :orange "0xfff39660"
+  :magenta "0xffb39df3"
+  :grey "0xff7f8490"
+  :transparent "0x00000000"
+  :bg1 "0xff363944"
+  :bg2 "0xff414550"})
+
+(def colors.bar {:bg "0x602c2e34"
+                 :border "0xff2c2e34"})
+
+(def colors.popup {:bg "0xc02c2e34"
+                   :border "0xff7f8490"})
+
+;;   with_alpha = function(color, alpha)
+;;     if alpha > 1.0 or alpha < 0.0 then return color end
+;;     return (color & 0x00ffffff) | (math.floor(alpha * 255.0) << 24)
+;;   end,
+;; }
+
+(def settings
+  {:paddings 3
+   :group-paddings 5
+   :icons "sf-symbols"
+   :font/text "SF Pro"
+   :font/numbers "SF Mono"
+   :font/style-map {"Regular" "Regular"
+                    "Semibold" "Semibold"
+                    "Bold" "Bold"
+                    "Heavy" "Heavy"
+                    "Black" "Black"}})
+
+
 (def bar
-  {:position :top
+  {;:topmost "window"
    :height 40
-   :blur-radius 30
-   :color "0x40000055"})
+   :color (colors.bar :bg)
+   :padding-right 2
+   :padding-left 2
+   :position :top
+   :blur-radius 15})
 
 (def default
-  {:padding-left 5
+  {:updates "when_shown"
+   :padding-left 5
    :padding-right 5
-   :icon/font "Iosevka Nerd Font:Bold:17.0"
-   :icon/color "0xffffffff"
-   :icon/padding-left 4
-   :icon/padding-right 4
-   :label/font "Iosevka Nerd Font:Bold:14.0"
-   :label/color "0xffffffff"
-   :label/padding-left 4
-   :label/padding-right 4})
+   :scroll-texts true
 
-(comment
-  (def PLUGIN_DIR "."))
+   :icon/font.family (settings :font/text)
+   :icon/font.style ((settings :font/style-map) "Bold")
+   :icon/font.size 14.0
+   :icon/color (colors :white)
+   :icon/padding-left (settings :paddings)
+   :icon/padding-right (settings :paddings)
+   :icon/background.image.corner-radius 9
+
+   :label/font.family (settings :font/text)
+   :label/font.style ((settings :font/style-map) "Semibold")
+   :label/font.size 13.0
+   :label/color (colors :white)
+   :label/padding-left (settings :paddings)
+   :label/padding-right (settings :paddings)
+
+   :background/height 28
+   :background/corner_radius 9
+   :background/border_width 2
+   :background/border_color (colors :bg2)
+   :background/image.corner-radius 9
+   :background/image.border-color (colors :grey)
+   :background/image.border-width 1
+
+   :popup/background.border-width 2
+   :popup/background.corner-radius 9
+   :popup/background.border-color (colors.popup :border)
+   :popup/background.color (colors.popup :bg)
+   :popup/background.shadow.drawing true
+   :popup/blur-radius 50})
+
+
+(def icons
+  {:plus "􀅼"
+   :loading "􀖇"
+   :apple "􀣺"
+   :gear "􀍟"
+   :cpu "􀫥"
+   :clipboard "􀉄"
+   :switch {:on "􁏮"
+            :off "􁏯"}
+   :volume {100 "􀊩"
+            66 "􀊧"
+            33 "􀊥"
+            10 "􀊡"
+            0 "􀊣"}
+   :battery {100 "􀛨"
+             75 "􀺸"
+             50 "􀺶"
+             25 "􀛩"
+             0 "􀛪"
+             :charging "􀢋"}
+   :wifi {:upload "􀄨"
+          :download "􀄩"
+          :connected "􀙇"
+          :disconnected "􀙈"
+          :router "􁓤"}
+   :media {:back "􀊊"
+           :forward "􀊌"
+           :play-pause "􀊈"}})
+
 
 (def space-icons
   (->> ["1" "2" "3" "4" "5" "6" "7" "8" "9" "10"]
@@ -99,10 +198,58 @@
              (range 1 1000))))
 
 
+(defn item [conf]
+  (let [{:keys [name position]} conf
+        conf (dissoc conf :name :position)
+        name (or name (gensym "item"))
+        position (or position :left)
+        add {:add {:$ [:item name position]}}
+        set {:set (assoc conf :$ [name])}]
+    (if (empty? conf)
+      [add]
+      [add set])))
+
+(comment
+  (item {:w 120})
+  (item {:name :hi})
+  (item {:name :hi
+         :position :right
+         :w 120})
+  xxx)
+
+
+(def apple-item
+  (concat
+   (item {:width 5})
+   (item {:name :apple
+          :padding-left 1
+          :padding-right 1
+          :click-script "$CONFIG_DIR/helpers/menus/bin/menus -s 0"
+
+          :icon/font.size 16.0
+          :icon/string (icons :apple)
+          :icon/padding-right 8
+          :icon/padding-left 8
+
+          :label/drawing false
+
+          :background/color (colors :bg2)
+          :background/border-color (colors :black)
+          :background/border-width 1})
+
+   [{:add {:$ [:bracket :br-apple :apple]}}
+    {:set {:$ [:br-apple]
+           :background/color (colors :transparent)
+           :background/height 30
+           :background/border-color (colors :grey)}}]
+
+   (item {:width 7})))
+
+
 (def left-items
   [{:add {:$ [:item :chevron :left]}}
    {:set {:$ [:chevron]
-          :icon ""
+          :icon "􀆊"
           :label/drawing :off}}
    {:add {:$ [:item :front-app :left]}}
    {:set {:$ [:front-app]
@@ -114,7 +261,7 @@
   [{:add {:$ [:item :clock :right]}}
    {:set {:$ [:clock]
           :update-freq 10
-          :icon ""
+          :icon "􀐬"
           :script (str PLUGIN_DIR "/clock.sh")}}
    {:add {:$ [:item :volume :right]}}
    {:set {:$ [:volume]
@@ -130,6 +277,7 @@
   (into []
         (concat [{:bar bar}
                  {:default default}]
+                apple-item
                 space-icons
                 left-items
                 right-items)))
