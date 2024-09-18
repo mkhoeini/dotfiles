@@ -7,6 +7,8 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    kanata.url = "path:./flakes/kanata";
+    kanata.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -15,6 +17,7 @@
       nixpkgs,
       nix-darwin,
       home-manager,
+      kanata,
     }:
     let
       system = "aarch64-darwin";
@@ -40,7 +43,12 @@
           home-manager-configs
         ];
         specialArgs = {
-          inherit inputs system username;
+          inherit
+            inputs
+            system
+            username
+            kanata
+            ;
         };
       };
     in

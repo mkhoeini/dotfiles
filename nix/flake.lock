@@ -20,6 +20,23 @@
         "type": "github"
       }
     },
+    "kanata": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-F0a/sXBXs7Cj42e1bfkR68TINdcX7rZQzyQs6VAbTD4=",
+        "path": "./flakes/kanata",
+        "type": "path"
+      },
+      "original": {
+        "path": "./flakes/kanata",
+        "type": "path"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -59,6 +76,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "kanata": "kanata",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs"
       }

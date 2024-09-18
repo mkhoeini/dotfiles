@@ -3,6 +3,7 @@ input@{
   inputs,
   system,
   username,
+  kanata,
   ...
 }:
 
@@ -24,6 +25,7 @@ in
     nixd
     nixfmt-rfc-style
     google-cloud-sql-proxy
+    kanata.packages.${system}.kanata
   ];
 
   # nix.package = pkgs.nix;
