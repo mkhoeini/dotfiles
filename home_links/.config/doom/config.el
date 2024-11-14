@@ -91,3 +91,5 @@
               (when (or (locate-dominating-file default-directory "deno.json")
                         (locate-dominating-file default-directory "deno.jsonc"))
                 (setq-local lsp-enabled-clients '(deno-ls))))))
+
+(map! :n "-" #'dired-jump)
