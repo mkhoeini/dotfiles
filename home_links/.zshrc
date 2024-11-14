@@ -103,14 +103,6 @@ if [[ -e  "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completi
     source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
 
-function username_to_userid {
-    jhurl -p --site services.gew1 --method GET "hm://userdata/account?username=$1" 2>/dev/null | jq ".[] | .user_id"
-}
-
-function userid_to_username {
-    jhurl -p --site services.gew1 --method GET "hm://userdata/account?user_id=$1" 2>/dev/null | jq ".[] | .username"
-}
-
 bindkey '^T' fzf-file-widget
 bindkey '^R' fzf-history-widget
 # bindkey '^I' fzf-completion
