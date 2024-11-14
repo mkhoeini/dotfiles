@@ -26,6 +26,7 @@ in
     nixfmt-rfc-style
     google-cloud-sql-proxy
     kanata.packages.${system}.kanata
+    wezterm
   ];
 
   # nix.package = pkgs.nix;
