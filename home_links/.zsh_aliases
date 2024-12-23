@@ -25,3 +25,5 @@ alias w='type -a'
 alias pn=pnpm
 
 alias nre="darwin-rebuild switch --flake ~/Dev/dotfiles/nix\#default"
+
+alias lg=lazygit
