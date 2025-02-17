@@ -13,10 +13,9 @@ end
 
 unless exec?('emacs')
   puts 'Installing Emacs'
-  system 'brew tap d12frosted/emacs-plus'
-  system 'brew install emacs-plus@30' \
-         '--with-native-comp --with-modern-vscode-icon --with-xwidgets' \
-         '--with-imagemagick --with-poll --with-no-frame-refocus'
+  system 'brew install d12frosted/emacs-plus/emacs-plus@30 ' \
+         '--with-native-comp --with-modern-vscode-icon --with-xwidgets ' \
+         '--with-imagemagick --with-compress-install --with-no-frame-refocus'
 end
 
 unless exec?('stow')
@@ -30,6 +29,8 @@ system 'stow -t $HOME home_links'
 unless File.exist?(File.expand_path('~/dotemacs/doom'))
   puts 'Installing Doom Emacs'
   system 'git clone --depth 1 https://github.com/doomemacs/doomemacs ~/dotemacs/doom'
+  system 'ln -s ~/dotemacs/doom ~/.emacs.d'
+  system 'brew services restart d12frosted/emacs-plus/emacs-plus@30'
 end
 
 unless File.exist?(File.expand_path('~/.config/nvim'))
@@ -99,19 +100,6 @@ MACOS_DEFAULTS.each_pair do |opt, val|
   system "defaults write -g #{opt} #{val}"
 end
 
-tap_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
-  borkdude/brew ; babashka
-  ;; bufbuild/buf
-  homebrew/cask-fonts
-  homebrew/cask-versions
-  mkhoeini/tap ; fortune-mod
-  oven-sh/bun ; bun.sh
-  remotemobprogramming/brew
-  ;; spotify/public
-  ;tnk-studio/tools ; lazykube
-  koekeishiya/formulae ; yabai
-HEREDOC
-
 formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;; adns
   antidote ; ZSH plugin manager.
@@ -120,7 +108,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; asciinema
   asdf ; tools version management
   ;; assimp
-  babashka ; clojure cli scripting
+  borkdude/brew/babashka ; clojure cli scripting
   bat ; better cat alternative
   ;; bdw-gc
   ;; berkeley-db
@@ -129,7 +117,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; boost
   bottom ; better top util
   ;; brotli
-  bun ; node.js alternative
+  oven-sh/bun/bun ; node.js alternative
   ;; burklee
   ;; bzip2
   ;; c-ares
@@ -172,7 +160,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; fmt
   ;; folly
   ;; fontconfig
-  fortune-mod ; beautiful quotes in the terminal. TODO include more quotes
+  mkhoeini/tap/fortune-mod ; beautiful quotes in the terminal. TODO include more quotes
   ;; freetype
   ;; frei0r
   ;; fribidi
@@ -224,7 +212,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; imath
   ;; ipython
   ;; isl
-  ;; ispell
+  ispell ; emacs uses this for spell checking
   ;; jansson
   ;; jasper
   ;; jbig2dec
@@ -244,8 +232,8 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; kubectx
   ;; kubernetes-cli
   ;; lame
-  ;lazygit ; git TUI
-  ;; lazykube
+  lazygit ; git TUI
+  ;tnk-studio/tools/lazykube ; kubernetes cli
   ;; leiningen
   ;; leptonica
   ;; libarchive
@@ -330,7 +318,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; mbedtls
   ;; md4c
   ;; mitmproxy
-  mob ; mob cli for mobbing
+  remotemobprogramming/brew/mob ; mob cli for mobbing
   ;; mosh
   ;; mpdecimal
   ;; mpfr
@@ -414,6 +402,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; tree-sitter
   triangle ; Convert images to triangulation art
   ;; ttyplot
+  tinymist
   ;; unbound
   ;; unibilium
   ;; unixodbc
@@ -433,10 +422,10 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; xorgproto
   ;; xvid
   ;; xz
-  yabai
+  koekeishiya/formulae/yabai
   ;; z
   ;; z3
-  zellij ; better tmux alternative
+  ;zellij ; better tmux alternative
   ;; zeromq
   ;; zimg
   ;; zlib
@@ -446,7 +435,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
 HEREDOC
 
 cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
-  alacritty ; terminal emulator
+  ;alacritty ; terminal emulator
   ;blurred ; dim background apps windows
   ;browserosaurus ; select which browser
   ;chromium
@@ -491,6 +480,7 @@ cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;onething ; TODO doesn't exist - focus on one thing at a time
   ;; qutebrowser
   ;rancher ; Docker Desktop replacement
+  raycast ; App Launcher
   ;rectangle ; Window management with keyboard
   ;; retinizer
   ;; spotify
@@ -504,14 +494,11 @@ cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   vimr ; another vim GUI
   visual-studio-code
   ;; xbar ; menubar super app
+  wezterm
+  zed
 HEREDOC
 
-installed_taps = `brew tap`
-tap_list
-  .reject { |tap| installed_taps.include? tap }
-  .each { |tap| `brew tap "#{tap}"` }
-
-installed_formulas = `brew list --formula`
+installed_formulas = `brew list --formula --full-name`
 formula_list
   .reject { |formula| installed_formulas.include? formula }
   .each { |formula| `brew install "#{formula}"` }

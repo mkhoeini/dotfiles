@@ -20,7 +20,7 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 - [ ] create proper repl for hammerspoon-fennel
 - [ ] create a kanata flake and add its config and autostart on startup
 - [ ] replace asdf with mise
-- [ ] replace alacritty and zellij with wezterm
+- [X] replace alacritty and zellij with wezterm
 
 * TODO backups
 ** zplug packages
