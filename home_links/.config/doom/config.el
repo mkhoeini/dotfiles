@@ -93,3 +93,9 @@
                 (setq-local lsp-enabled-clients '(deno-ls))))))
 
 (map! :n "-" #'dired-jump)
+
+(after! (:and typst-ts-mode lsp-mode)
+  (add-to-list 'lsp-language-id-configuration '(typst-ts-mode . "typst"))
+  (lsp-register-client (make-lsp-client :new-connection (lsp-studio-connection "tinymist")
+                                        :activation-fn (lsp-activate-on "typst")
+                                        :server-id 'typst-lsp)))
