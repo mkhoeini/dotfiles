@@ -10,11 +10,6 @@ fi
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export HOMEBREW_EVAL_ALL=1
 
-# Only launch zellij if it's in Alacritty
-if [[ -n "$ALACRITTY_WINDOW_ID" && ! -n "$ZELLIJ" ]]; then
-  zellij attach -c --index 0
-fi
-
 export PATH="$HOME/.local/bin/:$HOME/.poetry/bin:$HOME/.cargo/bin:$HOME/.deno/bin:/usr/local/bin:$PATH"
 
 
@@ -115,7 +110,7 @@ bindkey '^K' per-directory-history-toggle-history
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-[[ -s $(brew --prefix asdf)/libexec/asdf.sh ]] && source $(brew --prefix asdf)/libexec/asdf.sh
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 # source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
 [[ -s ~/.asdf/plugins/java/set-java-home.zsh ]] && source ~/.asdf/plugins/java/set-java-home.zsh
