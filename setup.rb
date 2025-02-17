@@ -102,6 +102,7 @@ end
 
 formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;; adns
+  nikitabobko/tap/aerospace
   antidote ; ZSH plugin manager.
   ;antigen ; ZSH plugin management. outdated. use antidote instead
   ;; aom
@@ -498,15 +499,11 @@ cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   zed
 HEREDOC
 
-installed_formulas = `brew list --formula --full-name`
+installed_formulas = `brew list --full-name`
 formula_list
+  .concat(cask_list)
   .reject { |formula| installed_formulas.include? formula }
   .each { |formula| `brew install "#{formula}"` }
-
-installed_casks = `brew list --cask`
-cask_list
-  .reject { |cask| installed_casks.include? cask }
-  .each { |cask| `brew install --cask "#{cask}"` }
 
 requested_asdf_plugins = <<-HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
   kotlin
