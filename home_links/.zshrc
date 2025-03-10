@@ -110,10 +110,7 @@ bindkey '^K' per-directory-history-toggle-history
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-# source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-
-[[ -s ~/.asdf/plugins/java/set-java-home.zsh ]] && source ~/.asdf/plugins/java/set-java-home.zsh
+eval "$(mise activate zsh)"
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"

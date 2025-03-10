@@ -372,6 +372,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; mbedtls
   ;; md4c
   ;; meetingbar
+  mise
   ;; mitmproxy
   remotemobprogramming/brew/mob ; mob cli for mobbing
   ;; mosh
@@ -518,23 +519,6 @@ installed_formulas = `brew list --full-name`
 formula_list
   .reject { |formula| installed_formulas.include? formula }
   .each { |formula| `brew install "#{formula}"` }
-
-requested_asdf_plugins = <<-HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
-  kotlin
-  kscript
-  java
-  nodejs
-  ruby
-  rust
-HEREDOC
-
-installed_asdf_plugins = `asdf plugin list`
-requested_asdf_plugins
-  .reject { |plugin| installed_asdf_plugins.include? plugin }
-  .each do |plugin|
-  `asdf plugin add "#{plugin}"`
-  `asdf install "#{plugin}" latest`
-end
 
 requested_luarocks_plugins = <<-HEREDOC.gsub(/;.*$/, '').strip.split(/\s+/)
   fennel

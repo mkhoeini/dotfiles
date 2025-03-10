@@ -12,14 +12,14 @@ Run this in the terminal. It will setup homebrew and emacs and install dependenc
 
 * TODO setup
 - [ ] Setup https://gitlab.com/mtekman/org-tanglesync.el for diffing on tangling
-- [ ] change from gnu stow to nix home_manager
+- +[ ] change from gnu stow to nix home_manager+
 - [ ] templatize git config using nix
 - [ ] implement command pallet for hammerspoon
 - [X] precompile fennel code in hammerspoon
 - [ ] implement git based plugin fetching in hammerspoon
 - [ ] create proper repl for hammerspoon-fennel
 - [ ] create a kanata flake and add its config and autostart on startup
-- [ ] replace asdf with mise
+- [X] replace asdf with mise
 - [X] replace alacritty and zellij with wezterm
 
 * TODO backups
