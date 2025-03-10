@@ -100,36 +100,52 @@ MACOS_DEFAULTS.each_pair do |opt, val|
   system "defaults write -g #{opt} #{val}"
 end
 
+# use these js in chrome console to sort these.
+# function formulaName(str) { return str.trim().replaceAll(/;+/g, ';').replace(/;? ?([^ ]+).*/, "$1").replace(/^(.+\/)?([^/]+)$/, "$2") }
+# console.log(str.split('\n').toSorted((a, b) => formulaName(a) < formulaName(b) ? -1 : 1).join('\n'))
 formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
   ;; adns
-  nikitabobko/tap/aerospace
+  nikitabobko/tap/aerospace ; window manager
+  ;alacritty ; terminal emulator
   antidote ; ZSH plugin manager.
   ;antigen ; ZSH plugin management. outdated. use antidote instead
   ;; aom
+  arc ; nice browser
   ;; asciinema
-  asdf ; tools version management
+  ;asdf ; tools version management
   ;; assimp
   borkdude/brew/babashka ; clojure cli scripting
+  bash
   bat ; better cat alternative
+  bazelisk ; nice cli for bazel build system
   ;; bdw-gc
   ;; berkeley-db
   ;; bison
   ;; black
+  blurred ; dim background apps windows
   ;; boost
   bottom ; better top util
   ;; brotli
+  ;browserosaurus ; select which browser
   oven-sh/bun/bun ; node.js alternative
   ;; burklee
   ;; bzip2
   ;; c-ares
   ;; ca-certificates
+  chatgpt
+  ;chromium
   ;; cjson
+  cloc ; count lines of code
   clojure
+  clojure-lsp
   clojurescript
   ;; cmake
   ;; cmocka
+  coconutbattery ; battery info util
   ;; concurrencykit
   coreutils
+  ;; corretto
+  ;; corretto8
   cowsay ; terminal eye candy
   ;; ctags
   curlie ; better curl alternative
@@ -137,29 +153,50 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; dbus
   ;; deno
   ;; desktop-file-utils
+  diffusionbee ; Stable Diffusion mac image tool
   direnv
   ;; docbook
   ;; docbook-xsl
+  docker ; docker desktop. Uses correct arch
   ;; double-conversion
   ;; doxygen
   dust ; better du alternative for measuring dir size
   ;; ebook-tools
   ;; edencommon
+  ;; edex-ui
   ;; entr
-  eza ; better ls alternative
   ;; exiv2
   ;; extra-cmake-modules
+  eza ; better ls alternative
   ;; fasd
   ;; fb303
   ;; fbthrift
   fd ; better find util
   ;; ffmpeg
+  firefox
   ;; fizz
   ;; flac
   ;; flex
+  flux ; set color temp at evening
   ;; flyway
   ;; fmt
   ;; folly
+  ;; font-code-new-roman-nerd-font
+  ;; font-dejavu-sans-mono-nerd-font
+  font-droid-sans-mono-nerd-font
+  ;; font-fira-code-nerd-font
+  ;; font-firacode-nerd-font
+  ;; font-hack-nerd-font
+  ;; font-hasklig
+  ;; font-hasklig-nerd-font
+  font-iosevka-nerd-font
+  font-jetbrains-mono-nerd-font
+  font-juliamono
+  ;; font-lilex
+  ;; font-monoid-nerd-font
+  ;; font-noto-nerd-font
+  font-roboto-mono-nerd-font ; used for alacritty
+  ;; font-victor-mono-nerd-font
   ;; fontconfig
   mkhoeini/tap/fortune-mod ; beautiful quotes in the terminal. TODO include more quotes
   ;; freetype
@@ -177,10 +214,13 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; gh
   ;; ghc
   ;; ghostscript
+  ghostty
   ;; giflib
   git ; version control system
   git-delta ; show beautiful git diffs in terminal
   git-gui ; gitx and git gui commands
+  git-lfs
+  ;; github-beta
   ;; glib
   ;; glog
   glow ; Beautiful Terminal Markdown Renderer
@@ -192,28 +232,36 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; gnutls
   ;; go
   ;; gobject-introspection
+  ;; google-chrome
+  google-cloud-sdk ; cli for google cloud
   ;; gperf
   ;; gpgme
   ;; graphite2
   ;; graphviz
-  ;; grpcurl
+  grpcurl
   ;; gts
   ;; guile
   ;; hades-cli
+  hammerspoon ; desktop automation tool
   ;; harfbuzz
+  helix
+  hiddenbar ; make taskbar icons hidden
   ;; highway
   ;; hmtools
   ;hub ; convenient github cli
   ;; hunspell
   hyperfine ; terminal benchmark util
   ;; icu4c
+  iina ; greate video player
   ijq ; interactive jq for json manipulation
   ;; ilmbase
   ;; imagemagick
   ;; imath
+  intellij-idea-ce
   ;; ipython
   ;; isl
   ispell ; emacs uses this for spell checking
+  itsycal ; calendar menubar
   ;; jansson
   ;; jasper
   ;; jbig2dec
@@ -224,15 +272,19 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; jpeg-turbo
   ;; jpeg-xl
   jq ; commandline json util
-  ;just ; better make alternative
+  jupyterlab
+  just ; better make alternative
   ;; k6
   ;; kde-extra-cmake-modules
   ;; kf5-kdoctools
+  ;; kitty
   ;; krb5
+  krita
   ;; kubectl-site
   ;; kubectx
   ;; kubernetes-cli
   ;; lame
+  ;; lapce ; Rust based GUI editor
   lazygit ; git TUI
   ;tnk-studio/tools/lazykube ; kubernetes cli
   ;; leiningen
@@ -304,6 +356,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; libzip
   ;; little-cms2
   ;; llvm
+  logseq ; personal knowledge management
   lolcat ; make terminal quotes colorful
   ;; lua
   ;; lua@5.3
@@ -318,6 +371,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   maven ; java package manager
   ;; mbedtls
   ;; md4c
+  ;; meetingbar
   ;; mitmproxy
   remotemobprogramming/brew/mob ; mob cli for mobbing
   ;; mosh
@@ -333,11 +387,15 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; nghttp2
   ;; ninja
   ;; nmap
+  ;; noisebuddy
+  ;; noisy
   ;; npth
   ;; nspr
   ;; nss
   ;; oha
+  ollama
   ;; onefetch
+  ;onething ; TODO doesn't exist - focus on one thing at a time
   ;; oniguruma
   ;; opencore-amr
   ;; openexr
@@ -347,7 +405,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; opus
   ;; p11-kit
   p7zip ; 7zip compression with new extentions
-  ;; pandoc
+  pandoc
   ;; pango
   ;; parallel
   ;; pcre
@@ -366,10 +424,15 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   procs ; better ps alternative
   ;; protobuf
   ;; pygments
+  ;; qutebrowser
+  ;rancher ; Docker Desktop replacement
   ;ranger ; terminal file manager
   ;; rav1e
+  raycast ; App Launcher
   ;; readline
   ;; recode
+  ;rectangle ; Window management with keyboard
+  ;; retinizer
   ripgrep ; cli search util
   rlwrap ; readline cli util
   ;; rtmpdump
@@ -388,6 +451,7 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; speedtest-cli
   ;; speex
   ;; spgrpcurl
+  ;; spotify
   ;; spotify-disco
   ;; spotify-nameless-cli
   ;; sqlite
@@ -395,37 +459,52 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;starship ; zsh prompt. instead use powerlevel10k
   stow ; symlink management
   ;; styx-cli
+  ;; swiftdefaultappsprefpane
   ;; taglib
   ;; tcl-tk
+  telegram
+  ;; telegram-desktop ; electron based
   ;; tesseract
   ;; texinfo
   ;; theora
+  tinymist
+  ;; todoist
+  tomatobar ; pomodoro menubar
   ;; tree-sitter
   triangle ; Convert images to triangulation art
+  tribler ; torrent download client
   ;; ttyplot
-  tinymist
   ;; unbound
   ;; unibilium
   ;; unixodbc
   ;; utf8proc
+  utm@beta
+  uv
   ;; v2ray
+  ;vimac ; TODO doesn't exist - mac vim mode hints overlay
+  vimr ; another vim GUI
+  visual-studio-code
   ;; wakatime-cli
   ;; wangle
   watchexec ; run commands on file change
   ;; watchman
   ;; webp
   ;; websocat
+  wezterm
   ;; wget
   ;; x264
   ;; x265
+  ;; xbar ; menubar super app
   xdg-ninja ; Config dotfiles to be in XDG folders - TODO apply suggestions
   ;; xmlto
   ;; xorgproto
   ;; xvid
   ;; xz
   koekeishiya/formulae/yabai
+  yt-dlp
   ;; z
   ;; z3
+  zed
   ;zellij ; better tmux alternative
   ;; zeromq
   ;; zimg
@@ -435,73 +514,8 @@ formula_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empt
   ;; zstd
 HEREDOC
 
-cask_list = <<HEREDOC.gsub(/;.*$/, '').split("\n").map(&:strip).reject(&:empty?)
-  ;alacritty ; terminal emulator
-  ;blurred ; dim background apps windows
-  ;browserosaurus ; select which browser
-  ;chromium
-  coconutbattery ; battery info util
-  ;; corretto
-  ;; corretto8
-  diffusionbee ; Stable Diffusion mac image tool
-  docker ; docker desktop. Uses correct arch
-  ;; edex-ui
-  firefox
-  flux ; set color temp at evening
-  ;; font-code-new-roman-nerd-font
-  ;; font-dejavu-sans-mono-nerd-font
-  font-droid-sans-mono-nerd-font
-  ;; font-fira-code-nerd-font
-  ;; font-firacode-nerd-font
-  ;; font-hack-nerd-font
-  ;; font-hasklig
-  ;; font-hasklig-nerd-font
-  font-iosevka-nerd-font
-  font-jetbrains-mono-nerd-font
-  font-juliamono
-  ;; font-lilex
-  ;; font-monoid-nerd-font
-  ;; font-noto-nerd-font
-  font-roboto-mono-nerd-font ; used for alacritty
-  ;; font-victor-mono-nerd-font
-  ;; github-beta
-  ;; google-chrome
-  google-cloud-sdk ; cli for google cloud
-  hammerspoon ; desktop automation tool
-  hiddenbar ; make taskbar icons hidden
-  iina ; greate video player
-  intellij-idea-ce
-  itsycal ; calendar menubar
-  ;; kitty
-  ;; lapce ; Rust based GUI editor
-  logseq ; personal knowledge management
-  ;; meetingbar
-  ;; noisebuddy
-  ;; noisy
-  ;onething ; TODO doesn't exist - focus on one thing at a time
-  ;; qutebrowser
-  ;rancher ; Docker Desktop replacement
-  raycast ; App Launcher
-  ;rectangle ; Window management with keyboard
-  ;; retinizer
-  ;; spotify
-  ;; swiftdefaultappsprefpane
-  telegram
-  ;; telegram-desktop ; electron based
-  ;; todoist
-  tomatobar ; pomodoro menubar
-  tribler ; torrent download client
-  ;vimac ; TODO doesn't exist - mac vim mode hints overlay
-  vimr ; another vim GUI
-  visual-studio-code
-  ;; xbar ; menubar super app
-  wezterm
-  zed
-HEREDOC
-
 installed_formulas = `brew list --full-name`
 formula_list
-  .concat(cask_list)
   .reject { |formula| installed_formulas.include? formula }
   .each { |formula| `brew install "#{formula}"` }
 
