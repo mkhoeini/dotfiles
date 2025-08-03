@@ -135,6 +135,17 @@ export PATH="$HOME/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
 
 eval $(luarocks path)
 
+# help cursor-ide detect command is finished
+PROMPT_EOL_MARK=“”
+[[ -s "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
+
+export GEMINI_API_KEY=$(security find-generic-password -a $USER -s GEMINI_API_KEY -w)
+
+[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+  source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+
+[[ -s "$HOME/spotify.zsh" ]] && source "$HOME/spotify.zsh"
+
 # This should remain as the last command in file to properly profile everything
 if $RUN_ZPROF; then
     zprof
