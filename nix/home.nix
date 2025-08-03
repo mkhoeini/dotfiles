@@ -1,15 +1,15 @@
 {
-  config,
-  pkgs,
   username,
   ...
 }:
-
-{
+let
+  homeDir = "/Users/${username}";
+  files = import ./files/default.nix {};
+in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = username;
-  home.homeDirectory = "/Users/${username}";
+  home.homeDirectory = homeDir;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -26,4 +26,10 @@
 
   # needs migrating zshrc
   # programs.zsh.enable = true;
+
+  home.preferXdgDirectories = true;
+
+  home.file = files;
+
+  manual.html.enable = true;
 }

@@ -15,7 +15,7 @@ let
   sketchybarrc = readFile ./sketchybarrc;
 in
 {
-  enable = true;
+  enable = false;
   extraPackages = [ pkgs.babashka ];
   config = replaceStrings [ "$PLUGINS" ] [ plugins ] sketchybarrc;
 }

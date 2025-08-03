@@ -20,12 +20,14 @@ in
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    vim
+    google-cloud-sql-proxy
+    kanata.packages.${system}.kanata
     nil
     nixd
     nixfmt-rfc-style
-    google-cloud-sql-proxy
-    kanata.packages.${system}.kanata
+    typst
+    typst-lsp
+    vim
     wezterm
   ];
 
