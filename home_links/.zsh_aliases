@@ -16,7 +16,7 @@ alias ll="eza -lah --icons --group-directories-first --git"
 
 alias ps='procs --tree'
 alias top='btm'
-alias cd='echo "Use `z` instead"; z'
+alias cd='echo "Use \`z\` instead"; z'
 
 alias sp="emacs --init-directory $HOME/dotemacs/spacemacs"
 alias de="emacs --init-directory $HOME/dotemacs/doom"
