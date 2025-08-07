@@ -28,7 +28,6 @@ in
     typst
     typst-lsp
     vim
-    wezterm
   ];
 
   # nix.package = pkgs.nix;
