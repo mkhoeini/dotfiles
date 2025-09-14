@@ -2,7 +2,8 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
-config.color_scheme = "Palenight (Gogh)"
+config.color_scheme = "Twilight"
+-- config.color_scheme = "Palenight (Gogh)"
 config.font = wezterm.font("RobotoMono Nerd Font")
 config.font_size = 13
 config.line_height = 1.3
@@ -55,36 +56,36 @@ local function tab_title(tab_info)
 end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local text_color = "#000000"
-	local bar_background = "#333333"
-	local active_background = "#C0FD50"
-	local inactive_background = "#8A8A8A"
-	local hover_background = "#DADADA"
+			   local text_color = "#000000"
+			   local bar_background = "#333333"
+			   local active_background = "#C0FD50"
+			   local inactive_background = "#8A8A8A"
+			   local hover_background = "#DADADA"
 
-	local background = inactive_background
-	if tab.is_active then
-		background = active_background
-	elseif hover then
-		background = hover_background
-	end
+			   local background = inactive_background
+			   if tab.is_active then
+				   background = active_background
+			   elseif hover then
+				   background = hover_background
+			   end
 
-	local title = (tab.tab_index + 1) .. ": " .. tab_title(tab)
+			   local title = (tab.tab_index + 1) .. ": " .. tab_title(tab)
 
-	-- ensure that the titles fit in the available space,
-	-- and that we have room for the edges.
-	title = " " .. wezterm.truncate_right(title, max_width - 4) .. " "
+			   -- ensure that the titles fit in the available space,
+			   -- and that we have room for the edges.
+			   title = " " .. wezterm.truncate_right(title, max_width - 4) .. " "
 
-	return {
-		{ Background = { Color = background } },
-		{ Foreground = { Color = bar_background } },
-		{ Text = SOLID_RIGHT_ARROW },
-		{ Background = { Color = background } },
-		{ Foreground = { Color = text_color } },
-		{ Text = title },
-		{ Background = { Color = bar_background } },
-		{ Foreground = { Color = background } },
-		{ Text = SOLID_RIGHT_ARROW },
-	}
+			   return {
+				   { Background = { Color = background } },
+				   { Foreground = { Color = bar_background } },
+				   { Text = SOLID_RIGHT_ARROW },
+				   { Background = { Color = background } },
+				   { Foreground = { Color = text_color } },
+				   { Text = title },
+				   { Background = { Color = bar_background } },
+				   { Foreground = { Color = background } },
+				   { Text = SOLID_RIGHT_ARROW },
+			   }
 end)
 
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 5000 }
@@ -109,17 +110,39 @@ config.keys = {
 		key = "r",
 		mods = "LEADER",
 		action = wezterm.action.ActivateKeyTable({
-			name = "resize_pane",
-			one_shot = false,
+				name = "resize_pane",
+				one_shot = false,
 		}),
 	},
 	{
 		key = "a",
 		mods = "LEADER",
 		action = wezterm.action.ActivateKeyTable({
-			name = "activate_pane",
-			one_shot = true,
+				name = "activate_pane",
+				one_shot = true,
 		}),
+	},
+	{
+		key = "c",
+		mods = "LEADER",
+		action = wezterm.action_callback(function(win, pane)
+				local color_scheme_menu = {}
+				for name in pairs(wezterm.get_builtin_color_schemes()) do
+					table.insert(color_scheme_menu, { label = name, id = name })
+				end
+				table.sort(color_scheme_menu, function(a, b) return a.label < b.label end)
+
+				win:perform_action(
+					wezterm.action.InputSelector {
+						title = "Choose color scheme",
+						choices = color_scheme_menu,
+						action = wezterm.action_callback(function(window, pane, id, label)
+								window:set_config_overrides { color_scheme = id }
+						end),
+					},
+					pane
+				)
+		end),
 	},
 }
 
@@ -166,11 +189,11 @@ config.key_tables = {
 }
 
 wezterm.on("update-right-status", function(window)
-	local name = window:active_key_table()
-	if name then
-		name = "TABLE: " .. name
-	end
-	window:set_right_status(name or "")
+			   local name = window:active_key_table()
+			   if name then
+				   name = "TABLE: " .. name
+			   end
+			   window:set_right_status(name or "")
 end)
 
 return config

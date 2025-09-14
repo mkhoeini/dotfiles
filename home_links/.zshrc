@@ -22,16 +22,18 @@ source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 export PUPPETEER_EXECUTABLE_PATH=`which chromium`
 
-PONYSAY="$(shuf -n 1 -e ponysay ponythink) -f $(shuf -n 1 -e $(ponysay --all | grep -v 'ponies located in'))"
-COWSAY="$(shuf -n 1 -e cowsay cowthink) -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n | lolcat"
-fortune | eval $(shuf -n 1 -e "$PONYSAY" "$COWSAY" $(jot -b cat 20))
+# NOTE disabled for performance
+# PONYSAY="$(shuf -n 1 -e ponysay ponythink) -f $(shuf -n 1 -e $(ponysay --all | grep -v 'ponies located in'))"
+# COWSAY="$(shuf -n 1 -e cowsay cowthink) -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n | lolcat"
+# fortune | eval $(shuf -n 1 -e "$PONYSAY" "$COWSAY" $(jot -b cat 20))
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# NOTE disabled for performance
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # The following lines were added by compinstall
 
@@ -45,8 +47,22 @@ if [[ -e "$(brew --prefix)/share/zsh/site-functions" ]]; then
     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
-autoload -Uz compinit
-compinit
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+zstyle ':completion:*' rehash no
+
+# Per-Zsh-version dump avoids stale cache hits after upgrades
+: "${COMPDUMP:=${ZDOTDIR:-$HOME}/.zcompdump-${ZSH_VERSION}}"
+
+autoload -Uz compinit && compinit -C -d "$COMPDUMP"
+autoload -U +X bashcompinit && bashcompinit
+
+# Byte-compile the dump for faster load next shells
+# (only when changed; ignore errors silently)
+if [[ -s "$COMPDUMP" && ( ! -s "${COMPDUMP}.zwc" || "$COMPDUMP" -nt "${COMPDUMP}.zwc" ) ]]; then
+  zcompile -R -- "${COMPDUMP}.zwc" "$COMPDUMP" 2>/dev/null
+fi
+
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -94,6 +110,9 @@ source ~/.zsh_aliases
 
 # Configs
 
+autoload -U promptinit; promptinit
+prompt pure
+
 if [[ -e  "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ]]; then
     source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
@@ -122,18 +141,23 @@ eval "$(zoxide init zsh)"
 export PATH=$HOME/dotemacs/doom/bin:$PATH
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# NOTE disabled for performance
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-autoload -U +X bashcompinit && bashcompinit
 
 # Mojo setup
 export MODULAR_HOME="$HOME/.modular"
 export PATH="$HOME/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
 
-eval $(luarocks path)
+# NOTE disabled for performance
+# eval $(luarocks path)
+# Replaced with these lines instead from the output of the above
+export LUA_PATH='/opt/homebrew/Cellar/luarocks/3.12.2/share/lua/5.4/?.lua;/opt/homebrew/share/lua/5.4/?.lua;/opt/homebrew/share/lua/5.4/?/init.lua;/opt/homebrew/lib/lua/5.4/?.lua;/opt/homebrew/lib/lua/5.4/?/init.lua;./?.lua;./?/init.lua;$HOME/.luarocks/share/lua/5.4/?.lua;$HOME/.luarocks/share/lua/5.4/?/init.lua'
+export LUA_CPATH='/opt/homebrew/lib/lua/5.4/?.so;/opt/homebrew/lib/lua/5.4/loadall.so;./?.so;$HOME/.luarocks/lib/lua/5.4/?.so'
+export PATH="$HOME/.luarocks/bin:$PATH"
 
 # help cursor-ide detect command is finished
 PROMPT_EOL_MARK=“”
@@ -145,6 +169,8 @@ export GEMINI_API_KEY=$(security find-generic-password -a $USER -s GEMINI_API_KE
   source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
 [[ -s "$HOME/spotify.zsh" ]] && source "$HOME/spotify.zsh"
+
+source <(jj util completion zsh)
 
 # This should remain as the last command in file to properly profile everything
 if $RUN_ZPROF; then
