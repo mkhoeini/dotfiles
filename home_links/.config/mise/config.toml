@@ -1,0 +1,13 @@
+[tools]
+node = "latest"
+java = "graalvm-community-23.0.2"
+python = "latest"
+ruby = "latest"
+uv = "latest"
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:@google/gemini-cli" = "latest"
+"pipx:ipython" = "latest"
+"pipx:jiratui" = { version = "latest", uvx = true, uvx_args = "--python 3.13" }
+
+[settings]
+idiomatic_version_file_enable_tools = []

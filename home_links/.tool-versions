@@ -1,9 +1,0 @@
-nodejs  23
-java    corretto-21.0.2.13.1
-python  3.12.5
-rust    beta
-ruby    3.2.1
-kotlin  1.8.10
-kscript 4.2.1
-deno    system
-pipx    1.7.1
