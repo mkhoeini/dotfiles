@@ -208,7 +208,7 @@ current buffer's, reload dir-locals."
   (setq aidermacs-default-model "ollama_chat/devstral"
         aidermacs-default-chat-mode 'architect))
 
-(map! :leader :desc "Aidermacs" "a a" #'aidermacs-transient-menu)
+;; (map! :leader :desc "Aidermacs" "a a" #'aidermacs-transient-menu)
 
 (after! (org ob-aider)
   (add-to-list 'org-babel-load-languages '(aider . t))
