@@ -172,6 +172,11 @@ export GEMINI_API_KEY=$(security find-generic-password -a $USER -s GEMINI_API_KE
 
 source <(jj util completion zsh)
 
+export PATH="$PATH:/Users/mohammadk/Library/Application Support/Coursier/bin"
+
+# Added by Antigravity
+export PATH="/Users/mohammadk/.antigravity/antigravity/bin:$PATH"
+
 # This should remain as the last command in file to properly profile everything
 if $RUN_ZPROF; then
     zprof

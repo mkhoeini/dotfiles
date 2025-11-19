@@ -95,6 +95,11 @@
 
 (map! :n "-" #'dired-jump)
 
+(require 'typst-ts-mode)
+(add-to-list 'auto-mode-alist '("\\.typ\\'" . typst-ts-mode))
+(setq ;typst-ts-watch-options "--open"
+ typst-ts-mode-enable-raw-blocks-highlight t)
+
 (after! (:and typst-ts-mode lsp-mode)
   (add-to-list 'lsp-language-id-configuration '(typst-ts-mode . "typst"))
   (lsp-register-client (make-lsp-client :new-connection (lsp-studio-connection "tinymist")
