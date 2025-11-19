@@ -9,9 +9,10 @@ input@{
 
 let
   programs = import ./programs input;
-  services = import ./services input;
 in
 {
+  imports = [ ./services ];
+
   users.users.${username} = {
     name = username;
     home = "/Users/${username}";
@@ -35,7 +36,7 @@ in
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
 
-  inherit programs services;
+  inherit programs;
 
   security.pam.enableSudoTouchIdAuth = true;
   system.defaults.NSGlobalDomain._HIHideMenuBar = true;

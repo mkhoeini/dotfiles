@@ -1,13 +1,13 @@
-input@{ ... }:
+{ ... }:
 
-let
-  sketchybar = import ./sketchybar input;
-in
 {
-  # Auto upgrade nix package and the daemon service.
-  nix-daemon.enable = true;
+  imports = [ ./sketchybar ];
 
-  ipfs.enable = true;
-  nextdns.enable = true;
-  inherit sketchybar;
+  # Auto upgrade nix package and the daemon service.
+  services.nix-daemon.enable = true;
+
+  services.ipfs.enable = true;
+  services.nextdns.enable = true;
+
+  local.services.sketchybar.enable = false;
 }
